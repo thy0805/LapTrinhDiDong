@@ -11,23 +11,23 @@ class ProgressGalleryScreen extends StatelessWidget {
     final ProgressController controller = Get.put(ProgressController());
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('Tiến độ tập luyện', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontFamily: 'Poppins', fontSize: 16)),
-        backgroundColor: Colors.white,
+        title: Text('Tiến độ tập luyện', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black, fontWeight: FontWeight.bold, fontFamily: 'Poppins', fontSize: 16)),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        leading: IconButton(icon: const Icon(Icons.arrow_back_ios, color: Colors.black), onPressed: () => Get.back()),
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black), onPressed: () => Get.back()),
         actions: [
           TextButton.icon(
             onPressed: () => Get.to(() => ProgressComparisonScreen()),
-            icon: const Icon(Icons.compare, color: Color(0xFFC050F6)),
-            label: const Text('So sánh', style: TextStyle(color: Color(0xFFC050F6), fontWeight: FontWeight.bold, fontFamily: 'Poppins')),
+            icon: Icon(Icons.compare, color: Get.theme.colorScheme.primary),
+            label: Text('So sánh', style: TextStyle(color: Get.theme.colorScheme.primary, fontWeight: FontWeight.bold, fontFamily: 'Poppins')),
           )
         ],
       ),
       body: Obx(() {
         if (controller.progressPhotos.isEmpty) {
-          return const Center(
+          return Center(
             child: Text(
               'Chưa có ảnh tiến độ nào.\nHãy thêm bức ảnh đầu tiên của bạn!',
               textAlign: TextAlign.center,
@@ -41,8 +41,8 @@ class ProgressGalleryScreen extends StatelessWidget {
         }
 
         return GridView.builder(
-          padding: const EdgeInsets.all(20.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          padding: EdgeInsets.all(20.0),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 15,
             mainAxisSpacing: 15,
@@ -77,7 +77,7 @@ class ProgressGalleryScreen extends StatelessWidget {
                       colors: [Colors.black.withValues(alpha: 0.7), Colors.transparent],
                     ),
                   ),
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.bottomLeft,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -85,12 +85,12 @@ class ProgressGalleryScreen extends StatelessWidget {
                     children: [
                       Text(
                         controller.formatDate(photoData['createdAt']),
-                        style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                        style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
                       ),
                       if (photoData['weightAtTime'] != null && photoData['weightAtTime'].toString().isNotEmpty)
                         Text(
                           '${photoData['weightAtTime']} kg',
-                          style: const TextStyle(color: Color(0xFFC050F6), fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                          style: TextStyle(color: Get.theme.colorScheme.primary, fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
                         ),
                     ],
                   ),
@@ -102,9 +102,9 @@ class ProgressGalleryScreen extends StatelessWidget {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: controller.addProgressPhoto,
-        backgroundColor: const Color(0xFFC050F6),
+        backgroundColor: Get.theme.colorScheme.primary,
         elevation: 4,
-        child: const Icon(Icons.add_a_photo, color: Colors.white),
+        child: Icon(Icons.add_a_photo, color: Colors.white),
       ),
     );
   }

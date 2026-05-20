@@ -47,8 +47,8 @@ class _RegisterPage3State extends State<RegisterPage3> {
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 40),
-            const Text(
+            SizedBox(height: 40),
+            Text(
               'Mục tiêu của bạn là gì?',
               style: TextStyle(
                 color: Color(0xFF1D1517),
@@ -57,8 +57,8 @@ class _RegisterPage3State extends State<RegisterPage3> {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const SizedBox(height: 5),
-            const Padding(
+            SizedBox(height: 5),
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: Text(
                 'Nó sẽ giúp chúng tôi chọn chương trình tốt nhất cho bạn',
@@ -70,7 +70,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
                 ),
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 50),
             Expanded(
               child: PageView.builder(
                 controller: _dieuKhienTrang,
@@ -84,9 +84,9 @@ class _RegisterPage3State extends State<RegisterPage3> {
                 },
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30),
             Padding(
-              padding: const EdgeInsets.symmetric(
+              padding: EdgeInsets.symmetric(
                 horizontal: 30.0,
                 vertical: 20.0,
               ),
@@ -102,7 +102,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
                   width: double.infinity,
                   height: 60,
                   decoration: ShapeDecoration(
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
                     ),
                     shape: RoundedRectangleBorder(
@@ -116,7 +116,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
                       ),
                     ],
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Xác nhận',
                       style: TextStyle(
@@ -138,13 +138,13 @@ class _RegisterPage3State extends State<RegisterPage3> {
 
   Widget _taoTheMucTieu(MucTieu mucTieu) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      padding: const EdgeInsets.all(20),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      padding: EdgeInsets.all(20),
       decoration: ShapeDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFFC050F6), Color(0xFFEEA4CE)],
+          colors: [Get.theme.colorScheme.primary, Get.theme.colorScheme.secondary],
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
         shadows: const [
@@ -164,31 +164,31 @@ class _RegisterPage3State extends State<RegisterPage3> {
               fit: BoxFit.contain,
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Text(
             mucTieu.tieuDe,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontSize: 14,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5),
           Container(width: 50, height: 1, color: Colors.white),
-          const SizedBox(height: 15),
+          SizedBox(height: 15),
           Text(
             mucTieu.moTa,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontSize: 12,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w400,
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
         ],
       ),
     );

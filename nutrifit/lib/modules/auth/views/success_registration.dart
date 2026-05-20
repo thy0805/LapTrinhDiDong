@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:nutrifit/modules/main/home/views/main_screen.dart'; 
 
@@ -10,25 +11,25 @@ class SuccessRegistration extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(),
+              Spacer(),
 
               Image.asset(
                 'assets/success.png',
                 height: 300,
                 fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) => const Icon(
+                errorBuilder: (context, error, stackTrace) => Icon(
                   Icons.check_circle_outline,
                   size: 150,
-                  color: Color(0xFFC050F6),
+                  color: Get.theme.colorScheme.primary,
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 40),
 
-              const Text(
+              Text(
                 'Welcome, Stefani',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -38,9 +39,9 @@ class SuccessRegistration extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
 
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
                   'You are all set now, let’s reach your goals together with us',
@@ -55,13 +56,13 @@ class SuccessRegistration extends StatelessWidget {
                 ),
               ),
 
-              const Spacer(),
+              Spacer(),
 
               GestureDetector(
                 onTap: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const MainScreen()),
+                    MaterialPageRoute(builder: (context) => MainScreen()),
                     (route) => false,
                   );
                 },
@@ -69,7 +70,7 @@ class SuccessRegistration extends StatelessWidget {
                   width: double.infinity,
                   height: 60,
                   decoration: ShapeDecoration(
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
                     ),
                     shape: RoundedRectangleBorder(
@@ -83,7 +84,7 @@ class SuccessRegistration extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Go To Home',
                       style: TextStyle(

@@ -5,8 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:nutrifit/modules/main/home/views/main_screen.dart';
+import 'package:nutrifit/core/services/mail_service.dart';
 import '../views/success_registration.dart';
 import '../views/register_screen_2.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:nutrifit/modules/main/profile/views/app_lock_screen.dart';
+import 'package:nutrifit/modules/main/target/workout/controllers/health_service.dart';
+import 'package:nutrifit/modules/main/target/sleep/controllers/sleep_controller.dart';
+import 'package:nutrifit/modules/main/target/nutrition/controllers/nutrition_controller.dart';
+import 'package:nutrifit/modules/main/target/workout/controllers/activity_controller.dart';
+import 'package:nutrifit/modules/main/target/workout/controllers/workout_controller.dart';
+import 'package:nutrifit/modules/main/home/controllers/notification_controller.dart';
+import 'package:nutrifit/modules/main/home/controllers/home_controller.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -31,6 +41,12 @@ class AuthController extends GetxController {
 
   var userData = <String, dynamic>{}.obs;
 
+  String get userName => userData['fullName']?.toString().split(' ').last ?? 'bạn';
+  String get userPronoun => (userData['gender'] == 'Male') ? 'ông' : 'bà';
+
+  String get greeting => 'Hôm nay $userName ăn món gì vậy?';
+  String successMessage(String foodName) => 'Tui đã ghi chú món $foodName vào nhật ký cho $userPronoun rồi đó!';
+
   @override
   void onReady() {
     super.onReady();
@@ -45,7 +61,7 @@ class AuthController extends GetxController {
         if (doc.exists) {
           debugPrint("--- AuthController: User đã tồn tại trong Firestore, đang kéo data... ---");
           _fetchUserData(user.uid);
-          Get.offAll(() => const MainScreen());
+          _navigateToMainScreen();
         } else {
           debugPrint("--- AuthController: User chưa có profile trong Firestore, chuyển qua trang đăng ký 2 ---");
           Get.offAll(() => const RegisterPage2());
@@ -75,7 +91,7 @@ class AuthController extends GetxController {
         password: loginPasswordController.text.trim(),
       );
       _fetchUserData(auth.currentUser!.uid);
-      Get.offAll(() => const MainScreen());
+      _navigateToMainScreen();
     } catch (e) {
       Get.snackbar(
         "Lỗi đăng nhập",
@@ -98,6 +114,7 @@ class AuthController extends GetxController {
         'fullName': regNameController.text.trim(),
         'phone': regPhoneController.text.trim(),
         'email': regEmailController.text.trim(),
+        'password': regPasswordController.text.trim(),
         'gender': selectedGender.value,
         'dateOfBirth': regDobController.text.trim(),
         'weight': regWeightController.text.trim(),
@@ -107,6 +124,12 @@ class AuthController extends GetxController {
       });
 
       _fetchUserData(userCredential.user!.uid);
+      
+      MailService.sendWelcomeEmail(
+        regEmailController.text.trim(),
+        regNameController.text.trim(),
+      );
+
       Get.offAll(() => const SuccessRegistration());
     } catch (e) {
       Get.snackbar(
@@ -123,7 +146,7 @@ class AuthController extends GetxController {
     DocumentSnapshot doc = await firestore.collection('users').doc(userCredential.user!.uid).get();
     if (doc.exists) {
       _fetchUserData(userCredential.user!.uid);
-      Get.offAll(() => const MainScreen());
+      _navigateToMainScreen();
     } else {
       Get.offAll(() => const RegisterPage2());
     }
@@ -196,6 +219,12 @@ class AuthController extends GetxController {
         'createdAt': DateTime.now(),
       });
       _fetchUserData(uid);
+
+      MailService.sendWelcomeEmail(
+        auth.currentUser!.email ?? '',
+        auth.currentUser!.displayName ?? regNameController.text.trim(),
+      );
+
       Get.offAll(() => const SuccessRegistration());
     } catch (e) {
       Get.snackbar(
@@ -213,5 +242,23 @@ class AuthController extends GetxController {
     await GoogleSignIn().signOut();
     await FacebookAuth.instance.logOut();
     userData.clear();
+    Get.delete<HealthService>();
+    Get.delete<SleepController>();
+    Get.delete<NutritionController>();
+    Get.delete<ActivityController>();
+    Get.delete<WorkoutController>();
+    Get.delete<NotificationController>();
+    Get.delete<HomeController>();
+  }
+
+  void _navigateToMainScreen() {
+    final box = Hive.box('security_settings');
+    final isLock = box.get('isAppLockEnabled', defaultValue: false);
+    final pin = box.get('appPasscode', defaultValue: '');
+    if (isLock && pin.isNotEmpty) {
+      Get.offAll(() => const AppLockScreen(mode: AppLockMode.verify));
+    } else {
+      Get.offAll(() => const MainScreen());
+    }
   }
 }

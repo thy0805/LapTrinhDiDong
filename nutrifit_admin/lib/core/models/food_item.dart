@@ -7,7 +7,9 @@ class FoodItem {
   final String protein;
   final String carbs;
   final String fat;
-  final String status; // 'approved', 'pending'
+  final String status;
+  final String unit;
+  final String createdBy;
   bool isFavorite;
 
   FoodItem({
@@ -20,6 +22,8 @@ class FoodItem {
     this.carbs = '0',
     this.fat = '0',
     this.status = 'approved',
+    this.unit = 'Phần',
+    this.createdBy = '',
     this.isFavorite = false,
   });
 }

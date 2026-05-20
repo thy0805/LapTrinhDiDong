@@ -8,6 +8,7 @@ class FoodManagementController extends GetxController {
   var isLoading = true.obs;
   var searchText = ''.obs;
   var selectedCategory = 'Tất cả'.obs;
+  var activeTab = 0.obs;
 
   @override
   void onInit() {
@@ -30,6 +31,8 @@ class FoodManagementController extends GetxController {
           carbs: data['carbs']?.toString() ?? '0',
           fat: data['fat']?.toString() ?? '0',
           status: data['status'] ?? 'approved',
+          unit: data['unit'] ?? 'Phần',
+          createdBy: data['createdBy'] ?? '',
         );
       }).toList();
       isLoading.value = false;
@@ -81,6 +84,8 @@ class FoodManagementController extends GetxController {
         'carbs': food.carbs,
         'fat': food.fat,
         'status': 'approved',
+        'unit': food.unit,
+        'createdBy': food.createdBy,
         'created_at': FieldValue.serverTimestamp(),
         'updated_at': FieldValue.serverTimestamp(),
       });
@@ -101,6 +106,8 @@ class FoodManagementController extends GetxController {
         'carbs': food.carbs,
         'fat': food.fat,
         'status': food.status,
+        'unit': food.unit,
+        'createdBy': food.createdBy,
         'updated_at': FieldValue.serverTimestamp(),
       });
       Get.back();

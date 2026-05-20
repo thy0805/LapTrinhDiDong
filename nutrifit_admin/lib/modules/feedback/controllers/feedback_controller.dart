@@ -4,17 +4,21 @@ import 'package:get/get.dart';
 class FeedbackItem {
   final String id;
   final String userEmail;
+  final String title;
   final String message;
   final String type;
   final String status;
+  final String imageUrl;
   final DateTime createdAt;
 
   FeedbackItem({
     required this.id,
     required this.userEmail,
+    required this.title,
     required this.message,
     required this.type,
     required this.status,
+    required this.imageUrl,
     required this.createdAt,
   });
 }
@@ -38,9 +42,11 @@ class FeedbackController extends GetxController {
         return FeedbackItem(
           id: doc.id,
           userEmail: data['userEmail'] ?? 'Ẩn danh',
+          title: data['title'] ?? 'Không có tiêu đề',
           message: data['message'] ?? '',
           type: data['type'] ?? 'Lỗi',
           status: data['status'] ?? 'pending',
+          imageUrl: data['imageUrl'] ?? '',
           createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
         );
       }).toList();

@@ -15,19 +15,37 @@ class CMSController extends GetxController {
 
   void fetchArticles() {
     isLoading.value = true;
-    _firestore.collection('articles').orderBy('createdAt', descending: true).snapshots().listen((snapshot) {
-      allArticles.value = snapshot.docs.map((doc) {
-        var data = doc.data();
-        return ArticleItem(
-          id: doc.id,
-          title: data['title'] ?? '',
-          content: data['content'] ?? '',
-          image: data['image'] ?? '',
-          category: data['category'] ?? 'Tips',
-          createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
-        );
-      }).toList();
+    _firestore.collection('articles').snapshots().listen((snapshot) {
+      final List<ArticleItem> items = [];
+      for (var doc in snapshot.docs) {
+        try {
+          var data = doc.data();
+          final ts = data['createdAt'];
+          DateTime timestamp;
+          if (ts is Timestamp) {
+            timestamp = ts.toDate();
+          } else if (ts is String) {
+            timestamp = DateTime.tryParse(ts) ?? DateTime.now();
+          } else {
+            timestamp = DateTime.now();
+          }
+          items.add(ArticleItem(
+            id: doc.id,
+            title: data['title']?.toString() ?? '',
+            content: data['content']?.toString() ?? '',
+            image: data['image']?.toString() ?? '',
+            category: data['category']?.toString() ?? 'Tips',
+            createdAt: timestamp,
+          ));
+        } catch (e) {
+          Get.log("Error: $e");
+        }
+      }
+      items.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      allArticles.value = items;
       isLoading.value = false;
+    }, onError: (e) {
+      Get.log("Error: $e");
     });
   }
 

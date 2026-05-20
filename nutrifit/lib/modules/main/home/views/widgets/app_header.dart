@@ -36,10 +36,10 @@ class AppHeader extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF7F8F8),
+                  color: Theme.of(context).brightness == Brightness.dark ? Color(0xFF1E293B) : const Color(0xFFF7F8F8),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.arrow_back_ios_new, size: 16, color: Color(0xFF1D1517)),
+                child: Icon(Icons.arrow_back_ios_new, size: 16, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517)),
               ),
             )
           else
@@ -49,8 +49,8 @@ class AppHeader extends StatelessWidget {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color(0xFF1D1517),
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517),
                 fontSize: 16,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w700,
@@ -64,10 +64,10 @@ class AppHeader extends StatelessWidget {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                color: const Color(0xFFF7F8F8),
+                color: Theme.of(context).brightness == Brightness.dark ? Color(0xFF1E293B) : const Color(0xFFF7F8F8),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(Icons.more_horiz, size: 16, color: Color(0xFF1D1517)),
+              child: Icon(Icons.more_horiz, size: 16, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517)),
             ),
             onSelected: (value) {
               if (value == 'notifications') {
@@ -79,21 +79,21 @@ class AppHeader extends StatelessWidget {
               }
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'notifications',
                 child: Row(
                   children: [
-                    Icon(Icons.notifications_none, size: 20, color: Color(0xFF1D1517)),
+                    Icon(Icons.notifications_none, size: 20, color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : const Color(0xFF1D1517)),
                     SizedBox(width: 10),
                     Text('Thông báo', style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'settings',
                 child: Row(
                   children: [
-                    Icon(Icons.settings_outlined, size: 20, color: Color(0xFF1D1517)),
+                    Icon(Icons.settings_outlined, size: 20, color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : const Color(0xFF1D1517)),
                     SizedBox(width: 10),
                     Text('Cài đặt', style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
                   ],

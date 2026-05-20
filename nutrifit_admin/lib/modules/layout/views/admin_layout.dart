@@ -13,6 +13,7 @@ import 'package:nutrifit_admin/modules/workout/views/workout_management_screen.d
 import 'package:nutrifit_admin/modules/cms/views/cms_screen.dart';
 import 'package:nutrifit_admin/modules/notifications/views/notification_screen.dart';
 import 'package:nutrifit_admin/modules/feedback/views/feedback_screen.dart';
+import 'package:nutrifit_admin/modules/chat/views/admin_chat_screen.dart';
 
 import 'package:nutrifit_admin/modules/profile/views/profile_screen.dart';
 
@@ -46,6 +47,7 @@ class NavigationController extends GetxController {
     const NotificationScreen(),
     const FeedbackScreen(),
     const ProfileScreen(), // Index 7
+    const AdminChatScreen(), // Index 8
   ];
 
   void changeIndex(int index) {
@@ -188,14 +190,19 @@ class AdminSidebar extends StatelessWidget {
                   subItems: [
                     _SidebarSubItem(
                       title: 'Thực phẩm',
-                      isActive: navBarController.selectedIndex.value == 2,
-                      onTap: () => navBarController.changeIndex(2),
+                      isActive: navBarController.selectedIndex.value == 2 && Get.find<FoodManagementController>().activeTab.value == 0,
+                      onTap: () {
+                        Get.find<FoodManagementController>().activeTab.value = 0;
+                        navBarController.changeIndex(2);
+                      },
                     ),
                     _SidebarSubItem(
                       title: 'Duyệt món ăn',
-                      isActive: false,
-                      onTap: () {},
-                      isPro: true,
+                      isActive: navBarController.selectedIndex.value == 2 && Get.find<FoodManagementController>().activeTab.value == 1,
+                      onTap: () {
+                        Get.find<FoodManagementController>().activeTab.value = 1;
+                        navBarController.changeIndex(2);
+                      },
                     ),
                   ],
                 ),
@@ -218,11 +225,6 @@ class AdminSidebar extends StatelessWidget {
                       title: 'Danh sách bài tập',
                       isActive: navBarController.selectedIndex.value == 3,
                       onTap: () => navBarController.changeIndex(3),
-                    ),
-                    _SidebarSubItem(
-                      title: 'Nhóm cơ',
-                      isActive: false,
-                      onTap: () {},
                     ),
                   ],
                 ),
@@ -247,6 +249,13 @@ class AdminSidebar extends StatelessWidget {
                   title: 'Phản hồi & Lỗi',
                   isActive: navBarController.selectedIndex.value == 6,
                   onTap: () => navBarController.changeIndex(6),
+                  isCollapsed: navBarController.isSidebarCollapsed.value,
+                ),
+                _SidebarItem(
+                  icon: Icons.forum_outlined,
+                  title: 'CSKH Trực Tuyến',
+                  isActive: navBarController.selectedIndex.value == 8,
+                  onTap: () => navBarController.changeIndex(8),
                   isCollapsed: navBarController.isSidebarCollapsed.value,
                 ),
                 _SidebarItem(
@@ -383,13 +392,11 @@ class _SidebarSubItem extends StatefulWidget {
   final String title;
   final bool isActive;
   final VoidCallback onTap;
-  final bool isPro;
 
   const _SidebarSubItem({
     required this.title,
     required this.isActive,
     required this.onTap,
-    this.isPro = false,
   });
 
   @override
@@ -425,22 +432,6 @@ class _SidebarSubItemState extends State<_SidebarSubItem> {
                   ),
                 ),
               ),
-              if (widget.isPro)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: TailAdminDesign.brand500,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    'PRO',
-                    style: GoogleFonts.outfit(
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
             ],
           ),
         ),
@@ -549,18 +540,13 @@ class AdminHeader extends StatelessWidget {
               if (value == 0) {
                 navBarController.changeIndex(7);
               } else if (value == 3) {
-                // Logic Logout ở đây nha Thy
                 Get.snackbar('Thông báo', 'Đã đăng xuất tài khoản Admin');
-              } else {
-                Get.snackbar('Tính năng', 'Tính năng này đang được phát triển nha Thy!');
               }
             },
             itemBuilder: (context) => [
               _buildDropdownHeader(),
               const PopupMenuDivider(),
               _buildDropdownItem(0, Icons.person_outline_rounded, 'Hồ sơ của tôi'),
-              _buildDropdownItem(1, Icons.contact_mail_outlined, 'Danh bạ của tôi'),
-              _buildDropdownItem(2, Icons.settings_outlined, 'Cài đặt tài khoản'),
               const PopupMenuDivider(),
               _buildDropdownItem(3, Icons.logout_rounded, 'Đăng xuất', isDanger: true),
             ],
@@ -573,7 +559,7 @@ class AdminHeader extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'Quách Bảo Thy',
+                        'Admin NutriFit',
                         style: GoogleFonts.outfit(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
@@ -581,7 +567,7 @@ class AdminHeader extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Admin NutriFit',
+                        'Hệ thống quản trị',
                         style: GoogleFonts.outfit(
                           color: TailAdminDesign.textMuted,
                           fontSize: 12,
@@ -596,7 +582,7 @@ class AdminHeader extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: const DecorationImage(
-                        image: NetworkImage('https://ui-avatars.com/api/?name=Quach+Bao+Thy&background=465FFF&color=fff'),
+                        image: NetworkImage('https://ui-avatars.com/api/?name=Admin+NutriFit&background=465FFF&color=fff'),
                         fit: BoxFit.cover,
                       ),
                       border: Border.all(color: TailAdminDesign.brand500, width: 2),
@@ -623,14 +609,14 @@ class AdminHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Quách Bảo Thy',
+              'Admin NutriFit',
               style: GoogleFonts.outfit(
                 fontWeight: FontWeight.bold,
                 color: TailAdminDesign.textMain,
               ),
             ),
             Text(
-              'thy0805@nutrifit.com',
+              'admin@nutrifit.com',
               style: GoogleFonts.outfit(
                 fontSize: 12,
                 color: TailAdminDesign.textMuted,

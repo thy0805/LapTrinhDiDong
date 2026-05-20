@@ -68,7 +68,7 @@ class CMSScreen extends StatelessWidget {
             return AppTable<ArticleItem>(
               title: 'Danh sách bài viết',
               columns: const ['ẢNH', 'TIÊU ĐỀ', 'DANH MỤC', 'NGÀY ĐĂNG', 'THAO TÁC'],
-              data: controller.allArticles,
+              data: controller.allArticles.toList(),
               cellBuilder: (article) => [
                 DataCell(
                   SizedBox(
@@ -196,31 +196,69 @@ class CMSScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Ảnh đại diện', style: GoogleFonts.outfit(fontSize: 14, color: TailAdminDesign.textMuted)),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: [
-                              Expanded(child: _buildField('', imageController, showLabel: false)),
-                              const SizedBox(width: 8),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  final url = await Get.find<FileService>().pickAndUploadImage('articles');
-                                  if (url != null) imageController.text = url;
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: TailAdminDesign.brand500,
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(TailAdminDesign.radiusMd)),
+                      child: StatefulBuilder(
+                        builder: (context, setStateDialog) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Ảnh đại diện', style: GoogleFonts.outfit(fontSize: 14, color: TailAdminDesign.textMuted)),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: imageController,
+                                    style: GoogleFonts.outfit(color: TailAdminDesign.textMain, fontSize: 14),
+                                    onChanged: (val) => setStateDialog(() {}),
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(TailAdminDesign.radiusMd),
+                                        borderSide: BorderSide(color: TailAdminDesign.border),
+                                      ),
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                    ),
+                                  ),
                                 ),
-                                child: const Icon(Icons.upload_rounded, size: 20),
+                                const SizedBox(width: 8),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    final url = await Get.find<FileService>().pickAndUploadImage('articles');
+                                    if (url != null) {
+                                      setStateDialog(() {
+                                        imageController.text = url;
+                                      });
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: TailAdminDesign.brand500,
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(TailAdminDesign.radiusMd)),
+                                  ),
+                                  child: const Icon(Icons.upload_rounded, size: 20),
+                                ),
+                              ],
+                            ),
+                            if (imageController.text.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(TailAdminDesign.radiusSm),
+                                child: Image.network(
+                                  imageController.text,
+                                  height: 80,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) => Container(
+                                    height: 80,
+                                    color: TailAdminDesign.hover,
+                                    child: Center(
+                                      child: Icon(Icons.broken_image_outlined, color: TailAdminDesign.textMuted),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

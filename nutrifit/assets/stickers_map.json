@@ -1,0 +1,989 @@
+{
+    "Paimon": {
+        "them_thuong": [
+            "Genshin/Paimon/Paimon_them_thuong.webp"
+        ],
+        "cu_de_toi": [
+            "Genshin/Paimon/Paimon_cu_de_toi.webp"
+        ],
+        "tim_kiem": [
+            "Genshin/Paimon/Paimon_tim_kiem.webp"
+        ],
+        "hu_doa": [
+            "Genshin/Paimon/Paimon_hu_doa.webp"
+        ],
+        "chanh": [
+            "Genshin/Paimon/Paimon_chanh.webp"
+        ],
+        "Paimon": [
+            "Genshin/Paimon/Paimon_suy_nghi.webp"
+        ],
+        "khoc": [
+            "Genshin/Paimon/Paimon_khoc.webp"
+        ],
+        "hat": [
+            "Genshin/Paimon/Paimon_hat.webp"
+        ],
+        "hong_hot": [
+            "Genshin/Paimon/Paimon_hong_hot.webp"
+        ],
+        "xiu": [
+            "Genshin/Paimon/Paimon_xiu.webp"
+        ]
+    },
+    "Kirara": {
+        "khoc": [
+            "Genshin/Kirara/Kirara_khoc.webp"
+        ],
+        "vui_ve": [
+            "Genshin/Kirara/Kirara_vui_ve.webp"
+        ],
+        "vui_ve_1": [
+            "Genshin/Kirara/Kirara_vui_ve_1.webp"
+        ],
+        "chanh": [
+            "Genshin/Kirara/Kirara_chanh.webp"
+        ],
+        "Kirara": [
+            "Genshin/Kirara/Kirara_soc.webp"
+        ]
+    },
+    "Klee": {
+        "nem_bom": [
+            "Genshin/Klee/Klee_nem_bom.webp"
+        ],
+        "vui_ve": [
+            "Genshin/Klee/Klee_vui_ve.webp"
+        ],
+        "vui_ve_1": [
+            "Genshin/Klee/Klee_vui_ve_1.webp"
+        ],
+        "co_len": [
+            "Genshin/Klee/Klee_co_len_s7_1.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Klee/Klee_chao_hoi_s7_2.webp"
+        ],
+        "la_het": [
+            "Genshin/Klee/Klee_la_het.webp"
+        ],
+        "cuoi": [
+            "Genshin/Klee/Klee_cuoi.webp"
+        ],
+        "khoc": [
+            "Genshin/Klee/Klee_khoc.webp"
+        ]
+    },
+    "Yae_Miko": {
+        "nham_hiem": [
+            "Genshin/Yae_Miko/Yae_Miko_nham_hiem.webp"
+        ],
+        "can_loi": [
+            "Genshin/Yae_Miko/Yae_Miko_can_loi.webp"
+        ],
+        "kieu_ki": [
+            "Genshin/Yae_Miko/Yae_Miko_kieu_ki.webp"
+        ]
+    },
+    "Columbina": {
+        "ngu": [
+            "Genshin/Columbina/Columbina_ngu.webp"
+        ],
+        "Columbina": [
+            "Genshin/Columbina/Columbina_suy_nghi.webp"
+        ],
+        "mo_mat": [
+            "Genshin/Columbina/Columbina_mo_mat.webp"
+        ],
+        "khong_quan_tam": [
+            "Genshin/Columbina/Columbina_khong_quan_tam.webp"
+        ],
+        "nghe_nhac": [
+            "Genshin/Columbina/Columbina_nghe_nhac.webp"
+        ],
+        "an_banh": [
+            "Genshin/Columbina/Columbina_an_banh.webp"
+        ],
+        "hat": [
+            "Genshin/Columbina/Columbina_hat.webp"
+        ]
+    },
+    "Keqing": {
+        "tinh_nghich": [
+            "Genshin/Keqing/Keqing_tinh_nghich.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Keqing/Keqing_ngac_nhien.webp"
+        ],
+        "ngu": [
+            "Genshin/Keqing/Keqing_ngu.webp"
+        ],
+        "che": [
+            "Genshin/Keqing/Keqing_che.webp"
+        ],
+        "doi": [
+            "Genshin/Keqing/Keqing_doi.webp"
+        ]
+    },
+    "Sandrone": {
+        "Sandrone": [
+            "Genshin/Sandrone/Sandrone_suy_nghi_s47_1.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Sandrone/Sandrone_tinh_nghich_s44_1.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Sandrone/Sandrone_khoc_nhe_s45_1.webp"
+        ]
+    },
+    "Zibai": {
+        "ngai_ngung": [
+            "Genshin/Zibai/Zibai_ngai_ngung_s47_2.webp"
+        ],
+        "co_len": [
+            "Genshin/Zibai/Zibai_co_len_s47_3.webp"
+        ],
+        "Zibai": [
+            "Genshin/Zibai/Zibai_suy_nghi_s47_1.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Zibai/Zibai_chao_hoi_s47_4.webp"
+        ]
+    },
+    "Diona": {
+        "ngai_ngung": [
+            "Genshin/Diona/Diona_ngai_ngung_s27_1.webp",
+            "Genshin/Diona/Diona_ngai_ngung_s3_4.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Diona/Diona_khoc_nhe_s3_1.webp"
+        ],
+        "gian_doi": [
+            "Genshin/Diona/Diona_gian_doi_s3_2.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Diona/Diona_bat_luc_s31_1.webp"
+        ],
+        "Diona": [
+            "Genshin/Diona/Diona_suy_nghi_s3_3.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Diona/Diona_cuoi_nham_hiem_s20_1.webp"
+        ]
+    },
+    "Xianyun": {
+        "ngu_ngon": [
+            "Genshin/Xianyun/Xianyun_ngu_ngon_s30_1.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Xianyun/Xianyun_bat_luc_s30_2.webp"
+        ],
+        "phan_khich": [
+            "Genshin/Xianyun/Xianyun_phan_khich_s30_3.webp"
+        ],
+        "mo_mong": [
+            "Genshin/Xianyun/Xianyun_mo_mong_s30_4.webp"
+        ]
+    },
+    "Kamisato_Ayato": {
+        "u": [
+            "Genshin/Kamisato_Ayato/Kamisato_Ayato_u_sau_s14_3.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Kamisato_Ayato/Kamisato_Ayato_chao_hoi_s29_1.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Kamisato_Ayato/Kamisato_Ayato_tu_tin_s14_4.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Kamisato_Ayato/Kamisato_Ayato_kieu_ky_s14_2.webp"
+        ],
+        "bat_ngo": [
+            "Genshin/Kamisato_Ayato/Kamisato_Ayato_bat_ngo_s14_1.webp"
+        ]
+    },
+    "Yelan": {
+        "dang_yeu": [
+            "Genshin/Yelan/Yelan_dang_yeu_s15_4.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Yelan/Yelan_kieu_ky_s15_1.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Yelan/Yelan_tu_tin_s15_3.webp"
+        ],
+        "u": [
+            "Genshin/Yelan/Yelan_u_sau_s15_2.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Yelan/Yelan_ngac_nhien_s43_1.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Yelan/Yelan_tinh_nghich_s43_2.webp"
+        ],
+        "cuoi_tuoi": [
+            "Genshin/Yelan/Yelan_cuoi_tuoi_s21_1.webp"
+        ]
+    },
+    "Nefer": {
+        "gian_doi": [
+            "Genshin/Nefer/Nefer_gian_doi_s45_2.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Nefer/Nefer_tinh_nghich_s44_1.webp"
+        ],
+        "ngai_ngung": [
+            "Genshin/Nefer/Nefer_ngai_ngung_s45_4.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Nefer/Nefer_khoc_nhe_s45_1.webp"
+        ],
+        "Nefer": [
+            "Genshin/Nefer/Nefer_suy_nghi_s45_3.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Nefer/Nefer_ngac_nhien_s43_1.webp"
+        ]
+    },
+    "Clorinde": {
+        "tham_lam": [
+            "Genshin/Clorinde/Clorinde_tham_lam_s33_2.webp"
+        ],
+        "mo_mong": [
+            "Genshin/Clorinde/Clorinde_mo_mong_s33_1.webp"
+        ],
+        "bat_ngo": [
+            "Genshin/Clorinde/Clorinde_bat_ngo_s33_3.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Clorinde/Clorinde_kieu_ky_s33_4.webp"
+        ],
+        "co_len": [
+            "Genshin/Clorinde/Clorinde_co_len_s28_1.webp"
+        ]
+    },
+    "Escoffier": {
+        "ngac_nhien": [
+            "Genshin/Escoffier/Escoffier_ngac_nhien_s41_3.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Escoffier/Escoffier_tinh_nghich_s41_4.webp"
+        ],
+        "cuoi_tuoi": [
+            "Genshin/Escoffier/Escoffier_cuoi_tuoi_s41_2.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Escoffier/Escoffier_cuoi_nham_hiem_s41_1.webp"
+        ]
+    },
+    "Citlali": {
+        "ngac_nhien": [
+            "Genshin/Citlali/Citlali_ngac_nhien_s43_1.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Citlali/Citlali_tu_tin_s38_1.webp",
+            "Genshin/Citlali/Citlali_tu_tin_s37_2.webp"
+        ],
+        "lo_lang": [
+            "Genshin/Citlali/Citlali_lo_lang_s38_3.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Citlali/Citlali_kieu_ky_s36_1.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Citlali/Citlali_cuoi_nham_hiem_s38_4.webp"
+        ],
+        "dang_yeu": [
+            "Genshin/Citlali/Citlali_dang_yeu_s38_2.webp"
+        ],
+        "u": [
+            "Genshin/Citlali/Citlali_u_sau_s37_1.webp",
+            "Genshin/Citlali/Citlali_u_sau_s36_2.webp"
+        ]
+    },
+    "Furina": {
+        "chao_hoi": [
+            "Genshin/Furina/Furina_chao_hoi_s28_2.webp",
+            "Genshin/Furina/Furina_chao_hoi_s29_1.webp"
+        ],
+        "co_len": [
+            "Genshin/Furina/Furina_co_len_s28_1.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Furina/Furina_ngu_ngon_s28_3.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Furina/Furina_bat_luc_s28_4.webp"
+        ],
+        "Furina": [
+            "Genshin/Furina/Furina_suy_nghi_s26_1.webp"
+        ]
+    },
+    "Kujou_Sara": {
+        "phan_khich": [
+            "Genshin/Kujou_Sara/Kujou_Sara_phan_khich_s9_3.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Kujou_Sara/Kujou_Sara_ngu_ngon_s9_1.webp"
+        ],
+        "mo_mong": [
+            "Genshin/Kujou_Sara/Kujou_Sara_mo_mong_s9_4.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Kujou_Sara/Kujou_Sara_bat_luc_s9_2.webp"
+        ]
+    },
+    "Barbara": {
+        "bat_luc": [
+            "Genshin/Barbara/Barbara_bat_luc_s7_4.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Barbara/Barbara_ngu_ngon_s7_3.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Barbara/Barbara_chao_hoi_s7_2.webp"
+        ],
+        "co_len": [
+            "Genshin/Barbara/Barbara_co_len_s7_1.webp"
+        ]
+    },
+    "Beidou": {
+        "chao_hoi": [
+            "Genshin/Beidou/Beidou_chao_hoi_s8_1.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Beidou/Beidou_ngu_ngon_s8_2.webp"
+        ]
+    },
+    "Raiden_Shogun": {
+        "mo_mong": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_mo_mong_s9_4.webp"
+        ],
+        "tham_lam": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_tham_lam_s13_1.webp"
+        ],
+        "lo_lang": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_lo_lang_s39_2.webp"
+        ],
+        "dang_yeu": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_dang_yeu_s39_1.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_khoc_nhe_s24_1.webp"
+        ],
+        "phan_khich": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_phan_khich_s9_3.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_ngu_ngon_s9_1.webp",
+            "Genshin/Raiden_Shogun/Raiden_Shogun_ngu_ngon_s29_2.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_bat_luc_s9_2.webp"
+        ],
+        "u": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_u_sau_s13_4.webp"
+        ],
+        "bat_ngo": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_bat_ngo_s13_2.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_kieu_ky_s13_3.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Raiden_Shogun/Raiden_Shogun_chao_hoi_s29_1.webp"
+        ]
+    },
+    "Arlecchino": {
+        "khoc_nhe": [
+            "Genshin/Arlecchino/Arlecchino_khoc_nhe_s45_1.webp"
+        ],
+        "tham_lam": [
+            "Genshin/Arlecchino/Arlecchino_tham_lam_s32_3.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Arlecchino/Arlecchino_kieu_ky_s32_5.webp"
+        ],
+        "bat_ngo": [
+            "Genshin/Arlecchino/Arlecchino_bat_ngo_s32_4.webp"
+        ],
+        "phan_khich": [
+            "Genshin/Arlecchino/Arlecchino_phan_khich_s32_1.webp"
+        ],
+        "mo_mong": [
+            "Genshin/Arlecchino/Arlecchino_mo_mong_s32_2.webp"
+        ],
+        "co_len": [
+            "Genshin/Arlecchino/Arlecchino_co_len_s28_1.webp"
+        ]
+    },
+    "Lauma": {
+        "gian_doi": [
+            "Genshin/Lauma/Lauma_gian_doi_s44_3.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Lauma/Lauma_ngac_nhien_s43_1.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Lauma/Lauma_tinh_nghich_s44_1.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Lauma/Lauma_khoc_nhe_s44_2.webp"
+        ],
+        "Lauma": [
+            "Genshin/Lauma/Lauma_suy_nghi_s44_4.webp"
+        ]
+    },
+    "Jahoda": {
+        "gian_doi": [
+            "Genshin/Jahoda/Jahoda_gian_doi_s45_2.webp",
+            "Genshin/Jahoda/Jahoda_gian_doi_s46_1.webp"
+        ],
+        "ngai_ngung": [
+            "Genshin/Jahoda/Jahoda_ngai_ngung_s46_3.webp"
+        ],
+        "co_len": [
+            "Genshin/Jahoda/Jahoda_co_len_s46_4.webp"
+        ],
+        "Jahoda": [
+            "Genshin/Jahoda/Jahoda_suy_nghi_s46_2.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Jahoda/Jahoda_tinh_nghich_s44_1.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Jahoda/Jahoda_khoc_nhe_s45_1.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Jahoda/Jahoda_ngac_nhien_s43_1.webp"
+        ]
+    },
+    "Skirk": {
+        "tinh_nghich": [
+            "Genshin/Skirk/Skirk_tinh_nghich_s42_3.webp"
+        ],
+        "cuoi_tuoi": [
+            "Genshin/Skirk/Skirk_cuoi_tuoi_s42_1.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Skirk/Skirk_ngac_nhien_s42_2.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Skirk/Skirk_khoc_nhe_s42_4.webp"
+        ]
+    },
+    "Xilonen": {
+        "lo_lang": [
+            "Genshin/Xilonen/Xilonen_lo_lang_s40_1.webp"
+        ],
+        "u": [
+            "Genshin/Xilonen/Xilonen_u_sau_s36_2.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Xilonen/Xilonen_tu_tin_s36_3.webp"
+        ],
+        "dang_yeu": [
+            "Genshin/Xilonen/Xilonen_dang_yeu_s36_4.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Xilonen/Xilonen_kieu_ky_s36_1.webp"
+        ]
+    },
+    "Xiangling": {
+        "tu_tin": [
+            "Genshin/Xiangling/Xiangling_tu_tin_s38_1.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Xiangling/Xiangling_bat_luc_s9_2.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Xiangling/Xiangling_ngu_ngon_s9_1.webp"
+        ],
+        "dang_yeu": [
+            "Genshin/Xiangling/Xiangling_dang_yeu_s38_2.webp"
+        ]
+    },
+    "Chiori": {
+        "phan_khich": [
+            "Genshin/Chiori/Chiori_phan_khich_s31_2.webp"
+        ],
+        "tham_lam": [
+            "Genshin/Chiori/Chiori_tham_lam_s31_4.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Chiori/Chiori_bat_luc_s31_1.webp"
+        ],
+        "mo_mong": [
+            "Genshin/Chiori/Chiori_mo_mong_s31_3.webp"
+        ]
+    },
+    "Navia": {
+        "chao_hoi": [
+            "Genshin/Navia/Navia_chao_hoi_s29_1.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Navia/Navia_bat_luc_s31_1.webp",
+            "Genshin/Navia/Navia_bat_luc_s29_3.webp"
+        ],
+        "phan_khich": [
+            "Genshin/Navia/Navia_phan_khich_s29_4.webp"
+        ],
+        "co_len": [
+            "Genshin/Navia/Navia_co_len_s28_1.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Navia/Navia_ngu_ngon_s29_2.webp"
+        ],
+        "Navia": [
+            "Genshin/Navia/Navia_suy_nghi_s26_1.webp"
+        ],
+        "tham_lam": [
+            "Genshin/Navia/Navia_tham_lam_s34_1.webp"
+        ],
+        "bat_ngo": [
+            "Genshin/Navia/Navia_bat_ngo_s34_2.webp"
+        ]
+    },
+    "Nahida": {
+        "khoc_nhe": [
+            "Genshin/Nahida/Nahida_khoc_nhe_s23_2.webp",
+            "Genshin/Nahida/Nahida_khoc_nhe_s19_6.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Nahida/Nahida_tinh_nghich_s23_1.webp",
+            "Genshin/Nahida/Nahida_tinh_nghich_s19_5.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Nahida/Nahida_kieu_ky_s36_1.webp"
+        ],
+        "lo_lang": [
+            "Genshin/Nahida/Nahida_lo_lang_s19_1.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Nahida/Nahida_cuoi_nham_hiem_s19_2.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Nahida/Nahida_ngac_nhien_s19_4.webp"
+        ],
+        "cuoi_tuoi": [
+            "Genshin/Nahida/Nahida_cuoi_tuoi_s19_3.webp"
+        ]
+    },
+    "Charlotte": {
+        "khoc_nhe": [
+            "Genshin/Charlotte/Charlotte_khoc_nhe_s24_1.webp"
+        ],
+        "gian_doi": [
+            "Genshin/Charlotte/Charlotte_gian_doi_s24_2.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Charlotte/Charlotte_bat_luc_s28_4.webp"
+        ],
+        "co_len": [
+            "Genshin/Charlotte/Charlotte_co_len_s28_1.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Charlotte/Charlotte_chao_hoi_s28_2.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Charlotte/Charlotte_ngu_ngon_s28_3.webp"
+        ]
+    },
+    "Hu_Tao": {
+        "co_len": [
+            "Genshin/Hu_Tao/Hu_Tao_co_len_s27_2.webp",
+            "Genshin/Hu_Tao/Hu_Tao_co_len_s5_3.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Hu_Tao/Hu_Tao_chao_hoi_s5_4.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Hu_Tao/Hu_Tao_bat_luc_s10_1.webp",
+            "Genshin/Hu_Tao/Hu_Tao_bat_luc_s5_6.webp"
+        ],
+        "dang_yeu": [
+            "Genshin/Hu_Tao/Hu_Tao_dang_yeu_s38_2.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Hu_Tao/Hu_Tao_tu_tin_s38_1.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Hu_Tao/Hu_Tao_ngu_ngon_s30_1.webp",
+            "Genshin/Hu_Tao/Hu_Tao_ngu_ngon_s5_5.webp"
+        ],
+        "ngai_ngung": [
+            "Genshin/Hu_Tao/Hu_Tao_ngai_ngung_s27_1.webp",
+            "Genshin/Hu_Tao/Hu_Tao_ngai_ngung_s5_2.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Hu_Tao/Hu_Tao_khoc_nhe_s24_1.webp"
+        ],
+        "phan_khich": [
+            "Genshin/Hu_Tao/Hu_Tao_phan_khich_s10_2.webp",
+            "Genshin/Hu_Tao/Hu_Tao_phan_khich_s5_7.webp"
+        ],
+        "mo_mong": [
+            "Genshin/Hu_Tao/Hu_Tao_mo_mong_s10_3.webp",
+            "Genshin/Hu_Tao/Hu_Tao_mo_mong_s5_8.webp"
+        ],
+        "cuoi_tuoi": [
+            "Genshin/Hu_Tao/Hu_Tao_cuoi_tuoi_s21_1.webp"
+        ],
+        "Hu_Tao": [
+            "Genshin/Hu_Tao/Hu_Tao_suy_nghi_s5_1.webp"
+        ]
+    },
+    "Mavuika": {
+        "tu_tin": [
+            "Genshin/Mavuika/Mavuika_tu_tin_s38_1.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Mavuika/Mavuika_kieu_ky_s36_1.webp"
+        ],
+        "lo_lang": [
+            "Genshin/Mavuika/Mavuika_lo_lang_s40_1.webp",
+            "Genshin/Mavuika/Mavuika_lo_lang_s38_3.webp"
+        ],
+        "dang_yeu": [
+            "Genshin/Mavuika/Mavuika_dang_yeu_s38_2.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Mavuika/Mavuika_cuoi_nham_hiem_s38_4.webp"
+        ],
+        "bat_ngo": [
+            "Genshin/Mavuika/Mavuika_bat_ngo_s35_1.webp"
+        ]
+    },
+    "Chasca": {
+        "dang_yeu": [
+            "Genshin/Chasca/Chasca_dang_yeu_s37_3.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Chasca/Chasca_ngac_nhien_s43_1.webp"
+        ],
+        "u": [
+            "Genshin/Chasca/Chasca_u_sau_s37_1.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Chasca/Chasca_tu_tin_s37_2.webp"
+        ],
+        "lo_lang": [
+            "Genshin/Chasca/Chasca_lo_lang_s37_4.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Chasca/Chasca_kieu_ky_s36_1.webp"
+        ],
+        "bat_ngo": [
+            "Genshin/Chasca/Chasca_bat_ngo_s35_1.webp"
+        ]
+    },
+    "Zhongli": {
+        "Zhongli": [
+            "Genshin/Zhongli/Zhongli_suy_nghi_s3_3.webp",
+            "Genshin/Zhongli/Zhongli_suy_nghi_s47_1.webp"
+        ],
+        "tham_lam": [
+            "Genshin/Zhongli/Zhongli_tham_lam_s13_1.webp",
+            "Genshin/Zhongli/Zhongli_tham_lam_s12_2.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Zhongli/Zhongli_khoc_nhe_s3_1.webp"
+        ],
+        "gian_doi": [
+            "Genshin/Zhongli/Zhongli_gian_doi_s3_2.webp"
+        ],
+        "ngai_ngung": [
+            "Genshin/Zhongli/Zhongli_ngai_ngung_s3_4.webp"
+        ],
+        "mo_mong": [
+            "Genshin/Zhongli/Zhongli_mo_mong_s12_1.webp"
+        ]
+    },
+    "Aether": {
+        "ngac_nhien": [
+            "Genshin/Aether/Aether_ngac_nhien_s1_1.webp"
+        ],
+        "duma": [
+            "Genshin/Aether/Aether_duma.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Aether/Aether_tinh_nghich_s1_2.webp"
+        ]
+    },
+    "Mona": {
+        "tinh_nghich": [
+            "Genshin/Mona/Mona_tinh_nghich_s2_1.webp"
+        ],
+        "gian_doi": [
+            "Genshin/Mona/Mona_gian_doi_s46_1.webp",
+            "Genshin/Mona/Mona_gian_doi_s3_2.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Mona/Mona_khoc_nhe_s3_1.webp",
+            "Genshin/Mona/Mona_khoc_nhe_s2_2.webp"
+        ],
+        "u": [
+            "Genshin/Mona/Mona_u_sau_s16_1.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Mona/Mona_tu_tin_s16_2.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Mona/Mona_cuoi_nham_hiem_s20_1.webp"
+        ]
+    },
+    "Shenhe": {
+        "bat_ngo": [
+            "Genshin/Shenhe/Shenhe_bat_ngo_s12_3.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Shenhe/Shenhe_kieu_ky_s12_4.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Shenhe/Shenhe_ngu_ngon_s30_1.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Shenhe/Shenhe_bat_luc_s30_2.webp"
+        ],
+        "mo_mong": [
+            "Genshin/Shenhe/Shenhe_mo_mong_s12_1.webp"
+        ],
+        "tham_lam": [
+            "Genshin/Shenhe/Shenhe_tham_lam_s12_2.webp"
+        ]
+    },
+    "Kamisato_Ayaka": {
+        "ngu_ngon": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_ngu_ngon_s8_2.webp",
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_ngu_ngon_s29_2.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_bat_luc_s8_3.webp"
+        ],
+        "phan_khich": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_phan_khich_s8_4.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_chao_hoi_s8_1.webp",
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_chao_hoi_s29_1.webp"
+        ],
+        "u": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_u_sau_s14_3.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_tu_tin_s14_4.webp"
+        ],
+        "bat_ngo": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_bat_ngo_s14_1.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_kieu_ky_s14_2.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Kamisato_Ayaka/Kamisato_Ayaka_cuoi_nham_hiem_s20_1.webp"
+        ]
+    },
+    "Jean": {
+        "ngu_ngon": [
+            "Genshin/Jean/Jean_ngu_ngon_s7_3.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Jean/Jean_bat_luc_s7_4.webp",
+            "Genshin/Jean/Jean_bat_luc_s31_1.webp"
+        ],
+        "co_len": [
+            "Genshin/Jean/Jean_co_len_s7_1.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Jean/Jean_chao_hoi_s7_2.webp"
+        ],
+        "tham_lam": [
+            "Genshin/Jean/Jean_tham_lam_s13_1.webp"
+        ],
+        "ngai_ngung": [
+            "Genshin/Jean/Jean_ngai_ngung_s48_1.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Jean/Jean_cuoi_nham_hiem_s41_1.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Jean/Jean_ngac_nhien_s1_1.webp"
+        ]
+    },
+    "Fischl": {
+        "ngai_ngung": [
+            "Genshin/Fischl/Fischl_ngai_ngung_s48_1.webp"
+        ],
+        "gian_doi": [
+            "Genshin/Fischl/Fischl_gian_doi_s4_1.webp"
+        ],
+        "Fischl": [
+            "Genshin/Fischl/Fischl_suy_nghi_s4_2.webp"
+        ],
+        "u": [
+            "Genshin/Fischl/Fischl_u_sau_s16_1.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Fischl/Fischl_tu_tin_s16_2.webp"
+        ]
+    },
+    "Aino": {
+        "Aino": [
+            "Genshin/Aino/Aino_suy_nghi_s44_4.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Aino/Aino_khoc_nhe_s44_2.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Aino/Aino_tinh_nghich_s44_1.webp"
+        ],
+        "gian_doi": [
+            "Genshin/Aino/Aino_gian_doi_s44_3.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Aino/Aino_ngac_nhien_s43_1.webp"
+        ]
+    },
+    "Ineffa": {
+        "Ineffa": [
+            "Genshin/Ineffa/Ineffa_suy_nghi_s43_5.webp"
+        ],
+        "khoc_nhe": [
+            "Genshin/Ineffa/Ineffa_khoc_nhe_s43_3.webp"
+        ],
+        "gian_doi": [
+            "Genshin/Ineffa/Ineffa_gian_doi_s43_4.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Ineffa/Ineffa_ngac_nhien_s43_1.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Ineffa/Ineffa_tinh_nghich_s43_2.webp"
+        ]
+    },
+    "Lumine": {
+        "cuoi_tuoi": [
+            "Genshin/Lumine/Lumine_cuoi_tuoi_s42_1.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Lumine/Lumine_tinh_nghich_s1_2.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Lumine/Lumine_ngac_nhien_s1_1.webp"
+        ]
+    },
+    "Varesa": {
+        "ngac_nhien": [
+            "Genshin/Varesa/Varesa_ngac_nhien_s40_4.webp"
+        ],
+        "lo_lang": [
+            "Genshin/Varesa/Varesa_lo_lang_s40_1.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Varesa/Varesa_cuoi_nham_hiem_s40_2.webp"
+        ],
+        "cuoi_tuoi": [
+            "Genshin/Varesa/Varesa_cuoi_tuoi_s40_3.webp"
+        ]
+    },
+    "Kuki_Shinobu": {
+        "phan_khich": [
+            "Genshin/Kuki_Shinobu/Kuki_Shinobu_phan_khich_s32_1.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Kuki_Shinobu/Kuki_Shinobu_tu_tin_s15_3.webp"
+        ],
+        "u": [
+            "Genshin/Kuki_Shinobu/Kuki_Shinobu_u_sau_s15_2.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Kuki_Shinobu/Kuki_Shinobu_kieu_ky_s15_1.webp"
+        ]
+    },
+    "Rosaria": {
+        "bat_luc": [
+            "Genshin/Rosaria/Rosaria_bat_luc_s31_1.webp"
+        ],
+        "ngu_ngon": [
+            "Genshin/Rosaria/Rosaria_ngu_ngon_s6_4.webp"
+        ],
+        "co_len": [
+            "Genshin/Rosaria/Rosaria_co_len_s6_2.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Rosaria/Rosaria_chao_hoi_s6_3.webp"
+        ],
+        "ngai_ngung": [
+            "Genshin/Rosaria/Rosaria_ngai_ngung_s6_1.webp"
+        ]
+    },
+    "Ganyu": {
+        "ngu_ngon": [
+            "Genshin/Ganyu/Ganyu_ngu_ngon_s30_1.webp",
+            "Genshin/Ganyu/Ganyu_ngu_ngon_s4_6.webp"
+        ],
+        "bat_luc": [
+            "Genshin/Ganyu/Ganyu_bat_luc_s30_2.webp"
+        ],
+        "ngai_ngung": [
+            "Genshin/Ganyu/Ganyu_ngai_ngung_s4_3.webp"
+        ],
+        "co_len": [
+            "Genshin/Ganyu/Ganyu_co_len_s4_4.webp"
+        ],
+        "chao_hoi": [
+            "Genshin/Ganyu/Ganyu_chao_hoi_s4_5.webp"
+        ],
+        "gian_doi": [
+            "Genshin/Ganyu/Ganyu_gian_doi_s4_1.webp"
+        ],
+        "Ganyu": [
+            "Genshin/Ganyu/Ganyu_suy_nghi_s4_2.webp"
+        ]
+    },
+    "Collei": {
+        "gian_doi": [
+            "Genshin/Collei/Collei_gian_doi_s25_1.webp"
+        ],
+        "Collei": [
+            "Genshin/Collei/Collei_suy_nghi_s25_2.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Collei/Collei_ngac_nhien_s22_1.webp"
+        ],
+        "tinh_nghich": [
+            "Genshin/Collei/Collei_tinh_nghich_s22_2.webp"
+        ],
+        "dang_yeu": [
+            "Genshin/Collei/Collei_dang_yeu_s17_2.webp"
+        ],
+        "tu_tin": [
+            "Genshin/Collei/Collei_tu_tin_s17_1.webp"
+        ],
+        "lo_lang": [
+            "Genshin/Collei/Collei_lo_lang_s17_3.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Collei/Collei_cuoi_nham_hiem_s17_4.webp",
+            "Genshin/Collei/Collei_cuoi_nham_hiem_s20_1.webp"
+        ]
+    },
+    "Faruzan": {
+        "tinh_nghich": [
+            "Genshin/Faruzan/Faruzan_tinh_nghich_s23_1.webp",
+            "Genshin/Faruzan/Faruzan_tinh_nghich_s20_4.webp"
+        ],
+        "kieu_ky": [
+            "Genshin/Faruzan/Faruzan_kieu_ky_s36_1.webp"
+        ],
+        "ngac_nhien": [
+            "Genshin/Faruzan/Faruzan_ngac_nhien_s20_3.webp"
+        ],
+        "cuoi_nham_hiem": [
+            "Genshin/Faruzan/Faruzan_cuoi_nham_hiem_s20_1.webp"
+        ],
+        "cuoi_tuoi": [
+            "Genshin/Faruzan/Faruzan_cuoi_tuoi_s20_2.webp"
+        ]
+    }
+}

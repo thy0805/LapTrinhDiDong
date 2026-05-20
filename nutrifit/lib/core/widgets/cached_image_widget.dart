@@ -46,9 +46,7 @@ class CachedImageWidget extends StatelessWidget {
   }
 
   Widget _buildNetworkImage(MediaService mediaService) {
-    // Vừa hiện ảnh mạng, vừa âm thầm tải về cho lần sau
     mediaService.downloadAndSaveFile(id, type, url);
-    
     return Image.network(
       url,
       width: width,
@@ -63,13 +61,23 @@ class CachedImageWidget extends StatelessWidget {
   }
 
   Widget _buildPlaceholder() {
+    IconData iconData;
+    if (type == 'foods') {
+      iconData = Icons.fastfood;
+    } else if (type == 'exercises') {
+      iconData = Icons.fitness_center;
+    } else if (type == 'avatars') {
+      iconData = Icons.person;
+    } else {
+      iconData = Icons.image;
+    }
     return placeholder ?? Container(
       width: width,
       height: height,
       color: const Color(0xFFF7F8F8),
       child: Icon(
-        type == 'foods' ? Icons.fastfood : Icons.fitness_center,
-        color: const Color(0xFFC050F6).withValues(alpha: 0.3),
+        iconData,
+        color: Get.theme.colorScheme.primary.withValues(alpha: 0.3),
       ),
     );
   }

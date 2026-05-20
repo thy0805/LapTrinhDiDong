@@ -14,11 +14,11 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Chào bạn nhen,',
                 style: TextStyle(
                   color: Color(0xFF1D1517),
@@ -27,8 +27,8 @@ class LoginPage extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(height: 5),
-              const Text(
+              SizedBox(height: 5),
+              Text(
                 'Chào mừng trở lại',
                 style: TextStyle(
                   color: Color(0xFF1D1517),
@@ -37,13 +37,13 @@ class LoginPage extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 40),
               _taoOTextForm(
                 goiY: "Email",
                 bieuTuong: Icons.email_outlined,
                 controller: authController.loginEmailController,
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _taoOTextForm(
                 goiY: "Password",
                 bieuTuong: Icons.lock_outline,
@@ -51,8 +51,8 @@ class LoginPage extends StatelessWidget {
                 bieuTuongCuoi: Icons.visibility_off_outlined,
                 controller: authController.loginPasswordController,
               ),
-              const SizedBox(height: 10),
-              const Align(
+              SizedBox(height: 10),
+              Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Quên mật khẩu?',
@@ -65,7 +65,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 250),
+              SizedBox(height: 250),
               GestureDetector(
                 onTap: () {
                   authController.login();
@@ -74,7 +74,7 @@ class LoginPage extends StatelessWidget {
                   width: double.infinity,
                   height: 60,
                   decoration: ShapeDecoration(
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
                     ),
                     shape: RoundedRectangleBorder(
@@ -106,11 +106,11 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(child: Divider(color: Colors.grey.shade300)),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
                       'Hoặc',
@@ -124,7 +124,7 @@ class LoginPage extends StatelessWidget {
                   Expanded(child: Divider(color: Colors.grey.shade300)),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -134,7 +134,7 @@ class LoginPage extends StatelessWidget {
                     },
                     child: _taoNutMangXaHoi('assets/google.png'),
                   ),
-                  const SizedBox(width: 30),
+                  SizedBox(width: 30),
                   GestureDetector(
                     onTap: () {
                       authController.signInWithFacebook();
@@ -143,13 +143,13 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => const RegisterPage1());
+                  Get.to(() => RegisterPage1());
                 },
                 child: RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                     text: 'Bạn chưa có tài khoản? ',
                     style: TextStyle(
                       color: Color(0xFF1D1517),
@@ -160,7 +160,7 @@ class LoginPage extends StatelessWidget {
                       TextSpan(
                         text: 'Đăng ký ngay',
                         style: TextStyle(
-                          color: Color(0xFFC050F6),
+                          color: Get.theme.colorScheme.primary,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -184,7 +184,7 @@ class LoginPage extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
+        color: Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: TextField(
@@ -192,17 +192,17 @@ class LoginPage extends StatelessWidget {
         obscureText: laMatKhau,
         decoration: InputDecoration(
           hintText: goiY,
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: Color(0xFFACA3A5),
             fontSize: 12,
             fontFamily: 'Poppins',
           ),
-          prefixIcon: Icon(bieuTuong, color: const Color(0xFF7B6F72), size: 20),
+          prefixIcon: Icon(bieuTuong, color: Color(0xFF7B6F72), size: 20),
           suffixIcon: bieuTuongCuoi != null
-              ? Icon(bieuTuongCuoi, color: const Color(0xFF7B6F72), size: 20)
+              ? Icon(bieuTuongCuoi, color: Color(0xFF7B6F72), size: 20)
               : null,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(vertical: 15),
+          contentPadding: EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );
@@ -214,7 +214,7 @@ class LoginPage extends StatelessWidget {
       height: 50,
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
-          side: const BorderSide(width: 0.80, color: Color(0xFFDDD9DA)),
+          side: BorderSide(width: 0.80, color: Color(0xFFDDD9DA)),
           borderRadius: BorderRadius.circular(14),
         ),
       ),
@@ -224,7 +224,7 @@ class LoginPage extends StatelessWidget {
           width: 20,
           height: 20,
           errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.link, size: 20, color: Colors.grey),
+              Icon(Icons.link, size: 20, color: Colors.grey),
         ),
       ),
     );

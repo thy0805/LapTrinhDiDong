@@ -11,12 +11,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:nutrifit/core/services/gamification_service.dart';
 import '../../profile/controllers/profile_controller.dart';
-import '../views/ghost_camera_screen.dart';
+import 'package:nutrifit/modules/auth/controllers/auth_controller.dart';
+import '../views/ai_pose_camera_screen.dart';
 
 class ProgressController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final GamificationService _gamification = Get.find<GamificationService>();
 
   var progressPhotos = <Map<String, dynamic>>[].obs;
   var isLoading = false.obs;
@@ -24,16 +27,17 @@ class ProgressController extends GetxController {
   var lastPhotoUrl = ''.obs;
   var userExp = 0.obs;
 
+  String get userName => Get.find<AuthController>().userData['fullName'] ?? 'Người dùng';
+  String get userPronoun => (Get.find<AuthController>().userData['gender'] == 'Male') ? 'ông' : 'bà';
+
   var beforePhoto = Rxn<Map<String, dynamic>>();
   var afterPhoto = Rxn<Map<String, dynamic>>();
   var hasReceivedComparisonBadge = false.obs;
 
-  // Giai đoạn 3: Dữ liệu cho Biểu đồ
   var weightHistory = <Map<String, dynamic>>[].obs; 
-  var targetWeight = 65.0.obs; 
+  var targetWeight = 0.0.obs; 
   var hasReachedTargetBadge = false.obs;
 
-  // Giai đoạn 4: Controller chụp màn hình
   final ScreenshotController screenshotController = ScreenshotController();
 
   @override
@@ -51,6 +55,9 @@ class ProgressController extends GetxController {
       if (doc.exists) {
         var data = doc.data() as Map<String, dynamic>;
         userExp.value = data['exp'] ?? 0;
+        targetWeight.value = double.tryParse(data['targetWeight']?.toString() ?? '0') ?? 0.0;
+        hasReachedTargetBadge.value = data['achievements']?['reachedTargetWeight'] ?? false;
+        hasReceivedComparisonBadge.value = data['achievements']?['createdComparison'] ?? false;
       }
     }
   }
@@ -106,7 +113,7 @@ class ProgressController extends GetxController {
   }
 
   List<FlSpot> get chartSpots {
-    if (weightHistory.isEmpty) return [const FlSpot(0, 0)];
+    if (weightHistory.isEmpty) return [FlSpot(0, 0)];
     
     List<FlSpot> spots = [];
     for (int i = 0; i < weightHistory.length; i++) {
@@ -117,60 +124,62 @@ class ProgressController extends GetxController {
   }
 
   void _checkTargetWeightGamification() {
-    if (weightHistory.isEmpty || hasReachedTargetBadge.value) return;
+    if (weightHistory.isEmpty || hasReachedTargetBadge.value || targetWeight.value <= 0) return;
 
     double latestWeight = double.tryParse(weightHistory.last['weight'].toString()) ?? 0.0;
     
     if (latestWeight <= targetWeight.value && latestWeight > 0) {
       hasReachedTargetBadge.value = true;
-      _addGamificationExp(200, 'Bạn đã đạt được Mục Tiêu Cân Nặng!');
-      Get.snackbar(
-        '🏆 Kẻ Chinh Phục', 
-        'Chúc mừng bạn đã hoàn thành xuất sắc mục tiêu đề ra!', 
-        backgroundColor: Colors.yellow[700],
-        colorText: Colors.white,
-        duration: const Duration(seconds: 5)
-      );
+      _gamification.awardExp(200, '$userPronoun đã đạt được Mục Tiêu Cân Nặng!');
+      _gamification.unlockAchievement('reached_target_weight', 'Kẻ Chinh Phục', 'Chạm đến mốc Cân Nặng Mục Tiêu thành công! 🏆', 200);
     }
   }
 
-  Future<void> _addGamificationExp(int expToAdd, String message) async {
-    String? uid = auth.currentUser?.uid;
-    if (uid != null) {
-      userExp.value += expToAdd;
-      await firestore.collection('users').doc(uid).set({'exp': FieldValue.increment(expToAdd)}, SetOptions(merge: true));
-      Get.snackbar('🎮 +$expToAdd EXP', message, snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green, colorText: Colors.white);
-      
-      if (progressPhotos.length == 4) {
-        Get.snackbar('🏆 Huy Hiệu Mới', 'Mở khóa: Kỷ luật thép!', duration: const Duration(seconds: 4), backgroundColor: Colors.orangeAccent, colorText: Colors.white);
-      }
-    }
-  }
 
   Future<void> addProgressPhoto() async {
     final ImagePicker picker = ImagePicker();
     
     final source = await Get.bottomSheet<ImageSource>(
       Container(
-        padding: const EdgeInsets.only(bottom: 20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        padding: EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+          color: Theme.of(Get.context!).colorScheme.surface,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Wrap(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(20.0),
-              child: Text('Thêm ảnh tiến độ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Poppins')),
+              child: Text(
+                'Thêm ảnh tiến độ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
+                  color: Theme.of(Get.context!).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
+                ),
+              ),
             ),
             ListTile(
-              leading: const Icon(Icons.camera_alt, color: Color(0xFFC050F6)),
-              title: const Text('Chụp ảnh với Bóng Ma (Ghosting)', style: TextStyle(fontFamily: 'Poppins')),
+              leading: Icon(Icons.camera_alt, color: Get.theme.colorScheme.primary),
+              title: Text(
+                'Chụp ảnh với Bóng Ma (Ghosting)',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Theme.of(Get.context!).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
+                ),
+              ),
               onTap: () => Get.back(result: ImageSource.camera),
             ),
             ListTile(
-              leading: const Icon(Icons.photo_library, color: Color(0xFFC050F6)),
-              title: const Text('Chọn từ thư viện', style: TextStyle(fontFamily: 'Poppins')),
+              leading: Icon(Icons.photo_library, color: Get.theme.colorScheme.primary),
+              title: Text(
+                'Chọn từ thư viện',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Theme.of(Get.context!).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
+                ),
+              ),
               onTap: () => Get.back(result: ImageSource.gallery),
             ),
           ],
@@ -181,7 +190,7 @@ class ProgressController extends GetxController {
     if (source == null) return;
 
     if (source == ImageSource.camera) {
-       Get.to(() => const GhostCameraScreen());
+       Get.to(() => const AiPoseCameraScreen());
        return; 
     }
 
@@ -191,10 +200,10 @@ class ProgressController extends GetxController {
     }
   }
 
-  Future<void> uploadAndSavePhoto(String imagePath) async {
+  Future<void> uploadAndSavePhoto(String imagePath, {List<Map<String, dynamic>>? poseData}) async {
       isLoading.value = true;
       Get.dialog(
-        const Center(child: CircularProgressIndicator(color: Color(0xFFC050F6))),
+        Center(child: CircularProgressIndicator(color: Get.theme.colorScheme.primary)),
         barrierDismissible: false,
       );
 
@@ -221,6 +230,24 @@ class ProgressController extends GetxController {
               currentWeightStr = Get.find<ProfileController>().weight.value;
             }
 
+            double estimatedBodyFat = 0.0;
+            double shoulderHipRatio = 0.0;
+
+            if (poseData != null) {
+              try {
+                final responseMetrics = await http.post(
+                  Uri.parse('https://nonaudible-mesophytic-gisele.ngrok-free.dev/progress/metrics'),
+                  headers: {'Content-Type': 'application/json'},
+                  body: json.encode({'landmarks': poseData}),
+                );
+                if (responseMetrics.statusCode == 200) {
+                  final resData = json.decode(responseMetrics.body);
+                  estimatedBodyFat = (resData['estimated_body_fat'] as num?)?.toDouble() ?? 0.0;
+                  shoulderHipRatio = (resData['shoulder_hip_ratio'] as num?)?.toDouble() ?? 0.0;
+                }
+              } catch (_) {}
+            }
+
             await firestore
                 .collection('users')
                 .doc(uid)
@@ -229,6 +256,8 @@ class ProgressController extends GetxController {
               'imageUrl': secureUrl,
               'weightAtTime': currentWeightStr,
               'createdAt': FieldValue.serverTimestamp(),
+              'estimatedBodyFat': estimatedBodyFat,
+              'shoulderHipRatio': shoulderHipRatio,
             });
 
             await firestore.collection('users').doc(uid).collection('weight_history').add({
@@ -236,7 +265,7 @@ class ProgressController extends GetxController {
               'date': FieldValue.serverTimestamp(),
             });
 
-            await _addGamificationExp(10, 'Đã cập nhật ảnh tiến độ mới!');
+            await _gamification.awardExp(10, 'Đã cập nhật ảnh tiến độ mới!');
           }
         }
       } catch (e) {
@@ -247,7 +276,33 @@ class ProgressController extends GetxController {
       }
   }
 
-  // --- COMPARISON LOGIC ---
+  Future<String> analyzeComparison() async {
+    if (beforePhoto.value == null || afterPhoto.value == null) {
+      throw Exception('Cần chọn đủ 2 ảnh trước khi phân tích!');
+    }
+    final beforeUrl = beforePhoto.value!['imageUrl'];
+    final afterUrl = afterPhoto.value!['imageUrl'];
+    final authController = Get.find<AuthController>();
+    final name = authController.userName;
+    final pronoun = authController.userPronoun;
+    final response = await http.post(
+      Uri.parse('https://nonaudible-mesophytic-gisele.ngrok-free.dev/progress/analyze'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'before_url': beforeUrl,
+        'after_url': afterUrl,
+        'name': name,
+        'pronoun': pronoun,
+      }),
+    );
+    if (response.statusCode == 200) {
+      final resData = json.decode(response.body);
+      return resData['analysis'] ?? '';
+    } else {
+      throw Exception('Không thể kết nối đến AI Server.');
+    }
+  }
+
   void selectPhotoForComparison(Map<String, dynamic> photoData, bool isBefore) {
     if (isBefore) {
       beforePhoto.value = photoData;
@@ -286,28 +341,21 @@ class ProgressController extends GetxController {
   void _checkComparisonGamification() {
     if (beforePhoto.value != null && afterPhoto.value != null && !hasReceivedComparisonBadge.value) {
       hasReceivedComparisonBadge.value = true;
-      _addGamificationExp(100, 'Tạo ảnh Before/After thành công!');
-      Get.snackbar(
-        '🏆 Huy Hiệu Mới', 
-        'Danh hiệu: Người kiến tạo vóc dáng!', 
-        backgroundColor: Colors.orangeAccent,
-        colorText: Colors.white,
-        duration: const Duration(seconds: 4)
-      );
+      _gamification.unlockAchievement('created_comparison', 'Người Kiến Tạo Vóc Dáng', 'Tạo ảnh Before/After thành công!', 100);
     }
   }
 
   void deletePhoto(String docId) {
     Get.defaultDialog(
       title: "Xóa ảnh",
-      titleStyle: const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
-      middleText: "Bạn có chắc chắn muốn xóa ảnh tiến độ này không?",
-      middleTextStyle: const TextStyle(fontFamily: 'Poppins'),
+      titleStyle: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+      middleText: "$userPronoun có chắc chắn muốn xóa ảnh tiến độ này không?",
+      middleTextStyle: TextStyle(fontFamily: 'Poppins'),
       textConfirm: "Xóa",
       textCancel: "Hủy",
       confirmTextColor: Colors.white,
       buttonColor: Colors.redAccent,
-      cancelTextColor: const Color(0xFFC050F6),
+      cancelTextColor: Get.theme.colorScheme.primary,
       onConfirm: () async {
         Get.back();
         String? uid = auth.currentUser?.uid;
@@ -343,17 +391,7 @@ class ProgressController extends GetxController {
       );
 
       if (shareResult.status == ShareResultStatus.success) {
-        _addGamificationExp(50, 'Chia sẻ thành công! Lan tỏa năng lượng tích cực!');
-        
-        if (userExp.value >= 500) {
-           Get.snackbar(
-            '🌟 Khung Avatar Mới', 
-            'Đạt mốc 500 EXP! Bạn đã mở khóa Khung Avatar Level 2 trong Cài đặt.', 
-            backgroundColor: Colors.purpleAccent,
-            colorText: Colors.white,
-            duration: const Duration(seconds: 5)
-          );
-        }
+        await _gamification.awardExp(50, 'Chia sẻ thành công! Lan tỏa năng lượng tích cực!');
       }
     } catch (e) {
       Get.snackbar('Lỗi', 'Chia sẻ thất bại: $e');

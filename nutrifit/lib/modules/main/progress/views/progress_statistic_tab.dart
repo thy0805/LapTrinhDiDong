@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../controllers/progress_controller.dart';
 
 class ProgressStatisticTab extends StatelessWidget {
@@ -11,66 +12,105 @@ class ProgressStatisticTab extends StatelessWidget {
     final ProgressController controller = Get.find();
 
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Biến Thiên Cân Nặng',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins',
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
+            ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           Obx(() => Text(
             'Mục tiêu của bạn: ${controller.targetWeight.value} kg',
-            style: TextStyle(color: Colors.grey[600], fontFamily: 'Poppins'),
+            style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Colors.grey.shade600,
+              fontFamily: 'Poppins',
+            ),
           )),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
 
-          // KHU VỰC VẼ BIỂU ĐỒ
           Expanded(
             child: Obx(() {
               if (controller.weightHistory.isEmpty) {
-                return const Center(
-                  child: Text('Chưa có dữ liệu. Hãy cập nhật cân nặng của bạn!', style: TextStyle(color: Colors.grey, fontFamily: 'Poppins')),
+                return Center(
+                  child: Text(
+                    'Chưa có dữ liệu. Hãy cập nhật cân nặng của bạn!',
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Colors.grey.shade600,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
                 );
               }
 
-              // Nếu đã đạt mục tiêu, đổi màu biểu đồ sang Vàng Gold (Gamification UX)
               Color lineColor = controller.hasReachedTargetBadge.value 
                   ? Colors.amber 
-                  : const Color(0xFFC050F6);
+                  : Get.theme.colorScheme.primary;
 
               return LineChart(
                 LineChartData(
-                  gridData: const FlGridData(show: true, drawVerticalLine: false), // Ẩn lưới dọc cho thoáng mắt
+                  minX: 0,
+                  maxX: controller.weightHistory.length > 1 
+                      ? (controller.weightHistory.length - 1).toDouble() 
+                      : 1.0,
+                  gridData: FlGridData(show: true, drawVerticalLine: false),
                   titlesData: FlTitlesData(
-                    rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
+                        interval: 1.0,
                         getTitlesWidget: (value, meta) {
-                          // Chỉ hiển thị số thứ tự lần cân ở trục X
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Text('Lần ${value.toInt() + 1}', style: const TextStyle(fontSize: 10, color: Colors.grey, fontFamily: 'Poppins')),
-                          );
+                          int index = value.toInt();
+                          if (index >= 0 && index < controller.weightHistory.length && value == index.toDouble()) {
+                            var log = controller.weightHistory[index];
+                            dynamic dateVal = log['date'];
+                            if (dateVal != null) {
+                              DateTime? date;
+                              if (dateVal is Timestamp) {
+                                date = dateVal.toDate();
+                              } else if (dateVal is String) {
+                                date = DateTime.tryParse(dateVal);
+                              }
+                              if (date != null) {
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    '${date.day}/${date.month}',
+                                    style: TextStyle(fontSize: 10, color: Colors.grey, fontFamily: 'Poppins'),
+                                  ),
+                                );
+                              }
+                            }
+                            return Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text('Lần ${index + 1}', style: TextStyle(fontSize: 10, color: Colors.grey, fontFamily: 'Poppins')),
+                            );
+                          }
+                          return const SizedBox.shrink();
                         },
                       ),
                     ),
                   ),
-                  borderData: FlBorderData(show: false), // Ẩn viền khung biểu đồ
+                  borderData: FlBorderData(show: false),
                   lineBarsData: [
                     LineChartBarData(
-                      spots: controller.chartSpots, // Đổ dữ liệu tọa độ từ Controller vào đây
-                      isCurved: true, // Làm đường line cong mềm mại
+                      spots: controller.chartSpots,
+                      isCurved: true,
                       color: lineColor,
                       barWidth: 4,
                       isStrokeCapRound: true,
-                      dotData: const FlDotData(show: true), // Hiện các dấu chấm ở mỗi lần cân
+                      dotData: FlDotData(show: true),
                       belowBarData: BarAreaData(
                         show: true,
-                        color: lineColor.withValues(alpha: 0.2), // Đổ bóng mờ gradient bên dưới đường line
+                        color: lineColor.withValues(alpha: 0.2),
                       ),
                     ),
                   ],

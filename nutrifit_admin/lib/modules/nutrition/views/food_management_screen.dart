@@ -13,7 +13,6 @@ class FoodManagementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FoodManagementController>();
-    final RxInt selectedTab = 0.obs;
 
     return Obx(() {
       TailAdminDesign.isDark;
@@ -60,7 +59,6 @@ class FoodManagementScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: TailAdminDesign.sp8),
-            // Custom Tabs
             Obx(() => Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
@@ -71,15 +69,14 @@ class FoodManagementScreen extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildTabButton('Danh sách thực phẩm', 0, selectedTab),
+                  _buildTabButton('Danh sách thực phẩm', 0, controller.activeTab),
                   const SizedBox(width: 4),
-                  _buildTabButton('Chờ duyệt món', 1, selectedTab),
+                  _buildTabButton('Chờ duyệt món', 1, controller.activeTab),
                 ],
               ),
             )),
             const SizedBox(height: TailAdminDesign.sp6),
-            // Content
-            Obx(() => _buildFoodListTab(context, controller, isPending: selectedTab.value == 1)),
+            Obx(() => _buildFoodListTab(context, controller, isPending: controller.activeTab.value == 1)),
           ],
         ),
       );
@@ -153,7 +150,9 @@ class FoodManagementScreen extends StatelessWidget {
           
           return AppTable<FoodItem>(
             title: isPending ? 'Danh sách chờ duyệt' : 'Danh mục thực đơn',
-            columns: const ['ẢNH', 'TÊN MÓN ĂN', 'CALORIES', 'MACROS (P/C/F)', 'DANH MỤC', 'THAO TÁC'],
+            columns: isPending 
+                ? const ['ẢNH', 'TÊN MÓN ĂN', 'CALORIES', 'ĐƠN VỊ', 'NGƯỜI ĐÓNG GÓP', 'THAO TÁC']
+                : const ['ẢNH', 'TÊN MÓN ĂN', 'CALORIES', 'MACROS (P/C/F)', 'DANH MỤC', 'THAO TÁC'],
             data: foods,
             cellBuilder: (food) => [
               DataCell(
@@ -187,8 +186,13 @@ class FoodManagementScreen extends StatelessWidget {
               ),
               DataCell(Text(food.title, style: GoogleFonts.outfit(color: TailAdminDesign.textMain, fontWeight: FontWeight.w500))),
               DataCell(Text('${food.calories} kcal', style: GoogleFonts.outfit(color: TailAdminDesign.textMuted))),
-              DataCell(Text('${food.protein}g / ${food.carbs}g / ${food.fat}g', style: GoogleFonts.outfit(color: TailAdminDesign.textMuted, fontSize: 13))),
-              DataCell(Text(food.category, style: GoogleFonts.outfit(color: TailAdminDesign.textMuted))),
+              if (isPending) ...[
+                DataCell(Text(food.unit, style: GoogleFonts.outfit(color: TailAdminDesign.textMuted))),
+                DataCell(Text(food.createdBy.isNotEmpty ? food.createdBy : 'Người dùng', style: GoogleFonts.outfit(color: TailAdminDesign.textMuted))),
+              ] else ...[
+                DataCell(Text('${food.protein}g / ${food.carbs}g / ${food.fat}g', style: GoogleFonts.outfit(color: TailAdminDesign.textMuted, fontSize: 13))),
+                DataCell(Text(food.category, style: GoogleFonts.outfit(color: TailAdminDesign.textMuted))),
+              ],
               DataCell(
                 Row(
                   children: [
@@ -226,6 +230,8 @@ class FoodManagementScreen extends StatelessWidget {
     final carbsController = TextEditingController(text: food?.carbs ?? '0');
     final fatController = TextEditingController(text: food?.fat ?? '0');
     final imageController = TextEditingController(text: food?.image ?? '');
+    final unitController = TextEditingController(text: food?.unit ?? 'Phần');
+    final createdByController = TextEditingController(text: food?.createdBy ?? '');
     String selectedCat = food?.category ?? 'Món nước';
 
     Get.dialog(
@@ -274,8 +280,7 @@ class FoodManagementScreen extends StatelessWidget {
                     const SizedBox(width: 8),
                     ElevatedButton.icon(
                       onPressed: () async {
-                        // Truyền food.id vào để Cloudinary biết đường mà ghi đè ảnh cũ nhen Thy
-                        final url = await Get.find<FileService>().pickAndUploadImage('foods', fileName: food?.id);
+                        final url = await Get.find<FileService>().pickAndUploadImage('foods');
                         if (url != null) {
                           imageController.text = url;
                           Get.snackbar('Thành công', 'Đã tải lên hình ảnh mới cho ${food?.title ?? "món ăn"}');
@@ -290,6 +295,14 @@ class FoodManagementScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(TailAdminDesign.radiusMd)),
                       ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(child: _buildField('Đơn vị tính', unitController)),
+                    const SizedBox(width: 16),
+                    Expanded(child: _buildField('Người đóng góp', createdByController)),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -342,6 +355,8 @@ class FoodManagementScreen extends StatelessWidget {
                           carbs: carbsController.text,
                           fat: fatController.text,
                           status: food?.status ?? 'approved',
+                          unit: unitController.text,
+                          createdBy: createdByController.text,
                         );
                         if (food == null) {
                           controller.addFood(newFood);

@@ -9,9 +9,10 @@ class MediaService extends GetxService {
 
   Future<MediaService> init() async {
     _appDocDir = await getApplicationDocumentsDirectory();
-    // Tạo thư mục cache riêng cho món ăn và bài tập
     await Directory('${_appDocDir.path}/foods').create(recursive: true);
     await Directory('${_appDocDir.path}/exercises').create(recursive: true);
+    await Directory('${_appDocDir.path}/avatars').create(recursive: true);
+    await Directory('${_appDocDir.path}/covers').create(recursive: true);
     return this;
   }
 

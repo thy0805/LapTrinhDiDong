@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:nutrifit/core/services/media_service.dart';
 import '../../../auth/views/login_screen.dart';
 
 class ProfileController extends GetxController {
@@ -88,11 +90,11 @@ class ProfileController extends GetxController {
   Future<CroppedFile?> _cropImage(String sourcePath, bool isAvatar) async {
     return await ImageCropper().cropImage(
       sourcePath: sourcePath,
-      aspectRatio: isAvatar ? const CropAspectRatio(ratioX: 1, ratioY: 1) : const CropAspectRatio(ratioX: 16, ratioY: 9),
+      aspectRatio: isAvatar ? CropAspectRatio(ratioX: 1, ratioY: 1) : CropAspectRatio(ratioX: 16, ratioY: 9),
       uiSettings: [
         AndroidUiSettings(
             toolbarTitle: isAvatar ? 'Cắt ảnh đại diện' : 'Cắt ảnh bìa',
-            toolbarColor: const Color(0xFFC050F6),
+            toolbarColor: Get.theme.colorScheme.primary,
             toolbarWidgetColor: Colors.white,
             initAspectRatio: isAvatar ? CropAspectRatioPreset.square : CropAspectRatioPreset.ratio16x9,
             lockAspectRatio: true),
@@ -105,7 +107,7 @@ class ProfileController extends GetxController {
   }
 
   Future<String?> _uploadToCloudinary(String imagePath) async {
-    Get.dialog(const Center(child: CircularProgressIndicator(color: Color(0xFFC050F6))), barrierDismissible: false);
+    Get.dialog(Center(child: CircularProgressIndicator(color: Get.theme.colorScheme.primary)), barrierDismissible: false);
     try {
       var request = http.MultipartRequest('POST', Uri.parse('https://api.cloudinary.com/v1_1/dhhhclbra/image/upload'));
       request.fields['upload_preset'] = 'ml_default';
@@ -126,7 +128,16 @@ class ProfileController extends GetxController {
       CroppedFile? croppedFile = await _cropImage(image.path, true);
       if (croppedFile != null) {
         String? url = await _uploadToCloudinary(croppedFile.path);
-        if (url != null) await firestore.collection('users').doc(auth.currentUser!.uid).update({'avatarUrl': url});
+        if (url != null) {
+          final mediaService = Get.find<MediaService>();
+          final localPath = mediaService.getLocalPath(auth.currentUser!.uid, 'avatars', url);
+          try {
+            await File(croppedFile.path).copy(localPath);
+          } catch (_) {
+            await mediaService.downloadAndSaveFile(auth.currentUser!.uid, 'avatars', url);
+          }
+          await firestore.collection('users').doc(auth.currentUser!.uid).update({'avatarUrl': url});
+        }
       }
     }
   }
@@ -137,7 +148,16 @@ class ProfileController extends GetxController {
       CroppedFile? croppedFile = await _cropImage(image.path, false);
       if (croppedFile != null) {
         String? url = await _uploadToCloudinary(croppedFile.path);
-        if (url != null) await firestore.collection('users').doc(auth.currentUser!.uid).update({'coverUrl': url});
+        if (url != null) {
+          final mediaService = Get.find<MediaService>();
+          final localPath = mediaService.getLocalPath(auth.currentUser!.uid, 'covers', url);
+          try {
+            await File(croppedFile.path).copy(localPath);
+          } catch (_) {
+            await mediaService.downloadAndSaveFile(auth.currentUser!.uid, 'covers', url);
+          }
+          await firestore.collection('users').doc(auth.currentUser!.uid).update({'coverUrl': url});
+        }
       }
     }
   }
@@ -156,9 +176,9 @@ class ProfileController extends GetxController {
     
     Get.bottomSheet(
       Container(
-        padding: const EdgeInsets.all(25),
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        padding: EdgeInsets.all(25),
+        decoration: BoxDecoration(
+          color: Theme.of(Get.context!).colorScheme.surface,
           borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
         ),
         child: SingleChildScrollView(
@@ -169,63 +189,71 @@ class ProfileController extends GetxController {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Chỉnh sửa hồ sơ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.close)),
+                  Text('Chỉnh sửa hồ sơ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(Get.context!).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517))),
+                  IconButton(onPressed: () => Get.back(), icon: Icon(Icons.close, color: Theme.of(Get.context!).brightness == Brightness.dark ? Colors.white : Colors.black)),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               _buildField(nameController, 'Họ và tên', Icons.person_outline),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _buildField(bioController, 'Tiểu sử (Bio)', Icons.info_outline),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _buildField(phoneController, 'Số điện thoại', Icons.phone_android_outlined, isNum: true),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _buildField(locationController, 'Vị trí', Icons.location_on_outlined),
-              const SizedBox(height: 15),
-              const Text('Giới tính', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
-              const SizedBox(height: 8),
+              SizedBox(height: 15),
+              Text('Giới tính', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
+              SizedBox(height: 8),
               Obx(() => Row(
                 children: [
                   _buildGenderOption('Male', 'Nam', Icons.male),
-                  const SizedBox(width: 15),
+                  SizedBox(width: 15),
                   _buildGenderOption('Female', 'Nữ', Icons.female),
                 ],
               )),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               Row(
                 children: [
                   Expanded(child: _buildField(heightController, 'Cao (cm)', Icons.height, isNum: true)),
-                  const SizedBox(width: 15),
+                  SizedBox(width: 15),
                   Expanded(child: _buildField(weightController, 'Nặng (kg)', Icons.monitor_weight_outlined, isNum: true)),
                 ],
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFC050F6),
-                  minimumSize: const Size(double.infinity, 60),
+                  backgroundColor: Get.theme.colorScheme.primary,
+                  minimumSize: Size(double.infinity, 60),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   elevation: 0,
                 ),
                 onPressed: () async {
-                  Get.dialog(const Center(child: CircularProgressIndicator()), barrierDismissible: false);
+                  Get.dialog(Center(child: CircularProgressIndicator(color: Get.theme.colorScheme.primary)), barrierDismissible: false);
+                  String oldWeight = weight.value;
+                  String newWeight = weightController.text.trim();
                   await firestore.collection('users').doc(auth.currentUser!.uid).update({
                     'fullName': nameController.text.trim(),
                     'bio': bioController.text.trim(),
                     'height': heightController.text.trim(),
-                    'weight': weightController.text.trim(),
+                    'weight': newWeight,
                     'phone': phoneController.text.trim(),
                     'location': locationController.text.trim(),
                     'gender': gender.value,
                   });
-                  Get.back(); // Tắt loading
-                  Get.back(); // Tắt bottomsheet
+                  if (newWeight.isNotEmpty && newWeight != oldWeight) {
+                    await firestore.collection('users').doc(auth.currentUser!.uid).collection('weight_history').add({
+                      'weight': newWeight,
+                      'date': FieldValue.serverTimestamp(),
+                    });
+                  }
+                  Get.back();
+                  Get.back(); 
                   Get.snackbar('Thành công', 'Hồ sơ đã được cập nhật!', 
                     backgroundColor: Colors.green.withValues(alpha: 0.8), colorText: Colors.white);
                 },
-                child: const Text('Lưu thay đổi', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text('Lưu thay đổi', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
             ],
           ),
         ),
@@ -237,22 +265,25 @@ class ProfileController extends GetxController {
   Widget _buildGenderOption(String value, String label, IconData icon) {
     bool isSelected = gender.value == value;
     return Expanded(
-      child: GestureDetector(
-        onTap: () => gender.value = value,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFFC050F6).withValues(alpha: 0.1) : Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: isSelected ? const Color(0xFFC050F6) : Colors.transparent),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: isSelected ? const Color(0xFFC050F6) : Colors.grey, size: 20),
-              const SizedBox(width: 8),
-              Text(label, style: TextStyle(color: isSelected ? const Color(0xFFC050F6) : Colors.grey, fontWeight: FontWeight.bold)),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          color: isSelected ? Get.theme.colorScheme.primary.withValues(alpha: 0.1) : (Theme.of(Get.context!).brightness == Brightness.dark ? Color(0xFF1E293B) : Colors.grey.shade50),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: isSelected ? Get.theme.colorScheme.primary : Colors.transparent),
+        ),
+        child: InkWell(
+          onTap: () => gender.value = value,
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: isSelected ? Get.theme.colorScheme.primary : Colors.grey, size: 20),
+                SizedBox(width: 8),
+                Text(label, style: TextStyle(color: isSelected ? Get.theme.colorScheme.primary : Colors.grey, fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
         ),
       ),
@@ -263,13 +294,15 @@ class ProfileController extends GetxController {
     return TextField(
       controller: controller,
       keyboardType: isNum ? TextInputType.number : TextInputType.text,
+      style: TextStyle(color: Theme.of(Get.context!).brightness == Brightness.dark ? Colors.white : Colors.black),
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, size: 20, color: const Color(0xFFC050F6)),
+        labelStyle: TextStyle(color: Theme.of(Get.context!).brightness == Brightness.dark ? Colors.grey.shade400 : Colors.grey),
+        prefixIcon: Icon(icon, size: 20, color: Get.theme.colorScheme.primary),
         filled: true,
-        fillColor: Colors.grey.shade50,
+        fillColor: Theme.of(Get.context!).brightness == Brightness.dark ? Color(0xFF1E293B) : Colors.grey.shade50,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFFC050F6))),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Get.theme.colorScheme.primary)),
       ),
     );
   }
@@ -278,6 +311,6 @@ class ProfileController extends GetxController {
     await auth.signOut();
     await GoogleSignIn().signOut();
     await FacebookAuth.instance.logOut();
-    Get.offAll(() => const LoginPage());
+    Get.offAll(() => LoginPage());
   }
 }

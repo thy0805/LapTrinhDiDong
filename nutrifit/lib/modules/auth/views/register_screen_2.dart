@@ -14,7 +14,7 @@ class RegisterPage2 extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -23,8 +23,8 @@ class RegisterPage2 extends StatelessWidget {
                 height: 250,
                 fit: BoxFit.contain,
               ),
-              const SizedBox(height: 30),
-              const Text(
+              SizedBox(height: 30),
+              Text(
                 'Hoàn thiện hồ sơ của bạn',
                 style: TextStyle(
                   color: Color(0xFF1D1517),
@@ -33,8 +33,8 @@ class RegisterPage2 extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: 5),
-              const Text(
+              SizedBox(height: 5),
+              Text(
                 'Nó sẽ giúp chúng tôi hiểu rõ hơn về bạn!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -43,39 +43,39 @@ class RegisterPage2 extends StatelessWidget {
                   fontFamily: 'Poppins',
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
               _buildDropdownField(authController),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _buildTextFieldWithSuffixIcon(
                 hintText: "Ngày sinh",
                 icon: Icons.calendar_today_outlined,
                 suffixIcon: Icons.keyboard_arrow_down,
                 controller: authController.regDobController,
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _buildTextFieldWithUnit(
                 hintText: "Cân nặng của bạn",
                 icon: Icons.monitor_weight_outlined,
                 unit: "KG",
                 controller: authController.regWeightController,
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _buildTextFieldWithUnit(
                 hintText: "Chiều cao của bạn",
                 icon: Icons.height_outlined,
                 unit: "CM",
                 controller: authController.regHeightController,
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 40),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => const RegisterPage3());
+                  Get.to(() => RegisterPage3());
                 },
                 child: Container(
                   width: double.infinity,
                   height: 60,
                   decoration: ShapeDecoration(
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
                     ),
                     shape: RoundedRectangleBorder(
@@ -120,9 +120,9 @@ class RegisterPage2 extends StatelessWidget {
 
   Widget _buildDropdownField(AuthController controller) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
+        color: Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: DropdownButtonHideUnderline(
@@ -151,7 +151,7 @@ class RegisterPage2 extends StatelessWidget {
                 value: value,
                 child: Text(
                   value,
-                  style: const TextStyle(fontFamily: 'Poppins', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Poppins', fontSize: 12),
                 ),
               );
             }).toList(),
@@ -174,26 +174,26 @@ class RegisterPage2 extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
+        color: Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: Color(0xFFACA3A5),
             fontSize: 12,
             fontFamily: 'Poppins',
           ),
-          prefixIcon: Icon(icon, color: const Color(0xFF7B6F72), size: 20),
+          prefixIcon: Icon(icon, color: Color(0xFF7B6F72), size: 20),
           suffixIcon: Icon(
             suffixIcon,
-            color: const Color(0xFF7B6F72),
+            color: Color(0xFF7B6F72),
             size: 20,
           ),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(vertical: 15),
+          contentPadding: EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );
@@ -207,7 +207,7 @@ class RegisterPage2 extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
+        color: Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
@@ -218,35 +218,35 @@ class RegisterPage2 extends StatelessWidget {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: hintText,
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   color: Color(0xFFACA3A5),
                   fontSize: 12,
                   fontFamily: 'Poppins',
                 ),
                 prefixIcon: Icon(
                   icon,
-                  color: const Color(0xFF7B6F72),
+                  color: Color(0xFF7B6F72),
                   size: 20,
                 ),
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                contentPadding: EdgeInsets.symmetric(vertical: 15),
               ),
             ),
           ),
           Container(
             width: 48,
             height: 48,
-            margin: const EdgeInsets.all(2),
+            margin: EdgeInsets.all(2),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFFC050F6), Color(0xFFEEA4CE)],
+              gradient: LinearGradient(
+                colors: [Get.theme.colorScheme.primary, Get.theme.colorScheme.secondary],
               ),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Center(
               child: Text(
                 unit,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,

@@ -17,11 +17,15 @@ venv/
 .idea/
 .vscode/
 *.log
+~$*
 
 # Bỏ qua các file/folder không cần thiết ở root
 /workout-repo-tmp/
 /download_foods.py
+/copi/
+/nutrifit/test_email.py
+/ai_pt_system_architecture.md
+/analysis_options.yaml
 
-# Logic cho thư mục scripts: Bỏ qua hết trừ food_recognition_api
-/scripts/*
-!/scripts/food_recognition_api/
+# Bỏ qua toàn bộ thư mục scripts
+/scripts/

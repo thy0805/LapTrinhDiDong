@@ -13,31 +13,31 @@ class ProgressPhotoTab extends StatelessWidget {
 
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: chieuRong * 0.08),
-      physics: const BouncingScrollPhysics(),
+      physics: BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: const Color(0xFFFF0000).withValues(alpha: 0.1),
+              color: Color(0xFFFF0000).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade900 : Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.calendar_month,
                     color: Color(0xFFFF0000),
                   ),
                 ),
-                const SizedBox(width: 15),
-                const Expanded(
+                SizedBox(width: 15),
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -52,7 +52,7 @@ class ProgressPhotoTab extends StatelessWidget {
                       Text(
                         'Lần chụp tiếp theo: Hôm nay',
                         style: TextStyle(
-                          color: Color(0xFF1D1517),
+                          color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Poppins',
@@ -61,11 +61,11 @@ class ProgressPhotoTab extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(Icons.close, color: Color(0xFFA5A3AF), size: 16),
+                Icon(Icons.close, color: Color(0xFFA5A3AF), size: 16),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
 
           GestureDetector(
             onTap: controller.addProgressPhoto,
@@ -73,7 +73,7 @@ class ProgressPhotoTab extends StatelessWidget {
               width: double.infinity,
               height: 60,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
                 ),
                 borderRadius: BorderRadius.circular(99),
@@ -103,21 +103,21 @@ class ProgressPhotoTab extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
 
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             decoration: BoxDecoration(
-              color: const Color(0xFFC050F6).withValues(alpha: 0.1),
+              color: Get.theme.colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Theo dõi tiến độ',
                   style: TextStyle(
-                    color: Color(0xFF1D1517),
+                    color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
                     fontSize: 14,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
@@ -126,17 +126,17 @@ class ProgressPhotoTab extends StatelessWidget {
                 GestureDetector(
                   onTap: () => Get.to(() => ProgressComparisonScreen()),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
+                    padding: EdgeInsets.symmetric(
                       horizontal: 15,
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
                       ),
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: const Text(
+                    child: Text(
                       'So sánh',
                       style: TextStyle(
                         color: Colors.white,
@@ -149,14 +149,14 @@ class ProgressPhotoTab extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Bộ sưu tập',
                 style: TextStyle(
-                  color: Color(0xFF1D1517),
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Poppins',
@@ -165,7 +165,7 @@ class ProgressPhotoTab extends StatelessWidget {
               Text(
                 'Xem thêm',
                 style: TextStyle(
-                  color: Color(0xFFA5A3AF),
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFA5A3AF),
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins',
@@ -173,17 +173,21 @@ class ProgressPhotoTab extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           
           Obx(() {
             if (controller.progressPhotos.isEmpty) {
-              return const Padding(
+              return Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: Center(
                   child: Text(
                     'Chưa có ảnh tiến độ nào.\nHãy thêm bức ảnh đầu tiên của bạn!',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Color(0xFFB6B4C1), fontSize: 14, fontFamily: 'Poppins'),
+                    style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFB6B4C1),
+                      fontSize: 14,
+                      fontFamily: 'Poppins',
+                    ),
                   ),
                 ),
               );
@@ -191,8 +195,8 @@ class ProgressPhotoTab extends StatelessWidget {
 
             return GridView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
@@ -225,7 +229,7 @@ class ProgressPhotoTab extends StatelessWidget {
                               colors: [Colors.black.withValues(alpha: 0.7), Colors.transparent],
                             ),
                           ),
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           alignment: Alignment.bottomLeft,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -233,12 +237,12 @@ class ProgressPhotoTab extends StatelessWidget {
                             children: [
                               Text(
                                 controller.formatDate(photoData['createdAt']),
-                                style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
                               ),
                               if (photoData['weightAtTime'] != null && photoData['weightAtTime'].toString().isNotEmpty)
                                 Text(
                                   '${photoData['weightAtTime']} kg',
-                                  style: const TextStyle(color: Color(0xFFC050F6), fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                                  style: TextStyle(color: Get.theme.colorScheme.primary, fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
                                 ),
                             ],
                           ),
@@ -249,12 +253,12 @@ class ProgressPhotoTab extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () => controller.deletePhoto(photoData['id']),
                             child: Container(
-                              padding: const EdgeInsets.all(6),
+                              padding: EdgeInsets.all(6),
                               decoration: BoxDecoration(
                                 color: Colors.black.withValues(alpha: 0.5),
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.delete_outline,
                                 color: Colors.white,
                                 size: 18,
@@ -270,7 +274,7 @@ class ProgressPhotoTab extends StatelessWidget {
             );
           }),
           
-          const SizedBox(height: 100),
+          SizedBox(height: 100),
         ],
       ),
     );
@@ -303,15 +307,15 @@ class ProgressPhotoTab extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.white, size: 30),
+                      icon: Icon(Icons.delete, color: Colors.white, size: 30),
                       onPressed: () {
                         Navigator.pop(context);
                         controller.deletePhoto(photoId);
                       },
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                     IconButton(
-                      icon: const Icon(Icons.close, color: Colors.white, size: 30),
+                      icon: Icon(Icons.close, color: Colors.white, size: 30),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ],

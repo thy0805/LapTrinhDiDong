@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: const DecorationImage(
-                        image: NetworkImage('https://ui-avatars.com/api/?name=Quach+Bao+Thy&background=465FFF&color=fff'),
+                        image: NetworkImage('https://ui-avatars.com/api/?name=Admin+NutriFit&background=465FFF&color=fff'),
                         fit: BoxFit.cover,
                       ),
                       border: Border.all(color: TailAdminDesign.brand500, width: 3),
@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Quách Bảo Thy',
+                        'Admin NutriFit',
                         style: GoogleFonts.outfit(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 32),
               const Divider(),
               const SizedBox(height: 32),
-              _buildInfoRow('Email', 'thy0805@nutrifit.com'),
+              _buildInfoRow('Email', 'admin@nutrifit.com'),
               _buildInfoRow('Số điện thoại', '090 123 4567'),
               _buildInfoRow('Địa chỉ', 'TP. Hồ Chí Minh, Việt Nam'),
               _buildInfoRow('Ngày tham gia', '04/05/2026'),

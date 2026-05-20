@@ -11,7 +11,7 @@ class NotificationScreen extends StatelessWidget {
     final NotificationController controller = Get.find<NotificationController>();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -23,10 +23,11 @@ class NotificationScreen extends StatelessWidget {
               child: Obx(() => ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 itemCount: controller.notifications.length,
-                separatorBuilder: (context, index) => _taoDuongKe(),
+                separatorBuilder: (context, index) => _taoDuongKe(context),
                 itemBuilder: (context, index) {
                   final n = controller.notifications[index];
                   return _taoItemThongBao(
+                    context,
                     icon: n.icon,
                     gradientColors: n.colors,
                     title: n.title,
@@ -41,14 +42,15 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 
-  Widget _taoDuongKe() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 15.0),
-      child: Divider(color: Color(0xFFC6C4D3), thickness: 1, height: 1),
+  Widget _taoDuongKe(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      child: Divider(color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade800 : const Color(0xFFC6C4D3), thickness: 1, height: 1),
     );
   }
 
-  Widget _taoItemThongBao({
+  Widget _taoItemThongBao(
+    BuildContext context, {
     required IconData icon,
     required List<Color> gradientColors,
     required String title,
@@ -77,8 +79,8 @@ class NotificationScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  color: Color(0xFF1D1517),
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517),
                   fontSize: 12,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,
@@ -88,8 +90,8 @@ class NotificationScreen extends StatelessWidget {
               const SizedBox(height: 5),
               Text(
                 time,
-                style: const TextStyle(
-                  color: Color(0xFFB6B4C1),
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : const Color(0xFFB6B4C1),
                   fontSize: 10,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w400,
@@ -100,9 +102,9 @@ class NotificationScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0),
-          child: Icon(Icons.more_vert, color: Color(0xFFB6B4C1), size: 16),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Icon(Icons.more_vert, color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : const Color(0xFFB6B4C1), size: 16),
         ),
       ],
     );

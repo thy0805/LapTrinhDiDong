@@ -22,11 +22,11 @@ class _RegisterPage1State extends State<RegisterPage1> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Chào bạn nhen,',
                 style: TextStyle(
                   color: Color(0xFF1D1517),
@@ -34,8 +34,8 @@ class _RegisterPage1State extends State<RegisterPage1> {
                   fontFamily: 'Poppins',
                 ),
               ),
-              const SizedBox(height: 5),
-              const Text(
+              SizedBox(height: 5),
+              Text(
                 'Tạo tài khoản mới',
                 style: TextStyle(
                   color: Color(0xFF1D1517),
@@ -44,26 +44,26 @@ class _RegisterPage1State extends State<RegisterPage1> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
 
               _taoONhapLieu(
                 goiY: "Họ và tên",
                 bieuTuong: Icons.person_outline,
                 controller: authController.regNameController,
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _taoONhapLieu(
                 goiY: "Số điện thoại",
                 bieuTuong: Icons.phone_android,
                 controller: authController.regPhoneController,
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _taoONhapLieu(
                 goiY: "Email",
                 bieuTuong: Icons.email_outlined,
                 controller: authController.regEmailController,
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15),
               _taoONhapLieu(
                 goiY: "Mật khẩu",
                 bieuTuong: Icons.lock_outline,
@@ -71,21 +71,21 @@ class _RegisterPage1State extends State<RegisterPage1> {
                 controller: authController.regPasswordController,
               ),
 
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Checkbox(
                     value: isChecked,
-                    activeColor: const Color(0xFFC050F6),
+                    activeColor: Get.theme.colorScheme.primary,
                     onChanged: (value) {
                       setState(() {
                         isChecked = value!;
                       });
                     },
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       'Bằng cách tiếp tục, bạn đồng ý với Chính sách bảo mật và Điều khoản sử dụng của chúng tôi',
                       style: TextStyle(
@@ -98,12 +98,12 @@ class _RegisterPage1State extends State<RegisterPage1> {
                 ],
               ),
 
-              const SizedBox(height: 40),
+              SizedBox(height: 40),
 
               GestureDetector(
                 onTap: () {
                   if (isChecked) {
-                    Get.to(() => const RegisterPage2());
+                    Get.to(() => RegisterPage2());
                   } else {
                     Get.snackbar(
                       "Thông báo",
@@ -118,7 +118,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                   width: double.infinity,
                   height: 60,
                   decoration: ShapeDecoration(
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
                     ),
                     shape: RoundedRectangleBorder(
@@ -132,7 +132,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                       ),
                     ],
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Đăng ký',
                       style: TextStyle(
@@ -146,7 +146,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                 ),
               ),
 
-              const SizedBox(height: 25),
+              SizedBox(height: 25),
 
               Row(
                 children: const [
@@ -169,7 +169,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -180,7 +180,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     },
                     child: _taoNutMangXaHoi('assets/google.png'),
                   ),
-                  const SizedBox(width: 30),
+                  SizedBox(width: 30),
                   GestureDetector(
                     onTap: () {
                       authController.signInWithFacebook();
@@ -190,13 +190,13 @@ class _RegisterPage1State extends State<RegisterPage1> {
                 ],
               ),
 
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
 
               GestureDetector(
                 onTap: () {
-                  Get.to(() => const LoginPage());
+                  Get.to(() => LoginPage());
                 },
-                child: const Text.rich(
+                child: Text.rich(
                   TextSpan(
                     children: [
                       TextSpan(
@@ -210,7 +210,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                       TextSpan(
                         text: 'Đăng nhập',
                         style: TextStyle(
-                          color: Color(0xFFC050F6),
+                          color: Get.theme.colorScheme.primary,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Poppins',
@@ -235,7 +235,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
+        color: Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: TextField(
@@ -243,17 +243,17 @@ class _RegisterPage1State extends State<RegisterPage1> {
         obscureText: laMatKhau,
         decoration: InputDecoration(
           hintText: goiY,
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: Color(0xFFACA3A5),
             fontSize: 12,
             fontFamily: 'Poppins',
           ),
-          prefixIcon: Icon(bieuTuong, color: const Color(0xFF7B6F72)),
+          prefixIcon: Icon(bieuTuong, color: Color(0xFF7B6F72)),
           suffixIcon: laMatKhau
-              ? const Icon(Icons.visibility_off, color: Color(0xFF7B6F72))
+              ? Icon(Icons.visibility_off, color: Color(0xFF7B6F72))
               : null,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(vertical: 15),
+          contentPadding: EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );
@@ -264,7 +264,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFDDD9DA), width: 0.8),
+        border: Border.all(color: Color(0xFFDDD9DA), width: 0.8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Center(
@@ -273,7 +273,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
           width: 24,
           height: 24,
           errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.broken_image, color: Colors.grey, size: 24),
+              Icon(Icons.broken_image, color: Colors.grey, size: 24),
         ),
       ),
     );

@@ -37,7 +37,7 @@ class DashboardScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Chào buổi sáng, Thy! 👋',
+                      'Chào buổi sáng, Admin! 👋',
                       style: GoogleFonts.outfit(
                         fontSize: TailAdminDesign.font2xl,
                         fontWeight: FontWeight.bold,
@@ -71,7 +71,6 @@ class DashboardScreen extends StatelessWidget {
           const SizedBox(height: TailAdminDesign.sp8),
           LayoutBuilder(
             builder: (context, constraints) {
-              // Thy thích 1 hàng 4 cột, tui sẽ ưu tiên 4 cột nếu màn hình đủ rộng (> 700px)
               int crossAxisCount = constraints.maxWidth > 700 ? 4 : (constraints.maxWidth > 450 ? 2 : 1);
               double aspectRatio = constraints.maxWidth > 700 ? 1.6 : (constraints.maxWidth > 450 ? 2.2 : 3.0);
               
@@ -84,7 +83,15 @@ class DashboardScreen extends StatelessWidget {
                 childAspectRatio: aspectRatio,
                 children: [
                   _buildAnimatedCard(0, 'Tổng người dùng', controller.totalUsers.value.toString(), Icons.people_alt_rounded, TailAdminDesign.brand500),
-                  _buildAnimatedCard(1, 'Calo tiêu thụ (Ước tính)', '124.5k', Icons.local_fire_department_rounded, const Color(0xFFF59E0B)),
+                  _buildAnimatedCard(
+                    1,
+                    'Calo tiêu thụ (Ước tính)',
+                    controller.totalCaloriesBurned.value >= 1000
+                        ? '${(controller.totalCaloriesBurned.value / 1000).toStringAsFixed(1)}k'
+                        : controller.totalCaloriesBurned.value.toStringAsFixed(0),
+                    Icons.local_fire_department_rounded,
+                    const Color(0xFFF59E0B),
+                  ),
                   _buildAnimatedCard(2, 'Tổng bài tập', controller.totalWorkouts.value.toString(), Icons.fitness_center_rounded, const Color(0xFF10B981)),
                   _buildAnimatedCard(3, 'Thực phẩm & Món ăn', controller.totalFoods.value.toString(), Icons.fastfood_rounded, const Color(0xFF3B82F6)),
                 ],

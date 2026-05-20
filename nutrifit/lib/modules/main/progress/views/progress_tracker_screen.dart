@@ -18,20 +18,20 @@ class _ProgressTrackerScreenState extends State<ProgressTrackerScreen> {
     final chieuRong = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: AppHeader(title: 'Tiến độ', showBackButton: false),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Container(
               width: chieuRong * 0.85,
               height: 50,
               decoration: BoxDecoration(
-                color: const Color(0xFFF7F8F8),
+                color: Theme.of(context).brightness == Brightness.dark ? Color(0xFF1E293B) : Color(0xFFF7F8F8),
                 borderRadius: BorderRadius.circular(99),
               ),
               child: Row(
@@ -40,13 +40,13 @@ class _ProgressTrackerScreenState extends State<ProgressTrackerScreen> {
                     child: GestureDetector(
                       onTap: () => setState(() => _isPhotoTab = true),
                       child: Container(
-                        margin: const EdgeInsets.all(5),
+                        margin: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           gradient: _isPhotoTab
-                              ? const LinearGradient(
+                              ? LinearGradient(
                                   colors: [
-                                    Color(0xFFC050F6),
-                                    Color(0xFFEEA4CE),
+                                    Theme.of(context).colorScheme.primary,
+                                    Theme.of(context).colorScheme.secondary,
                                   ],
                                 )
                               : null,
@@ -58,7 +58,7 @@ class _ProgressTrackerScreenState extends State<ProgressTrackerScreen> {
                             style: TextStyle(
                               color: _isPhotoTab
                                   ? Colors.white
-                                  : const Color(0xFFA5A3AF),
+                                  : Color(0xFFA5A3AF),
                               fontSize: 14,
                               fontFamily: 'Poppins',
                               fontWeight: _isPhotoTab
@@ -74,13 +74,13 @@ class _ProgressTrackerScreenState extends State<ProgressTrackerScreen> {
                     child: GestureDetector(
                       onTap: () => setState(() => _isPhotoTab = false),
                       child: Container(
-                        margin: const EdgeInsets.all(5),
+                        margin: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           gradient: !_isPhotoTab
-                              ? const LinearGradient(
+                              ? LinearGradient(
                                   colors: [
-                                    Color(0xFFC050F6),
-                                    Color(0xFFEEA4CE),
+                                    Theme.of(context).colorScheme.primary,
+                                    Theme.of(context).colorScheme.secondary,
                                   ],
                                 )
                               : null,
@@ -92,7 +92,7 @@ class _ProgressTrackerScreenState extends State<ProgressTrackerScreen> {
                             style: TextStyle(
                               color: !_isPhotoTab
                                   ? Colors.white
-                                  : const Color(0xFFA5A3AF),
+                                  : Color(0xFFA5A3AF),
                               fontSize: 14,
                               fontFamily: 'Poppins',
                               fontWeight: !_isPhotoTab
@@ -107,11 +107,11 @@ class _ProgressTrackerScreenState extends State<ProgressTrackerScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Expanded(
               child: _isPhotoTab
-                  ? const ProgressPhotoTab()
-                  : const ProgressStatisticTab(),
+                  ? ProgressPhotoTab()
+                  : ProgressStatisticTab(),
             ),
           ],
         ),
