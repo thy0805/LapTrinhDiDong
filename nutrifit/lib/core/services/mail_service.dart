@@ -3,12 +3,12 @@ import 'package:mailer/smtp_server.dart';
 import 'package:flutter/material.dart';
 
 class MailService {
-  static const String _smtpHost = '163.44.207.67';
+  static const String _smtpHost = 'smtp.gmail.com';
   static const int _smtpPort = 587;
-  static const String _fromEmail = 'nhom7@trasuatrantrau.id.vn';
+  static const String _fromEmail = '2001230640phat@gmail.com';
   static const String _fromName = 'Nutritea - NutriFit';
-  static const String _smtpUsername = 'nhom7@trasuatrantrau.id.vn';
-  static const String _smtpPassword = 'Bbaothy08102007@';
+  static const String _smtpUsername = '2001230640phat@gmail.com';
+  static const String _smtpPassword = 'cpmgzwqpvqkeceao';
 
   static final _smtpServer = SmtpServer(
     _smtpHost,
