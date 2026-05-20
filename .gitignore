@@ -18,6 +18,7 @@ venv/
 .vscode/
 *.log
 ~$*
+*.docx
 
 # Bỏ qua các file/folder không cần thiết ở root
 /workout-repo-tmp/
