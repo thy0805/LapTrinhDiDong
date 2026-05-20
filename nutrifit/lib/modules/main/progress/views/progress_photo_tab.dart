@@ -17,55 +17,61 @@ class ProgressPhotoTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Color(0xFFFF0000).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade900 : Colors.white,
-                    shape: BoxShape.circle,
+          Obx(() {
+            if (!controller.shouldShowReminder) return const SizedBox.shrink();
+            return Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFF0000).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade900 : Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.calendar_month,
+                      color: Color(0xFFFF0000),
+                    ),
                   ),
-                  child: Icon(
-                    Icons.calendar_month,
-                    color: Color(0xFFFF0000),
-                  ),
-                ),
-                SizedBox(width: 15),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Nhắc nhở!',
-                        style: TextStyle(
-                          color: Color(0xFFFF0000),
-                          fontSize: 12,
-                          fontFamily: 'Poppins',
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Nhắc nhở!',
+                          style: TextStyle(
+                            color: Color(0xFFFF0000),
+                            fontSize: 12,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Lần chụp tiếp theo: Hôm nay',
-                        style: TextStyle(
-                          color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
+                        Text(
+                          controller.reminderMessage,
+                          style: TextStyle(
+                            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Icon(Icons.close, color: Color(0xFFA5A3AF), size: 16),
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () => controller.isReminderDismissed.value = true,
+                    child: const Icon(Icons.close, color: Color(0xFFA5A3AF), size: 16),
+                  ),
+                ],
+              ),
+            );
+          }),
 
           GestureDetector(
             onTap: controller.addProgressPhoto,

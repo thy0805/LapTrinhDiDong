@@ -191,7 +191,30 @@ class ProgressComparisonScreen extends StatelessWidget {
                         },
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(photo['imageUrl'], fit: BoxFit.cover),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.network(photo['imageUrl'], fit: BoxFit.cover),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  width: double.infinity,
+                                  color: Colors.black.withValues(alpha: 0.6),
+                                  padding: const EdgeInsets.symmetric(vertical: 4),
+                                  child: Text(
+                                    controller.formatDate(photo['createdAt']),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Poppins',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }
@@ -226,7 +249,27 @@ class ProgressComparisonScreen extends StatelessWidget {
                     ],
                   ),
                 ) 
-              : SizedBox.shrink(),
+              : Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.6),
+                      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(13)),
+                    ),
+                    child: Text(
+                      controller.formatDate(photoData['createdAt']),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                ),
         );
       }),
     );

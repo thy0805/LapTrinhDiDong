@@ -39,6 +39,41 @@ class ProgressController extends GetxController {
   var hasReachedTargetBadge = false.obs;
 
   final ScreenshotController screenshotController = ScreenshotController();
+  var isReminderDismissed = false.obs;
+
+  bool get shouldShowReminder {
+    if (isReminderDismissed.value) return false;
+    if (progressPhotos.isEmpty) return true;
+
+    var latestPhoto = progressPhotos.first;
+    Timestamp? createdAt = latestPhoto['createdAt'] as Timestamp?;
+    if (createdAt == null) return true;
+
+    DateTime lastPhotoDate = createdAt.toDate();
+    DateTime today = DateTime.now();
+    int daysDiff = today.difference(lastPhotoDate).inDays;
+
+    return daysDiff >= 7;
+  }
+
+  String get reminderMessage {
+    if (progressPhotos.isEmpty) {
+      return "Chụp bức ảnh tiến độ đầu tiên để theo dõi thay đổi vóc dáng!";
+    }
+
+    var latestPhoto = progressPhotos.first;
+    Timestamp? createdAt = latestPhoto['createdAt'] as Timestamp?;
+    if (createdAt == null) return "Chụp ảnh tiến độ mới!";
+
+    DateTime lastPhotoDate = createdAt.toDate();
+    DateTime today = DateTime.now();
+    int daysDiff = today.difference(lastPhotoDate).inDays;
+
+    if (daysDiff >= 7) {
+      return "Đã quá 7 ngày kể từ lần chụp cuối. Chụp ảnh mới ngay nào!";
+    }
+    return "";
+  }
 
   @override
   void onInit() {
