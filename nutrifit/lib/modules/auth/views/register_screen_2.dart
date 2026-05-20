@@ -11,7 +11,7 @@ class RegisterPage2 extends StatelessWidget {
     final AuthController authController = Get.find<AuthController>();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Get.theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
@@ -27,7 +27,7 @@ class RegisterPage2 extends StatelessWidget {
               Text(
                 'Hoàn thiện hồ sơ của bạn',
                 style: TextStyle(
-                  color: Color(0xFF1D1517),
+                  color: Get.theme.textTheme.bodyLarge?.color,
                   fontSize: 20,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
@@ -76,7 +76,7 @@ class RegisterPage2 extends StatelessWidget {
                   height: 60,
                   decoration: ShapeDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
+                      colors: [Get.theme.colorScheme.primary, Get.theme.colorScheme.secondary],
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(99),
@@ -122,7 +122,7 @@ class RegisterPage2 extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
-        color: Color(0xFFF7F8F8),
+        color: Get.theme.brightness == Brightness.dark ? Get.theme.colorScheme.surface : const Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: DropdownButtonHideUnderline(
@@ -146,12 +146,16 @@ class RegisterPage2 extends StatelessWidget {
                 ),
               ],
             ),
-            items: <String>['Nam', 'Nữ', 'Khác'].map((String value) {
+            items: [
+              {'label': 'Nam', 'value': 'Male'},
+              {'label': 'Nữ', 'value': 'Female'},
+              {'label': 'Khác', 'value': 'Other'},
+            ].map((gender) {
               return DropdownMenuItem<String>(
-                value: value,
+                value: gender['value']!,
                 child: Text(
-                  value,
-                  style: TextStyle(fontFamily: 'Poppins', fontSize: 12),
+                  gender['label']!,
+                  style: const TextStyle(fontFamily: 'Poppins', fontSize: 12),
                 ),
               );
             }).toList(),
@@ -174,7 +178,7 @@ class RegisterPage2 extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFF7F8F8),
+        color: Get.theme.brightness == Brightness.dark ? Get.theme.colorScheme.surface : const Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: TextField(
@@ -207,7 +211,7 @@ class RegisterPage2 extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFF7F8F8),
+        color: Get.theme.brightness == Brightness.dark ? Get.theme.colorScheme.surface : const Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Row(

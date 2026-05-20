@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
     final AuthController authController = Get.put(AuthController());
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Get.theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
               Text(
                 'Chào bạn nhen,',
                 style: TextStyle(
-                  color: Color(0xFF1D1517),
+                  color: Get.theme.textTheme.bodyLarge?.color,
                   fontSize: 16,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w400,
@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
               Text(
                 'Chào mừng trở lại',
                 style: TextStyle(
-                  color: Color(0xFF1D1517),
+                  color: Get.theme.textTheme.bodyLarge?.color,
                   fontSize: 20,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
@@ -75,7 +75,7 @@ class LoginPage extends StatelessWidget {
                   height: 60,
                   decoration: ShapeDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
+                      colors: [Get.theme.colorScheme.primary, Get.theme.colorScheme.secondary],
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(99),
@@ -115,7 +115,7 @@ class LoginPage extends StatelessWidget {
                     child: Text(
                       'Hoặc',
                       style: TextStyle(
-                        color: Color(0xFF1D1517),
+                        color: Get.theme.textTheme.bodyLarge?.color,
                         fontSize: 12,
                         fontFamily: 'Inter',
                       ),
@@ -152,7 +152,7 @@ class LoginPage extends StatelessWidget {
                   text: TextSpan(
                     text: 'Bạn chưa có tài khoản? ',
                     style: TextStyle(
-                      color: Color(0xFF1D1517),
+                      color: Get.theme.textTheme.bodyLarge?.color,
                       fontSize: 14,
                       fontFamily: 'Poppins',
                     ),
@@ -184,7 +184,7 @@ class LoginPage extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFF7F8F8),
+        color: Get.theme.brightness == Brightness.dark ? Get.theme.colorScheme.surface : const Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: TextField(

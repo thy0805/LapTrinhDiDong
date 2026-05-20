@@ -43,7 +43,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           Expanded(
@@ -90,13 +90,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Container(
                       width: 60,
                       height: 60,
-                      decoration: const ShapeDecoration(
+                      decoration: ShapeDecoration(
                         gradient: LinearGradient(
-                          begin: Alignment(1.83, 1.93),
-                          end: Alignment(-0.42, -0.44),
-                          colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
+                          begin: const Alignment(1.83, 1.93),
+                          end: const Alignment(-0.42, -0.44),
+                          colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.secondary],
                         ),
-                        shape: OvalBorder(),
+                        shape: const OvalBorder(),
                       ),
                       child: const Icon(
                         Icons.arrow_forward_ios,
@@ -154,8 +154,8 @@ class OnboardingContent extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  color: Color(0xFF1D1517),
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                   fontSize: 24,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,

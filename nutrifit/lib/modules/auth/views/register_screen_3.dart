@@ -43,7 +43,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Get.theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -51,7 +51,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
             Text(
               'Mục tiêu của bạn là gì?',
               style: TextStyle(
-                color: Color(0xFF1D1517),
+                color: Get.theme.textTheme.bodyLarge?.color,
                 fontSize: 20,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w700,
@@ -103,7 +103,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
                   height: 60,
                   decoration: ShapeDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
+                      colors: [Get.theme.colorScheme.primary, Get.theme.colorScheme.secondary],
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(99),

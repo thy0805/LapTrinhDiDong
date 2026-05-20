@@ -8,7 +8,7 @@ class SuccessRegistration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Get.theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
@@ -33,7 +33,7 @@ class SuccessRegistration extends StatelessWidget {
                 'Welcome, Stefani',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color(0xFF1D1517),
+                  color: Get.theme.textTheme.bodyLarge?.color,
                   fontSize: 20,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
@@ -71,7 +71,7 @@ class SuccessRegistration extends StatelessWidget {
                   height: 60,
                   decoration: ShapeDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
+                      colors: [Get.theme.colorScheme.primary, Get.theme.colorScheme.secondary],
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(99),

@@ -19,7 +19,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
     final AuthController authController = Get.put(AuthController());
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
@@ -29,7 +29,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
               Text(
                 'Chào bạn nhen,',
                 style: TextStyle(
-                  color: Color(0xFF1D1517),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                   fontSize: 16,
                   fontFamily: 'Poppins',
                 ),
@@ -38,7 +38,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
               Text(
                 'Tạo tài khoản mới',
                 style: TextStyle(
-                  color: Color(0xFF1D1517),
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                   fontSize: 20,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
@@ -119,7 +119,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                   height: 60,
                   decoration: ShapeDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFFCC8FED), Color(0xFF6B50F6)],
+                      colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.secondary],
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(99),
@@ -158,7 +158,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     child: Text(
                       'Hoặc',
                       style: TextStyle(
-                        color: Color(0xFF1D1517),
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
                         fontSize: 12,
                         fontFamily: 'Poppins',
                       ),
@@ -202,7 +202,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                       TextSpan(
                         text: 'Bạn đã có tài khoản? ',
                         style: TextStyle(
-                          color: Color(0xFF1D1517),
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
                           fontSize: 14,
                           fontFamily: 'Poppins',
                         ),
@@ -235,7 +235,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFF7F8F8),
+        color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).colorScheme.surface : const Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: TextField(
