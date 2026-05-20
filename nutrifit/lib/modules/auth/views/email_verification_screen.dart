@@ -72,6 +72,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     final userEmail = authController.userData['email'] ?? FirebaseAuth.instance.currentUser?.email ?? '';
     final fullName = authController.userData['fullName'] ?? 'bạn';
 
+    debugPrint('=========================================');
+    debugPrint('--- NUTRIFIT OTP: $_generatedOtp ---');
+    debugPrint('=========================================');
+
     if (userEmail.isNotEmpty) {
       await MailService.sendEmailVerificationOtp(userEmail, fullName, _generatedOtp);
       Get.snackbar(
