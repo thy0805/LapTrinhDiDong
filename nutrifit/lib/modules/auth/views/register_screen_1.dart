@@ -149,7 +149,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
               SizedBox(height: 25),
 
               Row(
-                children: const [
+                children: [
                   Expanded(
                     child: Divider(color: Color(0xFFDDD9DA), thickness: 1),
                   ),
