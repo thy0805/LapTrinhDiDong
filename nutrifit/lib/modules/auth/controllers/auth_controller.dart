@@ -8,6 +8,7 @@ import 'package:nutrifit/modules/main/home/views/main_screen.dart';
 import 'package:nutrifit/core/services/mail_service.dart';
 import '../views/success_registration.dart';
 import '../views/register_screen_2.dart';
+import '../views/email_verification_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nutrifit/modules/main/profile/views/app_lock_screen.dart';
 import 'package:nutrifit/modules/main/target/workout/controllers/health_service.dart';
@@ -120,6 +121,8 @@ class AuthController extends GetxController {
         'weight': regWeightController.text.trim(),
         'height': regHeightController.text.trim(),
         'goal': selectedGoal.value,
+        'isEmailVerified': false,
+        'verifiedEmail': '',
         'createdAt': DateTime.now(),
       });
 
@@ -130,7 +133,7 @@ class AuthController extends GetxController {
         regNameController.text.trim(),
       );
 
-      Get.offAll(() => const SuccessRegistration());
+      _navigateToMainScreen();
     } catch (e) {
       Get.snackbar(
         "Lỗi đăng ký",
@@ -207,21 +210,24 @@ class AuthController extends GetxController {
   void updateSocialProfile() async {
     try {
       String uid = auth.currentUser!.uid;
+      String email = auth.currentUser!.email ?? regEmailController.text.trim();
       await firestore.collection('users').doc(uid).set({
         'fullName': auth.currentUser!.displayName ?? regNameController.text.trim(),
         'phone': regPhoneController.text.trim(),
-        'email': auth.currentUser!.email ?? regEmailController.text.trim(),
+        'email': email,
         'gender': selectedGender.value,
         'dateOfBirth': regDobController.text.trim(),
         'weight': regWeightController.text.trim(),
         'height': regHeightController.text.trim(),
         'goal': selectedGoal.value,
+        'isEmailVerified': true,
+        'verifiedEmail': email,
         'createdAt': DateTime.now(),
       });
       _fetchUserData(uid);
 
       MailService.sendWelcomeEmail(
-        auth.currentUser!.email ?? '',
+        email,
         auth.currentUser!.displayName ?? regNameController.text.trim(),
       );
 
@@ -252,13 +258,39 @@ class AuthController extends GetxController {
   }
 
   void _navigateToMainScreen() {
-    final box = Hive.box('security_settings');
-    final isLock = box.get('isAppLockEnabled', defaultValue: false);
-    final pin = box.get('appPasscode', defaultValue: '');
-    if (isLock && pin.isNotEmpty) {
-      Get.offAll(() => const AppLockScreen(mode: AppLockMode.verify));
+    if (userData.isEmpty) {
+      String? uid = auth.currentUser?.uid;
+      if (uid != null) {
+        firestore.collection('users').doc(uid).get().then((doc) {
+          if (doc.exists) {
+            userData.value = doc.data() as Map<String, dynamic>;
+            _checkVerificationAndNavigate();
+          } else {
+            Get.offAll(() => const RegisterPage2());
+          }
+        });
+      }
     } else {
-      Get.offAll(() => const MainScreen());
+      _checkVerificationAndNavigate();
+    }
+  }
+
+  void _checkVerificationAndNavigate() {
+    final email = userData['email']?.toString() ?? '';
+    final verifiedEmail = userData['verifiedEmail']?.toString() ?? '';
+    final isVerified = userData['isEmailVerified'] as bool? ?? false;
+
+    if (!isVerified || email != verifiedEmail) {
+      Get.offAll(() => const EmailVerificationScreen());
+    } else {
+      final box = Hive.box('security_settings');
+      final isLock = box.get('isAppLockEnabled', defaultValue: false);
+      final pin = box.get('appPasscode', defaultValue: '');
+      if (isLock && pin.isNotEmpty) {
+        Get.offAll(() => const AppLockScreen(mode: AppLockMode.verify));
+      } else {
+        Get.offAll(() => const MainScreen());
+      }
     }
   }
 }

@@ -396,6 +396,27 @@ class MailService {
     );
   }
 
+  static Future<bool> sendEmailVerificationOtp(
+    String toEmail,
+    String userName,
+    String otpCode,
+  ) async {
+    final subject = '🍵 Mã xác thực tài khoản NutriFit của bạn nè!';
+    final content = '''
+      <p>Chào <span class="highlight">$userName</span> nha! 👋</p>
+      <p>Để hoàn tất đăng ký hoặc bảo mật tài khoản NutriFit, vui lòng nhập mã OTP xác thực bên dưới nhé:</p>
+      <div class="stats-box" style="text-align: center; font-size: 24px; letter-spacing: 4px; font-weight: bold; color: #6B50F6;">
+        $otpCode
+      </div>
+      <p>Mã này có hiệu lực trong vòng 5 phút. Vui lòng không chia sẻ mã này cho bất kỳ ai khác nha!</p>
+    ''';
+    return await sendEmail(
+      toEmail: toEmail,
+      subject: subject,
+      htmlContent: _wrapHtml(content, userName),
+    );
+  }
+
   static Future<void> sendCuteScoldingEmail(
     String toEmail,
     String userName,
