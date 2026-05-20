@@ -9,6 +9,7 @@ import 'package:nutrifit/core/services/mail_service.dart';
 import '../views/success_registration.dart';
 import '../views/register_screen_2.dart';
 import '../views/email_verification_screen.dart';
+import '../views/login_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nutrifit/modules/main/profile/views/app_lock_screen.dart';
 import 'package:nutrifit/modules/main/target/workout/controllers/health_service.dart';
@@ -255,6 +256,7 @@ class AuthController extends GetxController {
     Get.delete<WorkoutController>();
     Get.delete<NotificationController>();
     Get.delete<HomeController>();
+    Get.offAll(() => const LoginPage());
   }
 
   void _navigateToMainScreen() {
