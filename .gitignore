@@ -27,6 +27,7 @@ venv/
 /nutrifit/test_email.py
 /ai_pt_system_architecture.md
 /analysis_options.yaml
+/test_send_mail.py
 
 # Bỏ qua toàn bộ thư mục scripts
 /scripts/
