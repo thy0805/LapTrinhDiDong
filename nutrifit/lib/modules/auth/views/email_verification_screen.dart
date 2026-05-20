@@ -157,7 +157,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -225,7 +225,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         ),
                       ),
                     ),
-              const Spacer(),
+              const SizedBox(height: 40),
               GestureDetector(
                 onTap: _verifyOtp,
                 child: Container(

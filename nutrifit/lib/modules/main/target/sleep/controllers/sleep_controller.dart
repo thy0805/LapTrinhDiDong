@@ -494,6 +494,7 @@ class SleepController extends GetxController with WidgetsBindingObserver {
       loopAudio: true,
       vibrate: isVibrate,
       androidFullScreenIntent: true,
+      warningNotificationOnKill: false,
       volumeSettings: VolumeSettings.fade(
         volume: 0.8,
         fadeDuration: Duration(seconds: 3),
@@ -526,6 +527,7 @@ class SleepController extends GetxController with WidgetsBindingObserver {
       assetAudioPath: 'assets/audio/silent.mp3',
       loopAudio: false,
       vibrate: false,
+      warningNotificationOnKill: false,
       volumeSettings: VolumeSettings.fade(
         volume: 0.0,
         fadeDuration: Duration(seconds: 1),

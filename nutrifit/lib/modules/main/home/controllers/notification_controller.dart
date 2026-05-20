@@ -95,6 +95,7 @@ class NotificationController extends GetxController {
         assetAudioPath: 'assets/audio/silent.mp3',
         loopAudio: false,
         vibrate: false,
+        warningNotificationOnKill: false,
         volumeSettings: VolumeSettings.fade(
           volume: 0.0,
           fadeDuration: const Duration(seconds: 1),
@@ -124,6 +125,7 @@ class NotificationController extends GetxController {
         loopAudio: false,
         vibrate: false,
         androidFullScreenIntent: false,
+        warningNotificationOnKill: false,
         volumeSettings: VolumeSettings.fade(
           volume: 0.0,
           fadeDuration: const Duration(seconds: 1),

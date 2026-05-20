@@ -13,6 +13,7 @@ class RegisterPage1 extends StatefulWidget {
 
 class _RegisterPage1State extends State<RegisterPage1> {
   bool isChecked = false;
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -240,20 +241,30 @@ class _RegisterPage1State extends State<RegisterPage1> {
       ),
       child: TextField(
         controller: controller,
-        obscureText: laMatKhau,
+        obscureText: laMatKhau ? _obscurePassword : false,
         decoration: InputDecoration(
           hintText: goiY,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Color(0xFFACA3A5),
             fontSize: 12,
             fontFamily: 'Poppins',
           ),
-          prefixIcon: Icon(bieuTuong, color: Color(0xFF7B6F72)),
+          prefixIcon: Icon(bieuTuong, color: const Color(0xFF7B6F72)),
           suffixIcon: laMatKhau
-              ? Icon(Icons.visibility_off, color: Color(0xFF7B6F72))
+              ? IconButton(
+                  icon: Icon(
+                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                    color: const Color(0xFF7B6F72),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
+                )
               : null,
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 15),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );

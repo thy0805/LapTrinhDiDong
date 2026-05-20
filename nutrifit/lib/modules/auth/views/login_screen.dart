@@ -9,12 +9,13 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.put(AuthController());
+    final RxBool obscurePassword = true.obs;
 
     return Scaffold(
       backgroundColor: Get.theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -44,13 +45,14 @@ class LoginPage extends StatelessWidget {
                 controller: authController.loginEmailController,
               ),
               SizedBox(height: 15),
-              _taoOTextForm(
+              Obx(() => _taoOTextForm(
                 goiY: "Password",
                 bieuTuong: Icons.lock_outline,
                 laMatKhau: true,
-                bieuTuongCuoi: Icons.visibility_off_outlined,
+                hidePassword: obscurePassword.value,
+                onSuffixIconPressed: obscurePassword.toggle,
                 controller: authController.loginPasswordController,
-              ),
+              )),
               SizedBox(height: 10),
               Align(
                 alignment: Alignment.center,
@@ -65,7 +67,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 250),
+              SizedBox(height: 40),
               GestureDetector(
                 onTap: () {
                   authController.login();
@@ -179,7 +181,8 @@ class LoginPage extends StatelessWidget {
     required String goiY,
     required IconData bieuTuong,
     bool laMatKhau = false,
-    IconData? bieuTuongCuoi,
+    bool hidePassword = false,
+    VoidCallback? onSuffixIconPressed,
     TextEditingController? controller,
   }) {
     return Container(
@@ -189,20 +192,27 @@ class LoginPage extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
-        obscureText: laMatKhau,
+        obscureText: laMatKhau ? hidePassword : false,
         decoration: InputDecoration(
           hintText: goiY,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Color(0xFFACA3A5),
             fontSize: 12,
             fontFamily: 'Poppins',
           ),
-          prefixIcon: Icon(bieuTuong, color: Color(0xFF7B6F72), size: 20),
-          suffixIcon: bieuTuongCuoi != null
-              ? Icon(bieuTuongCuoi, color: Color(0xFF7B6F72), size: 20)
+          prefixIcon: Icon(bieuTuong, color: const Color(0xFF7B6F72), size: 20),
+          suffixIcon: laMatKhau
+              ? IconButton(
+                  icon: Icon(
+                    hidePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                    color: const Color(0xFF7B6F72),
+                    size: 20,
+                  ),
+                  onPressed: onSuffixIconPressed,
+                )
               : null,
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 15),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );

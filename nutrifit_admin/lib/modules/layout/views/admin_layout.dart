@@ -446,6 +446,9 @@ class AdminHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NavigationController navBarController = Get.find<NavigationController>();
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final bool showSearch = screenWidth > 750;
+    final bool showProfileText = screenWidth > 600;
 
     return Obx(() => Container(
       height: 80,
@@ -464,35 +467,39 @@ class AdminHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          Expanded(
-            child: Container(
-              height: 48,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: TailAdminDesign.isDark ? TailAdminDesign.darkBg : TailAdminDesign.gray50,
-                borderRadius: BorderRadius.circular(TailAdminDesign.radiusLg),
-                border: Border.all(color: TailAdminDesign.border),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.search_rounded, color: TailAdminDesign.textMuted, size: 20),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: TextField(
-                      style: GoogleFonts.outfit(color: TailAdminDesign.textMain, fontSize: 14),
-                      decoration: InputDecoration(
-                        hintText: 'Tìm kiếm dữ liệu (Cmd + K)',
-                        hintStyle: GoogleFonts.outfit(color: TailAdminDesign.textMuted, fontSize: 14),
-                        border: InputBorder.none,
-                        isDense: true,
+          if (showSearch) ...[
+            Expanded(
+              child: Container(
+                height: 48,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: TailAdminDesign.isDark ? TailAdminDesign.darkBg : TailAdminDesign.gray50,
+                  borderRadius: BorderRadius.circular(TailAdminDesign.radiusLg),
+                  border: Border.all(color: TailAdminDesign.border),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.search_rounded, color: TailAdminDesign.textMuted, size: 20),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextField(
+                        style: GoogleFonts.outfit(color: TailAdminDesign.textMain, fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: 'Tìm kiếm dữ liệu (Cmd + K)',
+                          hintStyle: GoogleFonts.outfit(color: TailAdminDesign.textMuted, fontSize: 14),
+                          border: InputBorder.none,
+                          isDense: true,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 32),
+            const SizedBox(width: 32),
+          ] else ...[
+            const Spacer(),
+          ],
           // Theme Toggle
           _HeaderIcon(
             icon: navBarController.isDarkMode.value ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
@@ -554,28 +561,30 @@ class AdminHeader extends StatelessWidget {
               cursor: SystemMouseCursors.click,
               child: Row(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Admin NutriFit',
-                        style: GoogleFonts.outfit(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: TailAdminDesign.textMain,
+                  if (showProfileText) ...[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Admin NutriFit',
+                          style: GoogleFonts.outfit(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: TailAdminDesign.textMain,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Hệ thống quản trị',
-                        style: GoogleFonts.outfit(
-                          color: TailAdminDesign.textMuted,
-                          fontSize: 12,
+                        Text(
+                          'Hệ thống quản trị',
+                          style: GoogleFonts.outfit(
+                            color: TailAdminDesign.textMuted,
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 12),
+                      ],
+                    ),
+                    const SizedBox(width: 12),
+                  ],
                   Container(
                     width: 44,
                     height: 44,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:alarm/alarm.dart';
@@ -15,6 +16,10 @@ import 'core/theme/theme_controller.dart';
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     await Firebase.initializeApp();
     await Hive.initFlutter();
     await Hive.openBox('security_settings');

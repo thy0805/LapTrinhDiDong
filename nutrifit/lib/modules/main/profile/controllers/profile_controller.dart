@@ -7,10 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:nutrifit/core/services/media_service.dart';
-import '../../../auth/views/login_screen.dart';
+import 'package:nutrifit/modules/auth/controllers/auth_controller.dart';
 
 class ProfileController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -308,9 +306,6 @@ class ProfileController extends GetxController {
   }
 
   void logout() async {
-    await auth.signOut();
-    await GoogleSignIn().signOut();
-    await FacebookAuth.instance.logOut();
-    Get.offAll(() => LoginPage());
+    Get.find<AuthController>().logout();
   }
 }

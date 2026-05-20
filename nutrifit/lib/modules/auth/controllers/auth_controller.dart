@@ -19,6 +19,12 @@ import 'package:nutrifit/modules/main/target/workout/controllers/activity_contro
 import 'package:nutrifit/modules/main/target/workout/controllers/workout_controller.dart';
 import 'package:nutrifit/modules/main/home/controllers/notification_controller.dart';
 import 'package:nutrifit/modules/main/home/controllers/home_controller.dart';
+import 'package:nutrifit/modules/main/profile/controllers/profile_controller.dart';
+import 'package:nutrifit/modules/main/profile/controllers/security_controller.dart';
+import 'package:nutrifit/modules/main/target/other/controllers/target_controller.dart';
+import 'package:nutrifit/modules/main/progress/controllers/progress_controller.dart';
+import 'package:nutrifit/modules/main/home/controllers/ai_assistant_controller.dart';
+import 'package:nutrifit/modules/main/target/nutrition/controllers/ai_scanner_controller.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
@@ -249,6 +255,13 @@ class AuthController extends GetxController {
     await GoogleSignIn().signOut();
     await FacebookAuth.instance.logOut();
     userData.clear();
+    if (Hive.isBoxOpen('cached_intake')) {
+      await Hive.box('cached_intake').clear();
+    } else {
+      var box = await Hive.openBox('cached_intake');
+      await box.clear();
+      await box.close();
+    }
     Get.delete<HealthService>();
     Get.delete<SleepController>();
     Get.delete<NutritionController>();
@@ -256,6 +269,14 @@ class AuthController extends GetxController {
     Get.delete<WorkoutController>();
     Get.delete<NotificationController>();
     Get.delete<HomeController>();
+    Get.delete<ProfileController>();
+    Get.delete<SecurityController>();
+    Get.delete<TargetController>();
+    Get.delete<ProgressController>();
+    Get.delete<AiAssistantController>();
+    Get.delete<AiScannerController>();
+    Get.delete<MainScreenController>();
+    Get.delete<TargetTabController>();
     Get.offAll(() => const LoginPage());
   }
 
