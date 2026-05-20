@@ -1,22 +1,27 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:nutrifit/modules/main/home/views/main_screen.dart'; 
+import '../controllers/auth_controller.dart';
 
 class SuccessRegistration extends StatelessWidget {
   const SuccessRegistration({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthController>();
+    final userName = authController.regNameController.text.trim().isNotEmpty
+        ? authController.regNameController.text.trim()
+        : (authController.userData['fullName']?.toString() ?? 'bạn');
+
     return Scaffold(
       backgroundColor: Get.theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(),
-
+              const Spacer(),
               Image.asset(
                 'assets/success.png',
                 height: 300,
@@ -27,10 +32,9 @@ class SuccessRegistration extends StatelessWidget {
                   color: Get.theme.colorScheme.primary,
                 ),
               ),
-              SizedBox(height: 40),
-
+              const SizedBox(height: 40),
               Text(
-                'Welcome, Stefani',
+                'Chào mừng, $userName',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Get.theme.textTheme.bodyLarge?.color,
@@ -39,14 +43,13 @@ class SuccessRegistration extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              SizedBox(height: 15),
-
+              const SizedBox(height: 15),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  'You are all set now, let’s reach your goals together with us',
+                  'Tài khoản của bạn đã sẵn sàng. Hãy cùng nhau chinh phục mục tiêu sức khỏe nhé!',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFF7B6F72),
                     fontSize: 12,
                     fontFamily: 'Poppins',
@@ -55,14 +58,12 @@ class SuccessRegistration extends StatelessWidget {
                   ),
                 ),
               ),
-
-              Spacer(),
-
+              const Spacer(),
               GestureDetector(
                 onTap: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => MainScreen()),
+                    MaterialPageRoute(builder: (context) => const MainScreen()),
                     (route) => false,
                   );
                 },
@@ -84,9 +85,9 @@ class SuccessRegistration extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
-                      'Go To Home',
+                      'Bắt đầu ngay',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
