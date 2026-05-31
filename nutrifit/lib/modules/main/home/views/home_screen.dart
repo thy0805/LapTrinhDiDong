@@ -1937,13 +1937,17 @@ class _HomeSleepTrackerCardState extends State<HomeSleepTrackerCard>
                         children: [
                           Row(
                             children: [
-                              Text(
-                                isTracking ? 'Đang Ngủ Say...' : 'Vũ Trụ Giấc Ngủ',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
+                              Flexible(
+                                child: Text(
+                                  isTracking ? 'Đang Ngủ Say...' : 'Vũ Trụ Giấc Ngủ',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
                               ),
                               const SizedBox(width: 6),
@@ -1972,6 +1976,8 @@ class _HomeSleepTrackerCardState extends State<HomeSleepTrackerCard>
                                 color: Colors.white70,
                                 fontFamily: 'Poppins',
                               ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
                           ] else ...[
                             Text(
