@@ -6,12 +6,12 @@ import 'package:alarm/alarm.dart';
 import 'package:health/health.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'modules/auth/views/welcome_screen_1.dart';
-import 'modules/auth/controllers/auth_controller.dart';
-import 'core/services/media_service.dart';
-import 'core/services/sync_service.dart';
-import 'core/services/gamification_service.dart';
-import 'core/theme/theme_controller.dart';
+import 'package:nutrifit/modules/auth/views/welcome_screen_1.dart';
+import 'package:nutrifit/modules/auth/controllers/auth_controller.dart';
+import 'package:nutrifit/core/services/media_service.dart';
+import 'package:nutrifit/core/services/sync_service.dart';
+import 'package:nutrifit/core/services/gamification_service.dart';
+import 'package:nutrifit/core/theme/theme_controller.dart';
 
 void main() async {
   try {

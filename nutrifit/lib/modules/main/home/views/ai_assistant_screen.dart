@@ -438,6 +438,70 @@ class AiAssistantScreen extends StatelessWidget {
                                   scrollToBottom();
                                 },
                               ),
+                              Obx(() => PopupMenuButton<String>(
+                                initialValue: controller.selectedModel.value,
+                                icon: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: controller.selectedModel.value == "pro"
+                                        ? Colors.orange.withValues(alpha: 0.15)
+                                        : Colors.blue.withValues(alpha: 0.15),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: controller.selectedModel.value == "pro"
+                                          ? Colors.orange
+                                          : Colors.blue,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        controller.selectedModel.value == "pro" ? "Pro" : "Flash",
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                          color: controller.selectedModel.value == "pro"
+                                              ? Colors.orange
+                                              : Colors.blue,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 14,
+                                        color: controller.selectedModel.value == "pro"
+                                            ? Colors.orange
+                                            : Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onSelected: (String value) {
+                                  controller.selectedModel.value = value;
+                                },
+                                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                  const PopupMenuItem<String>(
+                                    value: 'fast',
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.bolt, color: Colors.blue, size: 18),
+                                        SizedBox(width: 8),
+                                        Text('Flash (Local)', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                                      ],
+                                    ),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'pro',
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.star, color: Colors.orange, size: 18),
+                                        SizedBox(width: 8),
+                                        Text('Pro (Colab)', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )),
                               Expanded(
                                 child: Obx(() {
                                   final active = controller.selectedWizardTags.isNotEmpty;
@@ -823,7 +887,10 @@ class AiAssistantScreen extends StatelessWidget {
     
     if (match != null) {
       final exerciseName = match.group(1)!.trim();
-      final cleanContent = displayContent.replaceAll(match.group(0)!, '').trim();
+      final cleanContent = displayContent
+          .replaceAll(RegExp(r'\[CARD_EXERCISE:\s*[^\]]+\]'), '')
+          .replaceAll(RegExp(r'\[CARD_MEAL:\s*[^\]]+\]'), '')
+          .trim();
       
       Map<String, dynamic>? exerciseData;
       try {

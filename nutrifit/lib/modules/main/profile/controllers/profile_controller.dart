@@ -115,48 +115,73 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200) {
         var responseData = await response.stream.bytesToString();
         return json.decode(responseData)['secure_url'];
+      } else {
+        debugPrint('Cloudinary error status: ${response.statusCode}');
       }
-    } catch (e) { Get.back(); }
+    } catch (e) {
+      Get.back();
+      debugPrint('Cloudinary upload exception: $e');
+    }
     return null;
   }
 
   Future<void> updateAvatar() async {
-    final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      CroppedFile? croppedFile = await _cropImage(image.path, true);
-      if (croppedFile != null) {
-        String? url = await _uploadToCloudinary(croppedFile.path);
-        if (url != null) {
-          final mediaService = Get.find<MediaService>();
-          final localPath = mediaService.getLocalPath(auth.currentUser!.uid, 'avatars', url);
-          try {
-            await File(croppedFile.path).copy(localPath);
-          } catch (_) {
-            await mediaService.downloadAndSaveFile(auth.currentUser!.uid, 'avatars', url);
+    try {
+      final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        CroppedFile? croppedFile = await _cropImage(image.path, true);
+        if (croppedFile != null) {
+          String? url = await _uploadToCloudinary(croppedFile.path);
+          if (url != null) {
+            final mediaService = Get.find<MediaService>();
+            final localPath = mediaService.getLocalPath(auth.currentUser!.uid, 'avatars', url);
+            try {
+              await File(croppedFile.path).copy(localPath);
+            } catch (e) {
+              debugPrint('Copy local file error: $e');
+              await mediaService.downloadAndSaveFile(auth.currentUser!.uid, 'avatars', url);
+            }
+            try {
+              await FileImage(File(localPath)).evict();
+            } catch (e) {
+              debugPrint('Evict cache error: $e');
+            }
+            await firestore.collection('users').doc(auth.currentUser!.uid).update({'avatarUrl': url});
           }
-          await firestore.collection('users').doc(auth.currentUser!.uid).update({'avatarUrl': url});
         }
       }
+    } catch (e) {
+      debugPrint('updateAvatar error: $e');
     }
   }
 
   Future<void> updateCover() async {
-    final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      CroppedFile? croppedFile = await _cropImage(image.path, false);
-      if (croppedFile != null) {
-        String? url = await _uploadToCloudinary(croppedFile.path);
-        if (url != null) {
-          final mediaService = Get.find<MediaService>();
-          final localPath = mediaService.getLocalPath(auth.currentUser!.uid, 'covers', url);
-          try {
-            await File(croppedFile.path).copy(localPath);
-          } catch (_) {
-            await mediaService.downloadAndSaveFile(auth.currentUser!.uid, 'covers', url);
+    try {
+      final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        CroppedFile? croppedFile = await _cropImage(image.path, false);
+        if (croppedFile != null) {
+          String? url = await _uploadToCloudinary(croppedFile.path);
+          if (url != null) {
+            final mediaService = Get.find<MediaService>();
+            final localPath = mediaService.getLocalPath(auth.currentUser!.uid, 'covers', url);
+            try {
+              await File(croppedFile.path).copy(localPath);
+            } catch (e) {
+              debugPrint('Copy local file error: $e');
+              await mediaService.downloadAndSaveFile(auth.currentUser!.uid, 'covers', url);
+            }
+            try {
+              await FileImage(File(localPath)).evict();
+            } catch (e) {
+              debugPrint('Evict cache error: $e');
+            }
+            await firestore.collection('users').doc(auth.currentUser!.uid).update({'coverUrl': url});
           }
-          await firestore.collection('users').doc(auth.currentUser!.uid).update({'coverUrl': url});
         }
       }
+    } catch (e) {
+      debugPrint('updateCover error: $e');
     }
   }
 

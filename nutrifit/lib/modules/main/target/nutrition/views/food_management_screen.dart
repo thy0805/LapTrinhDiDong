@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -816,30 +817,154 @@ class _FoodManagementScreenState extends State<FoodManagementScreen>
   }
 
   Widget _buildHistoryTab() {
-    return ListView(
-      padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 80),
-      children: [
-        Text(
-          'Gần đây',
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Poppins',
+    return Obx(() {
+      if (controller.isLoadingHistory.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      if (controller.mealHistory.isEmpty) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.history_toggle_off, size: 64, color: Colors.grey.shade400),
+              const SizedBox(height: 15),
+              Text(
+                'Chưa có lịch sử ăn uống nào',
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : const Color(0xFF7B6F72),
+                  fontFamily: 'Poppins',
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
-        ),
-        SizedBox(height: 15),
-        Center(
-          child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text(
-              'Chưa có lịch sử món ăn.',
-              style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFB6B4C1), fontFamily: 'Poppins'),
+        );
+      }
+
+      return ListView.builder(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 80),
+        itemCount: controller.mealHistory.length,
+        itemBuilder: (context, index) {
+          final meal = controller.mealHistory[index];
+          final String name = meal['foodName'] ?? 'Bữa ăn';
+          final String type = meal['mealType'] ?? 'Khác';
+          final double cal = (meal['totalCalories'] is num) ? (meal['totalCalories'] as num).toDouble() : 0.0;
+          
+          DateTime date;
+          if (meal['timestamp'] is Timestamp) {
+            date = (meal['timestamp'] as Timestamp).toDate();
+          } else if (meal['timestamp'] is DateTime) {
+            date = meal['timestamp'] as DateTime;
+          } else {
+            date = DateTime.now();
+          }
+
+          String formattedDate = _formatHistoryDate(date);
+          String hinhAnh = meal['image_url'] ?? '';
+
+          return Container(
+            margin: const EdgeInsets.only(bottom: 15),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.black.withValues(alpha: 0.2) : const Color(0x111D1617),
+                  blurRadius: 40,
+                  offset: const Offset(0, 10),
+                ),
+              ],
             ),
-          ),
-        ),
-      ],
-    );
+            child: Row(
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Get.theme.colorScheme.primary.withValues(alpha: 0.1),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: _buildHistoryMealImage(hinhAnh),
+                  ),
+                ),
+                const SizedBox(width: 15),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        '$type • ${cal.toStringAsFixed(0)} kcal • $formattedDate',
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : const Color(0xFFA5A3AF),
+                          fontSize: 12,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    });
+  }
+
+  String _formatHistoryDate(DateTime date) {
+    DateTime now = DateTime.now();
+    DateTime yesterday = now.subtract(const Duration(days: 1));
+    String timeStr = '${date.hour}:${date.minute.toString().padLeft(2, '0')}';
+    
+    if (date.year == now.year && date.month == now.month && date.day == now.day) {
+      return 'Hôm nay, $timeStr';
+    } else if (date.year == yesterday.year && date.month == yesterday.month && date.day == yesterday.day) {
+      return 'Hôm qua, $timeStr';
+    } else {
+      return '${date.day}/${date.month}, $timeStr';
+    }
+  }
+
+  Widget _buildHistoryMealImage(String? imageSource) {
+    if (imageSource == null || imageSource.isEmpty) {
+      return Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 24);
+    }
+    try {
+      if (imageSource.startsWith('http')) {
+        return Image.network(
+          imageSource,
+          fit: BoxFit.cover,
+          errorBuilder: (c, e, s) => Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 24),
+        );
+      } else if (imageSource.startsWith('/') || imageSource.contains('cache')) {
+        return Image.file(
+          File(imageSource),
+          fit: BoxFit.cover,
+          errorBuilder: (c, e, s) => Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 24),
+        );
+      } else {
+        return Image.asset(
+          imageSource,
+          fit: BoxFit.cover,
+          errorBuilder: (c, e, s) => Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 24),
+        );
+      }
+    } catch (e) {
+      return Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 24);
+    }
   }
 
   Widget _buildGridFoodItem(BuildContext context, FoodItem food) {

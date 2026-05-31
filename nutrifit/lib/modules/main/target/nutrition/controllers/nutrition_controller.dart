@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'dart:async';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -51,10 +52,13 @@ class NutritionController extends GetxController {
   var weeklyNutritionData = <double>[0, 0, 0, 0, 0, 0, 0].obs;
   late Box _cacheBox;
 
-  // Food Library Data (Previously in FoodController)
   var searchText = ''.obs;
   var selectedCategory = 'Tất cả'.obs;
   final RxList<FoodItem> allFoods = <FoodItem>[].obs;
+
+  var mealHistory = <Map<String, dynamic>>[].obs;
+  var isLoadingHistory = false.obs;
+  StreamSubscription? _intakeSubscription;
 
   bool get hasMealToday => todayMeals.isNotEmpty;
 
@@ -75,7 +79,47 @@ class NutritionController extends GetxController {
     _loadFromCache();
     fetchTodayMeals();
     _fetchWeeklyNutrition();
-    fetchFoods(); // Initial load for food library
+    fetchFoods();
+    fetchMealHistory();
+  }
+
+  void fetchMealHistory() {
+    String? uid = _auth.currentUser?.uid;
+    if (uid == null) return;
+    isLoadingHistory.value = true;
+    _intakeSubscription?.cancel();
+    _intakeSubscription = _firestore
+        .collection('user_intake')
+        .where('userId', isEqualTo: uid)
+        .snapshots()
+        .listen((snapshot) {
+      var list = snapshot.docs.map((doc) {
+        var data = doc.data();
+        data['id'] = doc.id;
+        return data;
+      }).toList();
+
+      list.sort((a, b) {
+        Timestamp? tA = a['timestamp'] as Timestamp?;
+        Timestamp? tB = b['timestamp'] as Timestamp?;
+        if (tA == null && tB == null) return 0;
+        if (tA == null) return 1;
+        if (tB == null) return -1;
+        return tB.compareTo(tA);
+      });
+
+      mealHistory.value = list;
+      isLoadingHistory.value = false;
+    }, onError: (error) {
+      debugPrint("Loi fetchMealHistory: $error");
+      isLoadingHistory.value = false;
+    });
+  }
+
+  @override
+  void onClose() {
+    _intakeSubscription?.cancel();
+    super.onClose();
   }
 
   // --- FOOD LIBRARY METHODS ---

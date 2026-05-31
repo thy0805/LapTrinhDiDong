@@ -22,6 +22,7 @@ class AiAssistantController extends GetxController {
   var isPredicting = false.obs;
   var isContextLoaded = false.obs;
   var isConfirmingPlan = false.obs;
+  var selectedModel = "fast".obs;
   final String baseUrl = "https://nonaudible-mesophytic-gisele.ngrok-free.dev";
   
   final ImagePicker _picker = ImagePicker();
@@ -1009,7 +1010,10 @@ $activePlanStr""";
 
       var request = http.Request('POST', Uri.parse('$baseUrl/chat'));
       request.headers['Content-Type'] = 'application/json';
-      request.body = jsonEncode({"messages": reqMessages});
+      request.body = jsonEncode({
+        "messages": reqMessages,
+        "model": selectedModel.value
+      });
 
       var streamedResponse = await request.send();
 

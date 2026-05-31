@@ -74,7 +74,33 @@ class DashboardController extends GetxController {
       }
 
       genderDistribution.value = {'Nam': male, 'Nữ': female};
-      userGrowthData.value = [120, 150, 180, 220, 250, 310, totalUsers.value.toDouble()];
+      
+      DateTime now = DateTime.now();
+      int currentWeekday = now.weekday;
+      DateTime monday = DateTime(now.year, now.month, now.day).subtract(Duration(days: currentWeekday - 1));
+      
+      List<double> growth = [];
+      for (int i = 0; i < 7; i++) {
+        DateTime dayEnd = monday.add(Duration(days: i)).add(const Duration(hours: 23, minutes: 59, seconds: 59));
+        if (dayEnd.isAfter(now)) {
+          growth.add(0.0);
+          continue;
+        }
+        int count = 0;
+        for (var doc in snapshot.docs) {
+          var data = doc.data();
+          Timestamp? created = data['createdAt'] as Timestamp?;
+          if (created != null) {
+            if (created.toDate().isBefore(dayEnd)) {
+              count++;
+            }
+          } else {
+            count++;
+          }
+        }
+        growth.add(count.toDouble());
+      }
+      userGrowthData.value = growth;
       isLoading.value = false;
     }, onError: (e) => Get.log("Lỗi stats users: $e"));
 
