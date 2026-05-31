@@ -60,7 +60,7 @@ class NotificationController extends GetxController {
         notificationTitle: "NutriFit đang chạy ngầm",
         notificationText: "Ứng dụng đang chạy ngầm để nhắc nhở sức khỏe",
         notificationImportance: AndroidNotificationImportance.normal,
-        notificationIcon: AndroidResource(name: 'ic_launcher', defType: 'mipmap'),
+        notificationIcon: AndroidResource(name: 'launcher_icon', defType: 'mipmap'),
       );
       bool hasPermissions = await FlutterBackground.initialize(androidConfig: androidConfig);
       if (hasPermissions) {
