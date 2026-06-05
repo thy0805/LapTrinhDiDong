@@ -37,7 +37,10 @@ class SleepTrackerScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.tune, size: 20, color: Color(0xFF1D1517)),
                         SizedBox(width: 10),
-                        Text('Mục tiêu ngủ', style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
+                        Text(
+                          'Mục tiêu ngủ',
+                          style: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -47,7 +50,10 @@ class SleepTrackerScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.sync, size: 20, color: Color(0xFF1D1517)),
                         SizedBox(width: 10),
-                        Text('Đồng bộ Health', style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
+                        Text(
+                          'Đồng bộ Health',
+                          style: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -55,9 +61,16 @@ class SleepTrackerScreen extends StatelessWidget {
                     value: 'add_manual',
                     child: Row(
                       children: [
-                        Icon(Icons.add_circle_outline, size: 20, color: Color(0xFF1D1517)),
+                        Icon(
+                          Icons.add_circle_outline,
+                          size: 20,
+                          color: Color(0xFF1D1517),
+                        ),
                         SizedBox(width: 10),
-                        Text('Thêm thủ công', style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
+                        Text(
+                          'Thêm thủ công',
+                          style: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -86,17 +99,20 @@ class SleepTrackerScreen extends StatelessWidget {
                   bgColor = const Color(0xFFE8F5E9);
                   textColor = const Color(0xFF2E7D32);
                   icon = Icons.check_circle_rounded;
-                  message = 'Thật tuyệt vời! ${sleepController.userPronoun} đã ngủ rất đầy đủ giấc trong tuần này rồi. Cơ thể đang cực kỳ tràn đầy năng lượng nha! 💚';
+                  message =
+                      'Thật tuyệt vời! ${sleepController.userPronoun} đã ngủ rất đầy đủ giấc trong tuần này rồi. Cơ thể đang cực kỳ tràn đầy năng lượng nha! 💚';
                 } else if (debt <= 4.0) {
                   bgColor = const Color(0xFFFFF3E0);
                   textColor = const Color(0xFFE65100);
                   icon = Icons.info_rounded;
-                  message = '${sleepController.userPronoun == 'ông' ? 'Ông' : 'Bà'} đang hơi thiếu ngủ nhẹ một chút (nợ ngủ ${debt.toStringAsFixed(1)} giờ trong tuần). Nhớ tranh thủ ngủ bù để hồi phục sức khoẻ nhen! 🧡';
+                  message =
+                      '${sleepController.userPronoun == 'ông' ? 'Ông' : 'Bà'} đang hơi thiếu ngủ nhẹ một chút (nợ ngủ ${debt.toStringAsFixed(1)} giờ trong tuần). Nhớ tranh thủ ngủ bù để hồi phục sức khoẻ nhen! 🧡';
                 } else {
                   bgColor = const Color(0xFFFFEBEE);
                   textColor = const Color(0xFFC62828);
                   icon = Icons.warning_rounded;
-                  message = 'Cảnh báo! ${sleepController.userPronoun == 'ông' ? 'Ông' : 'Bà'} đang thiếu ngủ khá nhiều đó nha (nợ ngủ ${debt.toStringAsFixed(1)} giờ trong tuần). Phải sắp xếp đi ngủ sớm ngay đi nè! 💔';
+                  message =
+                      'Cảnh báo! ${sleepController.userPronoun == 'ông' ? 'Ông' : 'Bà'} đang thiếu ngủ khá nhiều đó nha (nợ ngủ ${debt.toStringAsFixed(1)} giờ trong tuần). Phải sắp xếp đi ngủ sớm ngay đi nè! 💔';
                 }
 
                 return Container(
@@ -108,10 +124,7 @@ class SleepTrackerScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Icon(
-                        icon,
-                        color: textColor,
-                      ),
+                      Icon(icon, color: textColor),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -213,8 +226,7 @@ class SleepTrackerScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: sleepController.schedules.length,
-                  separatorBuilder: (context, index) =>
-                      SizedBox(height: 15),
+                  separatorBuilder: (context, index) => SizedBox(height: 15),
                   itemBuilder: (context, index) {
                     var schedule = sleepController.schedules[index];
                     bool isBedtime =
@@ -379,10 +391,7 @@ class SleepTrackerScreen extends StatelessWidget {
               ),
               ListTile(
                 leading: Text('😫', style: TextStyle(fontSize: 24)),
-                title: Text(
-                  'Mệt mỏi',
-                  style: TextStyle(fontFamily: 'Poppins'),
-                ),
+                title: Text('Mệt mỏi', style: TextStyle(fontFamily: 'Poppins')),
                 onTap: () {
                   Navigator.pop(context);
                   controller.stopTracking('Mệt mỏi');
@@ -460,8 +469,7 @@ class SleepTrackerScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 30),
-                  
-                  // Row Đi ngủ
+
                   _buildDateTimeRow(
                     label: 'Đi ngủ',
                     value: formatDisplay(startTime),
@@ -493,8 +501,7 @@ class SleepTrackerScreen extends StatelessWidget {
                     },
                   ),
                   Divider(height: 40, thickness: 1, color: Color(0xFFF7F8F8)),
-                  
-                  // Row Thức dậy
+
                   _buildDateTimeRow(
                     label: 'Thức dậy',
                     value: formatDisplay(endTime),
@@ -526,7 +533,7 @@ class SleepTrackerScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 30),
-                  
+
                   Text(
                     'Cảm giác sau khi dậy',
                     style: TextStyle(
@@ -541,27 +548,43 @@ class SleepTrackerScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: ['Tươi tỉnh', 'Bình thường', 'Mệt mỏi'].map((m) {
                       bool isSelected = mood == m;
-                      String emoji = m == 'Tươi tỉnh' ? '😁' : (m == 'Bình thường' ? '😐' : '😫');
+                      String emoji = m == 'Tươi tỉnh'
+                          ? '😁'
+                          : (m == 'Bình thường' ? '😐' : '😫');
                       return GestureDetector(
                         onTap: () => setState(() => mood = m),
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 10,
+                          ),
                           decoration: BoxDecoration(
-                            color: isSelected ? Get.theme.colorScheme.primary.withValues(alpha: 0.1) : Colors.transparent,
+                            color: isSelected
+                                ? Get.theme.colorScheme.primary.withValues(
+                                    alpha: 0.1,
+                                  )
+                                : Colors.transparent,
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: isSelected ? Get.theme.colorScheme.primary : Colors.grey[200]!,
+                              color: isSelected
+                                  ? Get.theme.colorScheme.primary
+                                  : Colors.grey[200]!,
                             ),
                           ),
                           child: Column(
                             children: [
                               Text(emoji, style: TextStyle(fontSize: 24)),
                               SizedBox(height: 5),
-                              Text(m, style: TextStyle(
-                                fontSize: 12, 
-                                fontFamily: 'Poppins',
-                                color: isSelected ? Get.theme.colorScheme.primary : Colors.grey[600],
-                              )),
+                              Text(
+                                m,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: isSelected
+                                      ? Get.theme.colorScheme.primary
+                                      : Colors.grey[600],
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -579,7 +602,9 @@ class SleepTrackerScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(50),
                         ),
                         elevation: 5,
-                        shadowColor: Get.theme.colorScheme.primary.withValues(alpha: 0.3),
+                        shadowColor: Get.theme.colorScheme.primary.withValues(
+                          alpha: 0.3,
+                        ),
                       ),
                       onPressed: () {
                         if (endTime.isBefore(startTime)) {
@@ -615,7 +640,11 @@ class SleepTrackerScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDateTimeRow({required String label, required String value, required VoidCallback onTap}) {
+  Widget _buildDateTimeRow({
+    required String label,
+    required String value,
+    required VoidCallback onTap,
+  }) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(10),
@@ -667,12 +696,16 @@ class SleepTrackerScreen extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: isTracking ? 30 : 15),
         decoration: BoxDecoration(
-          color: isTracking ? Get.theme.colorScheme.secondary : Get.theme.colorScheme.primary,
+          color: isTracking
+              ? Get.theme.colorScheme.secondary
+              : Get.theme.colorScheme.primary,
           borderRadius: BorderRadius.circular(16),
           boxShadow: isTracking
               ? [
                   BoxShadow(
-                    color: Get.theme.colorScheme.secondary.withValues(alpha: 0.5),
+                    color: Get.theme.colorScheme.secondary.withValues(
+                      alpha: 0.5,
+                    ),
                     blurRadius: 20,
                     offset: Offset(0, 10),
                   ),
@@ -763,10 +796,7 @@ class SleepTrackerScreen extends StatelessWidget {
               right: 20,
               top: 20,
               child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
@@ -785,12 +815,7 @@ class SleepTrackerScreen extends StatelessWidget {
               ),
             ),
           Padding(
-            padding: EdgeInsets.only(
-              top: 80,
-              bottom: 10,
-              left: 10,
-              right: 20,
-            ),
+            padding: EdgeInsets.only(top: 80, bottom: 10, left: 10, right: 20),
             child: LineChart(
               LineChartData(
                 gridData: FlGridData(
@@ -976,10 +1001,7 @@ class SleepTrackerScreen extends StatelessWidget {
               ],
             ),
           ),
-          Icon(
-            Icons.keyboard_arrow_right,
-            color: Color(0xFFB6B4C1),
-          ),
+          Icon(Icons.keyboard_arrow_right, color: Color(0xFFB6B4C1)),
         ],
       ),
     );

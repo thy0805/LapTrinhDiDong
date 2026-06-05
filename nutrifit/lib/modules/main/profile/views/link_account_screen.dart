@@ -130,7 +130,6 @@ class _LinkAccountScreenState extends State<LinkAccountScreen> {
         await user.sendEmailVerification();
         await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
           'email': email,
-          'password': password,
         });
         _checkProviders();
         Get.snackbar(

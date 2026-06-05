@@ -13,16 +13,41 @@ class ProgressGalleryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('Tiến độ tập luyện', style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black, fontWeight: FontWeight.bold, fontFamily: 'Poppins', fontSize: 16)),
+        title: Text(
+          'Tiến độ tập luyện',
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Poppins',
+            fontSize: 16,
+          ),
+        ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black), onPressed: () => Get.back()),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),
+          onPressed: () => Get.back(),
+        ),
         actions: [
           TextButton.icon(
             onPressed: () => Get.to(() => ProgressComparisonScreen()),
             icon: Icon(Icons.compare, color: Get.theme.colorScheme.primary),
-            label: Text('So sánh', style: TextStyle(color: Get.theme.colorScheme.primary, fontWeight: FontWeight.bold, fontFamily: 'Poppins')),
-          )
+            label: Text(
+              'So sánh',
+              style: TextStyle(
+                color: Get.theme.colorScheme.primary,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+              ),
+            ),
+          ),
         ],
       ),
       body: Obx(() {
@@ -46,7 +71,7 @@ class ProgressGalleryScreen extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 15,
             mainAxisSpacing: 15,
-            childAspectRatio: 0.7, // Ảnh chân dung nhìn sẽ đẹp hơn
+            childAspectRatio: 0.7,
           ),
           itemCount: controller.progressPhotos.length,
           itemBuilder: (context, index) {
@@ -74,7 +99,10 @@ class ProgressGalleryScreen extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
-                      colors: [Colors.black.withValues(alpha: 0.7), Colors.transparent],
+                      colors: [
+                        Colors.black.withValues(alpha: 0.7),
+                        Colors.transparent,
+                      ],
                     ),
                   ),
                   padding: EdgeInsets.all(10),
@@ -85,12 +113,23 @@ class ProgressGalleryScreen extends StatelessWidget {
                     children: [
                       Text(
                         controller.formatDate(photoData['createdAt']),
-                        style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Poppins',
+                        ),
                       ),
-                      if (photoData['weightAtTime'] != null && photoData['weightAtTime'].toString().isNotEmpty)
+                      if (photoData['weightAtTime'] != null &&
+                          photoData['weightAtTime'].toString().isNotEmpty)
                         Text(
                           '${photoData['weightAtTime']} kg',
-                          style: TextStyle(color: Get.theme.colorScheme.primary, fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                          style: TextStyle(
+                            color: Get.theme.colorScheme.primary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                     ],
                   ),

@@ -27,22 +27,29 @@ class HealthService extends GetxService {
 
   Future<bool> requestPermissions() async {
     try {
-      debugPrint("--- HealthService: Đang xin tất cả quyền Health Connect... ---");
-      
-      // Xin cả quyền READ cho tất cả các loại
+      debugPrint(
+        "--- HealthService: Đang xin tất cả quyền Health Connect... ---",
+      );
+
       final permissions = _types.map((e) => HealthDataAccess.READ).toList();
-      
-      bool? hasPermissions = await _health.hasPermissions(_types, permissions: permissions);
-      
+
+      bool? hasPermissions = await _health.hasPermissions(
+        _types,
+        permissions: permissions,
+      );
+
       if (hasPermissions == true) {
         debugPrint("--- HealthService: Đã có đủ quyền rồi! ---");
         isAuthorized.value = true;
         return true;
       }
 
-      bool requested = await _health.requestAuthorization(_types, permissions: permissions);
+      bool requested = await _health.requestAuthorization(
+        _types,
+        permissions: permissions,
+      );
       isAuthorized.value = requested;
-      
+
       if (requested) {
         debugPrint("--- HealthService: Cấp quyền thành công! ---");
       } else {

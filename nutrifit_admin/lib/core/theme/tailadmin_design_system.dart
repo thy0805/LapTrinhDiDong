@@ -6,7 +6,6 @@ class TailAdminDesign {
   static NavigationController get _nav => Get.find<NavigationController>();
   static bool get isDark => _nav.isDarkMode.value;
 
-  // Semantic Colors cho Dark/Light mode
   static Color get bgMain => isDark ? darkBg : gray50;
   static Color get bgCard => isDark ? darkCard : Colors.white;
   static Color get textMain => isDark ? darkTextMain : gray900;
@@ -25,7 +24,7 @@ class TailAdminDesign {
   static const Color danger = Color(0xFFEF4444);
   static const Color warning = Color(0xFFF59E0B);
   static const Color success = Color(0xFF10B981);
-  
+
   static const Color gray50 = Color(0xFFF9FAFB);
   static const Color gray100 = Color(0xFFF3F4F6);
   static const Color gray200 = Color(0xFFE5E7EB);

@@ -60,21 +60,34 @@ class AppTable<T> extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 16),
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
-                      color: TailAdminDesign.isDark ? TailAdminDesign.darkBg : TailAdminDesign.gray50,
-                      borderRadius: BorderRadius.circular(TailAdminDesign.radiusMd),
+                      color: TailAdminDesign.isDark
+                          ? TailAdminDesign.darkBg
+                          : TailAdminDesign.gray50,
+                      borderRadius: BorderRadius.circular(
+                        TailAdminDesign.radiusMd,
+                      ),
                       border: Border.all(color: TailAdminDesign.border),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.search_rounded, color: TailAdminDesign.textMuted, size: 18),
+                        Icon(
+                          Icons.search_rounded,
+                          color: TailAdminDesign.textMuted,
+                          size: 18,
+                        ),
                         const SizedBox(width: 8),
                         Expanded(
                           child: TextField(
                             onChanged: onSearch,
-                            style: GoogleFonts.outfit(fontSize: 13, color: TailAdminDesign.textMain),
+                            style: GoogleFonts.outfit(
+                              fontSize: 13,
+                              color: TailAdminDesign.textMain,
+                            ),
                             decoration: InputDecoration(
                               hintText: 'Tìm kiếm...',
-                              hintStyle: GoogleFonts.outfit(color: TailAdminDesign.textMuted),
+                              hintStyle: GoogleFonts.outfit(
+                                color: TailAdminDesign.textMuted,
+                              ),
                               border: InputBorder.none,
                               isDense: true,
                             ),
@@ -106,36 +119,41 @@ class AppTable<T> extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width - 340),
+                constraints: BoxConstraints(
+                  minWidth: MediaQuery.of(context).size.width - 340,
+                ),
                 child: DataTable(
                   headingRowColor: WidgetStateProperty.all(
-                    TailAdminDesign.isDark ? TailAdminDesign.darkBg.withValues(alpha: 0.5) : TailAdminDesign.gray50,
+                    TailAdminDesign.isDark
+                        ? TailAdminDesign.darkBg.withValues(alpha: 0.5)
+                        : TailAdminDesign.gray50,
                   ),
                   dataRowMaxHeight: 70,
                   dividerThickness: 1,
                   horizontalMargin: 24,
                   columnSpacing: 24,
                   border: TableBorder(
-                    horizontalInside: BorderSide(color: TailAdminDesign.border, width: 1),
+                    horizontalInside: BorderSide(
+                      color: TailAdminDesign.border,
+                      width: 1,
+                    ),
                   ),
                   columns: columns
-                      .map((col) => DataColumn(
-                            label: Text(
-                              col,
-                              style: GoogleFonts.outfit(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 13,
-                                color: TailAdminDesign.textMain,
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                  rows: data
                       .map(
-                        (item) => DataRow(
-                          cells: cellBuilder(item),
+                        (col) => DataColumn(
+                          label: Text(
+                            col,
+                            style: GoogleFonts.outfit(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
+                              color: TailAdminDesign.textMain,
+                            ),
+                          ),
                         ),
                       )
+                      .toList(),
+                  rows: data
+                      .map((item) => DataRow(cells: cellBuilder(item)))
                       .toList(),
                 ),
               ),
@@ -148,7 +166,10 @@ class AppTable<T> extends StatelessWidget {
                 children: [
                   Text(
                     'Trang $currentPage trên $totalPages',
-                    style: GoogleFonts.outfit(color: TailAdminDesign.textMuted, fontSize: 13),
+                    style: GoogleFonts.outfit(
+                      color: TailAdminDesign.textMuted,
+                      fontSize: 13,
+                    ),
                   ),
                   Row(
                     children: [
@@ -174,7 +195,6 @@ class AppTable<T> extends StatelessWidget {
   }
 }
 
-// Updated row builder for better flexibility
 class AppTableRow extends StatelessWidget {
   final List<Widget> cells;
   const AppTableRow({super.key, required this.cells});
@@ -206,12 +226,16 @@ class _PaginationButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(color: TailAdminDesign.border),
           borderRadius: BorderRadius.circular(TailAdminDesign.radiusMd),
-          color: isEnabled ? Colors.transparent : TailAdminDesign.border.withValues(alpha: 0.5),
+          color: isEnabled
+              ? Colors.transparent
+              : TailAdminDesign.border.withValues(alpha: 0.5),
         ),
         child: Icon(
           icon,
           size: 20,
-          color: isEnabled ? TailAdminDesign.textMain : TailAdminDesign.textMuted,
+          color: isEnabled
+              ? TailAdminDesign.textMain
+              : TailAdminDesign.textMuted,
         ),
       ),
     );

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nutrifit/modules/main/home/views/widgets/app_header.dart';
 import 'package:nutrifit/core/services/mail_service.dart';
 
@@ -175,11 +174,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       final user = FirebaseAuth.instance.currentUser;
       final newPass = _newPasswordController.text.trim();
       await user?.updatePassword(newPass);
-      if (user != null) {
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
-          'password': newPass,
-        });
-      }
       Get.back();
       Get.snackbar(
         'Thành công',

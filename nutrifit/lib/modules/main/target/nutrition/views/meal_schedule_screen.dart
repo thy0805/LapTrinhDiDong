@@ -16,7 +16,7 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
   late DateTime _ngayDuocChon;
   late List<DateTime> _danhSachNgay;
   late NutritionController controller;
-  
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +46,9 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
             colorScheme: ColorScheme.light(
               primary: Get.theme.colorScheme.primary,
               onPrimary: Colors.white,
-              onSurface: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
+              onSurface: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Color(0xFF1D1517),
             ),
           ),
           child: child!,
@@ -78,10 +80,7 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              child: AppHeader(
-                title: 'Lịch ăn uống',
-                showBackButton: true,
-              ),
+              child: AppHeader(title: 'Lịch ăn uống', showBackButton: true),
             ),
             SizedBox(height: chieuCao * 0.02),
             GestureDetector(
@@ -91,14 +90,18 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
                 children: [
                   Icon(
                     Icons.arrow_back_ios_new,
-                    color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFA5A3AF),
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade400
+                        : Color(0xFFA5A3AF),
                     size: 14,
                   ),
                   SizedBox(width: chieuRong * 0.05),
                   Text(
                     chuoiThangNam,
                     style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFA5A3AF),
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade400
+                          : Color(0xFFA5A3AF),
                       fontSize: 14,
                       fontFamily: 'Poppins',
                     ),
@@ -106,7 +109,9 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
                   SizedBox(width: chieuRong * 0.05),
                   Icon(
                     Icons.arrow_forward_ios,
-                    color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFA5A3AF),
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade400
+                        : Color(0xFFA5A3AF),
                     size: 14,
                   ),
                 ],
@@ -128,7 +133,6 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
             SizedBox(height: chieuCao * 0.03),
             Expanded(
               child: Obx(() {
-                // Synchronously read the observable list to register dependency with Obx
                 final _ = controller.todayMeals.length;
                 return ListView.builder(
                   physics: BouncingScrollPhysics(),
@@ -136,7 +140,7 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
                   itemBuilder: (context, index) {
                     int gio = index;
                     String chuoiGio = '${gio.toString().padLeft(2, '0')}:00';
-                    
+
                     final mealsInHour = controller.todayMeals.where((m) {
                       try {
                         String time = m['time']?.toString() ?? '';
@@ -148,7 +152,12 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
                       }
                     }).toList();
 
-                    return _taoDongThoiGian(chuoiGio, gio, chieuRong, mealsInHour);
+                    return _taoDongThoiGian(
+                      chuoiGio,
+                      gio,
+                      chieuRong,
+                      mealsInHour,
+                    );
                   },
                 );
               }),
@@ -176,7 +185,8 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddMealScheduleScreen(initialDate: _ngayDuocChon),
+                builder: (context) =>
+                    AddMealScheduleScreen(initialDate: _ngayDuocChon),
               ),
             );
           },
@@ -210,12 +220,19 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
         decoration: BoxDecoration(
           gradient: dangChon
               ? LinearGradient(
-                  colors: [Get.theme.colorScheme.primary, Get.theme.colorScheme.secondary],
+                  colors: [
+                    Get.theme.colorScheme.primary,
+                    Get.theme.colorScheme.secondary,
+                  ],
                   begin: Alignment.bottomRight,
                   end: Alignment.topLeft,
                 )
               : null,
-          color: dangChon ? null : (Theme.of(context).brightness == Brightness.dark ? Color(0xFF1E293B) : Color(0xFFF7F8F8)),
+          color: dangChon
+              ? null
+              : (Theme.of(context).brightness == Brightness.dark
+                    ? Color(0xFF1E293B)
+                    : Color(0xFFF7F8F8)),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -224,7 +241,11 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
             Text(
               thuStr,
               style: TextStyle(
-                color: dangChon ? Colors.white : (Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFF7B6F72)),
+                color: dangChon
+                    ? Colors.white
+                    : (Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade400
+                          : Color(0xFF7B6F72)),
                 fontSize: 12,
                 fontFamily: 'Poppins',
               ),
@@ -233,7 +254,11 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
             Text(
               ngay.day.toString(),
               style: TextStyle(
-                color: dangChon ? Colors.white : (Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFF7B6F72)),
+                color: dangChon
+                    ? Colors.white
+                    : (Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade400
+                          : Color(0xFF7B6F72)),
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 fontFamily: 'Poppins',
@@ -252,7 +277,7 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
     List<Map<String, dynamic>> meals,
   ) {
     double chieuCaoO = meals.length > 1 ? (meals.length * 75.0 + 20.0) : 80.0;
-    
+
     return SizedBox(
       width: chieuRong,
       height: chieuCaoO,
@@ -266,7 +291,9 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
             child: Text(
               chuoiGio,
               style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFB6B4C1),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade400
+                    : Color(0xFFB6B4C1),
                 fontSize: 12,
                 fontFamily: 'Poppins',
               ),
@@ -276,7 +303,12 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
             left: chieuRong * 0.2,
             right: chieuRong * 0.08,
             top: 28,
-            child: Container(height: 1, color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade800 : Color(0xFFF7F8F8)),
+            child: Container(
+              height: 1,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.grey.shade800
+                  : Color(0xFFF7F8F8),
+            ),
           ),
           if (meals.isNotEmpty)
             Positioned(
@@ -284,7 +316,9 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
               right: chieuRong * 0.08,
               top: 10,
               child: Column(
-                children: meals.map((m) => _taoTheLichAn(m, chieuRong)).toList(),
+                children: meals
+                    .map((m) => _taoTheLichAn(m, chieuRong))
+                    .toList(),
               ),
             ),
         ],
@@ -305,7 +339,9 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.black.withValues(alpha: 0.1) : Color(0xFF1D1617).withValues(alpha: 0.05),
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.black.withValues(alpha: 0.1)
+                : Color(0xFF1D1617).withValues(alpha: 0.05),
             blurRadius: 10,
             offset: Offset(0, 5),
           ),
@@ -333,7 +369,9 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
                 Text(
                   title,
                   style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xFF1D1517),
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Color(0xFF1D1517),
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
@@ -341,7 +379,9 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
                 Text(
                   '$time | ${meal['calories']}',
                   style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFA5A3AF),
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade400
+                        : Color(0xFFA5A3AF),
                     fontSize: 10,
                   ),
                 ),
@@ -349,7 +389,13 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
             ),
           ),
           PopupMenuButton<String>(
-            icon: Icon(Icons.more_vert, color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : Color(0xFFA5A3AF), size: 20),
+            icon: Icon(
+              Icons.more_vert,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.grey.shade400
+                  : Color(0xFFA5A3AF),
+              size: 20,
+            ),
             padding: EdgeInsets.zero,
             onSelected: (value) {
               if (value == 'edit') {
@@ -382,10 +428,7 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
               }
             },
             itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'edit',
-                child: Text('Chỉnh sửa'),
-              ),
+              PopupMenuItem(value: 'edit', child: Text('Chỉnh sửa')),
               PopupMenuItem(
                 value: 'delete',
                 child: Text('Xóa', style: TextStyle(color: Colors.red)),
@@ -399,18 +442,50 @@ class _MealScheduleScreenState extends State<MealScheduleScreen> {
 
   Widget _buildMealImage(String? imageSource) {
     if (imageSource == null || imageSource.isEmpty) {
-      return Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 20);
+      return Icon(
+        Icons.fastfood,
+        color: Get.theme.colorScheme.primary,
+        size: 20,
+      );
     }
     try {
       if (imageSource.startsWith('http')) {
-        return Image.network(imageSource, fit: BoxFit.cover, errorBuilder: (c, e, s) => Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 20));
+        return Image.network(
+          imageSource,
+          fit: BoxFit.cover,
+          errorBuilder: (c, e, s) => Icon(
+            Icons.fastfood,
+            color: Get.theme.colorScheme.primary,
+            size: 20,
+          ),
+        );
       } else if (imageSource.startsWith('/') || imageSource.contains('cache')) {
-        return Image.file(File(imageSource), fit: BoxFit.cover, errorBuilder: (c, e, s) => Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 20));
+        return Image.file(
+          File(imageSource),
+          fit: BoxFit.cover,
+          errorBuilder: (c, e, s) => Icon(
+            Icons.fastfood,
+            color: Get.theme.colorScheme.primary,
+            size: 20,
+          ),
+        );
       } else {
-        return Image.asset(imageSource, fit: BoxFit.cover, errorBuilder: (c, e, s) => Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 20));
+        return Image.asset(
+          imageSource,
+          fit: BoxFit.cover,
+          errorBuilder: (c, e, s) => Icon(
+            Icons.fastfood,
+            color: Get.theme.colorScheme.primary,
+            size: 20,
+          ),
+        );
       }
     } catch (e) {
-      return Icon(Icons.fastfood, color: Get.theme.colorScheme.primary, size: 20);
+      return Icon(
+        Icons.fastfood,
+        color: Get.theme.colorScheme.primary,
+        size: 20,
+      );
     }
   }
 }

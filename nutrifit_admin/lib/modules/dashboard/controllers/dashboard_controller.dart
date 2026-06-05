@@ -75,26 +75,21 @@ class DashboardController extends GetxController {
 
       genderDistribution.value = {'Nam': male, 'Nữ': female};
       
-      DateTime now = DateTime.now();
-      int currentWeekday = now.weekday;
-      DateTime monday = DateTime(now.year, now.month, now.day).subtract(Duration(days: currentWeekday - 1));
-      
-      List<double> growth = [];
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final firstDay = today.subtract(const Duration(days: 6));
+
+      final growth = <double>[];
       for (int i = 0; i < 7; i++) {
-        DateTime dayEnd = monday.add(Duration(days: i)).add(const Duration(hours: 23, minutes: 59, seconds: 59));
-        if (dayEnd.isAfter(now)) {
-          growth.add(0.0);
-          continue;
-        }
+        final day = firstDay.add(Duration(days: i));
+        final dayEnd = i == 6
+            ? now
+            : day.add(const Duration(days: 1)).subtract(const Duration(milliseconds: 1));
+
         int count = 0;
         for (var doc in snapshot.docs) {
-          var data = doc.data();
-          Timestamp? created = data['createdAt'] as Timestamp?;
-          if (created != null) {
-            if (created.toDate().isBefore(dayEnd)) {
-              count++;
-            }
-          } else {
+          final createdAt = _parseCreatedAt(doc.data()['createdAt']);
+          if (createdAt == null || !createdAt.isAfter(dayEnd)) {
             count++;
           }
         }
@@ -116,6 +111,13 @@ class DashboardController extends GetxController {
   void syncData() {
     _listenToStats();
     Get.snackbar('Đồng bộ', 'Dữ liệu Dashboard đang được cập nhật thời gian thực!');
+  }
+
+  DateTime? _parseCreatedAt(dynamic value) {
+    if (value is Timestamp) return value.toDate();
+    if (value is DateTime) return value;
+    if (value is String) return DateTime.tryParse(value);
+    return null;
   }
 
   @override

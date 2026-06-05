@@ -48,6 +48,7 @@ class AuthController extends GetxController {
   var selectedGoal = 'Cải Thiện Vóc dáng'.obs;
 
   var userData = <String, dynamic>{}.obs;
+  var isAuthLoading = false.obs;
 
   String get userName => userData['fullName']?.toString().split(' ').last ?? 'bạn';
   String get userPronoun => (userData['gender'] == 'Male') ? 'ông' : 'bà';
@@ -92,18 +93,96 @@ class AuthController extends GetxController {
     });
   }
 
+  bool _isValidEmail(String email) {
+    return RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
+  }
+
+  String? validateLoginInput() {
+    final email = loginEmailController.text.trim();
+    final password = loginPasswordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      return 'Vui lòng nhập đầy đủ email và mật khẩu.';
+    }
+    if (!_isValidEmail(email)) {
+      return 'Email không đúng định dạng.';
+    }
+    return null;
+  }
+
+  String? validateRegisterStep1() {
+    final name = regNameController.text.trim();
+    final email = regEmailController.text.trim();
+    final password = regPasswordController.text;
+
+    if (name.isEmpty || email.isEmpty || password.isEmpty) {
+      return 'Vui lòng nhập đầy đủ họ tên, email và mật khẩu.';
+    }
+    if (!_isValidEmail(email)) {
+      return 'Email không đúng định dạng.';
+    }
+    if (password.length < 6) {
+      return 'Mật khẩu phải có ít nhất 6 ký tự.';
+    }
+    return null;
+  }
+
+  void _showAuthError(String title, String message) {
+    Get.snackbar(
+      title,
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.redAccent,
+      colorText: Colors.white,
+    );
+  }
+
+  String _friendlyFirebaseAuthError(Object error) {
+    if (error is FirebaseAuthException) {
+      switch (error.code) {
+        case 'invalid-email':
+          return 'Email không đúng định dạng.';
+        case 'user-disabled':
+          return 'Tài khoản này đã bị vô hiệu hóa.';
+        case 'user-not-found':
+        case 'wrong-password':
+        case 'invalid-credential':
+          return 'Email hoặc mật khẩu không đúng.';
+        case 'email-already-in-use':
+          return 'Email này đã được đăng ký.';
+        case 'weak-password':
+          return 'Mật khẩu phải có ít nhất 6 ký tự.';
+        case 'network-request-failed':
+          return 'Không có kết nối mạng. Vui lòng thử lại.';
+        default:
+          return error.message ?? 'Có lỗi xảy ra. Vui lòng thử lại.';
+      }
+    }
+    return 'Có lỗi xảy ra. Vui lòng thử lại.';
+  }
+
   void login() async {
+    final inputError = validateLoginInput();
+    if (inputError != null) {
+      _showAuthError('Lỗi đăng nhập', inputError);
+      return;
+    }
+    if (isAuthLoading.value) return;
+
     try {
+      isAuthLoading.value = true;
       await auth.signInWithEmailAndPassword(
         email: loginEmailController.text.trim(),
-        password: loginPasswordController.text.trim(),
+        password: loginPasswordController.text,
       );
       _fetchUserData(auth.currentUser!.uid);
+      isAuthLoading.value = false;
       _navigateToMainScreen();
     } catch (e) {
+      isAuthLoading.value = false;
       Get.snackbar(
         "Lỗi đăng nhập",
-        e.toString(),
+        _friendlyFirebaseAuthError(e),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.redAccent,
         colorText: Colors.white,
@@ -112,17 +191,24 @@ class AuthController extends GetxController {
   }
 
   void register() async {
+    final inputError = validateRegisterStep1();
+    if (inputError != null) {
+      _showAuthError('Lỗi đăng ký', inputError);
+      return;
+    }
+    if (isAuthLoading.value) return;
+
     try {
+      isAuthLoading.value = true;
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: regEmailController.text.trim(),
-        password: regPasswordController.text.trim(),
+        password: regPasswordController.text,
       );
 
       await firestore.collection('users').doc(userCredential.user!.uid).set({
         'fullName': regNameController.text.trim(),
         'phone': regPhoneController.text.trim(),
         'email': regEmailController.text.trim(),
-        'password': regPasswordController.text.trim(),
         'gender': selectedGender.value,
         'dateOfBirth': regDobController.text.trim(),
         'weight': regWeightController.text.trim(),
@@ -140,11 +226,13 @@ class AuthController extends GetxController {
         regNameController.text.trim(),
       );
 
+      isAuthLoading.value = false;
       _navigateToMainScreen();
     } catch (e) {
+      isAuthLoading.value = false;
       Get.snackbar(
         "Lỗi đăng ký",
-        e.toString(),
+        _friendlyFirebaseAuthError(e),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.redAccent,
         colorText: Colors.white,

@@ -26,16 +26,14 @@ void main() async {
     await Alarm.init();
     await initializeDateFormatting('vi_VN', null);
     Health().configure();
-    
-    // Khởi tạo các dịch vụ ngầm
+
     await Get.putAsync(() => MediaService().init());
     final syncService = await Get.putAsync(() => SyncService().init());
-    
+
     Get.put(AuthController());
     Get.put(ThemeController());
     Get.put(GamificationService());
-    
-    // Đợi 5 giây rồi mới lẳng lặng đi đồng bộ dữ liệu nhen
+
     Future.delayed(const Duration(seconds: 5), () {
       syncService.startSilentSync();
     });
@@ -52,11 +50,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
-    return Obx(() => GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'NutriFit',
-      theme: themeController.currentTheme,
-      home: const WelcomeScreen1(),
-    ));
+    return Obx(
+      () => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'NutriFit',
+        theme: themeController.currentTheme,
+        home: const WelcomeScreen1(),
+      ),
+    );
   }
 }

@@ -103,6 +103,17 @@ class _RegisterPage1State extends State<RegisterPage1> {
 
               GestureDetector(
                 onTap: () {
+                  final inputError = authController.validateRegisterStep1();
+                  if (inputError != null) {
+                    Get.snackbar(
+                      "Lỗi đăng ký",
+                      inputError,
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.redAccent,
+                      colorText: Colors.white,
+                    );
+                    return;
+                  }
                   if (isChecked) {
                     Get.to(() => RegisterPage2());
                   } else {
@@ -120,7 +131,10 @@ class _RegisterPage1State extends State<RegisterPage1> {
                   height: 60,
                   decoration: ShapeDecoration(
                     gradient: LinearGradient(
-                      colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.secondary],
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.secondary,
+                      ],
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(99),
@@ -236,7 +250,9 @@ class _RegisterPage1State extends State<RegisterPage1> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).colorScheme.surface : const Color(0xFFF7F8F8),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Theme.of(context).colorScheme.surface
+            : const Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       child: TextField(

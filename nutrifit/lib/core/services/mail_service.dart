@@ -8,7 +8,7 @@ class MailService {
   static const String _fromEmail = '2001230640phat@gmail.com';
   static const String _fromName = 'Nutritea - NutriFit';
   static const String _smtpUsername = '2001230640phat@gmail.com';
-  static const String _smtpPassword = 'cpmgzwqpvqkeceao';
+  static const String _smtpPassword = 'scnyfmozfycxedwf';
 
   static final _smtpServer = SmtpServer(
     _smtpHost,
@@ -77,7 +77,7 @@ class MailService {
             text-align: center; 
           }
           .header h1 { 
-            color: white; 
+            color: white;
             margin: 0; 
             font-size: 28px; 
             text-transform: uppercase;
@@ -333,8 +333,10 @@ class MailService {
     int newLevel,
     String title,
   ) async {
-    final subject = '🎊 Chúc mừng $userName đã thăng cấp Level $newLevel rực rỡ! 🎊';
-    final content = '''
+    final subject =
+        '🎊 Chúc mừng $userName đã thăng cấp Level $newLevel rực rỡ! 🎊';
+    final content =
+        '''
       <p>Oa oa oa! <span class="highlight">$userName</span> ơi, Nutritea vừa nhận được tin cực hót nè! 🔥</p>
       <p>Bạn đã chính thức cán mốc <span class="highlight">Level $newLevel</span> và nhận được danh hiệu cao quý: <strong>"$title"</strong>! 🏆</p>
       <div class="stats-box">
@@ -358,8 +360,10 @@ class MailService {
     String description,
     int expReward,
   ) async {
-    final subject = '🏆 Đỉnh của chóp! Bạn vừa mở khóa thành tựu "$achievementName"!';
-    final content = '''
+    final subject =
+        '🏆 Đỉnh của chóp! Bạn vừa mở khóa thành tựu "$achievementName"!';
+    final content =
+        '''
       <p>Tin vui! Tin vui! <span class="highlight">$userName</span> vừa làm được một điều tuyệt vời nè! 🌟</p>
       <p>Nutritea xin chúc mừng bạn đã đạt được thành tựu: <span class="highlight">"$achievementName"</span>!</p>
       <div class="stats-box">
@@ -383,7 +387,8 @@ class MailService {
     String otpCode,
   ) async {
     final subject = 'NutriFit - Yeu cau thay doi mat khau';
-    final content = '''
+    final content =
+        '''
       <p>Chào $userName,</p>
       <p>Bạn vừa có yêu cầu thay đổi mật khẩu.</p>
       <p>Mã xác nhận 4 chữ số của bạn là: <strong>$otpCode</strong></p>
@@ -402,7 +407,8 @@ class MailService {
     String otpCode,
   ) async {
     final subject = '🍵 Mã xác thực tài khoản NutriFit của bạn nè!';
-    final content = '''
+    final content =
+        '''
       <p>Chào <span class="highlight">$userName</span> nha! 👋</p>
       <p>Để hoàn tất đăng ký hoặc bảo mật tài khoản NutriFit, vui lòng nhập mã OTP xác thực bên dưới nhé:</p>
       <div class="stats-box" style="text-align: center; font-size: 24px; letter-spacing: 4px; font-weight: bold; color: #6B50F6;">
@@ -422,8 +428,10 @@ class MailService {
     String userName,
     String scoldingContent,
   ) async {
-    final subject = '😤 Giận tím người! NutriTea gửi tối hậu thư trách móc $userName nè! 💔';
-    final content = '''
+    final subject =
+        '😤 Giận tím người! NutriTea gửi tối hậu thư trách móc $userName nè! 💔';
+    final content =
+        '''
       <p>Alo <span class="highlight">$userName</span> ơi! 📢</p>
       <p>$scoldingContent</p>
       <div class="divider"></div>

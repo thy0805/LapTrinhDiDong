@@ -5,7 +5,7 @@ import 'package:nutrifit/core/services/media_service.dart';
 
 class CachedImageWidget extends StatelessWidget {
   final String id;
-  final String type; // 'foods' hoặc 'exercises'
+  final String type;
   final String url;
   final double? width;
   final double? height;
@@ -38,7 +38,8 @@ class CachedImageWidget extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
-        errorBuilder: (context, error, stackTrace) => _buildNetworkImage(mediaService),
+        errorBuilder: (context, error, stackTrace) =>
+            _buildNetworkImage(mediaService),
       );
     } else {
       return _buildNetworkImage(mediaService);
@@ -71,14 +72,15 @@ class CachedImageWidget extends StatelessWidget {
     } else {
       iconData = Icons.image;
     }
-    return placeholder ?? Container(
-      width: width,
-      height: height,
-      color: const Color(0xFFF7F8F8),
-      child: Icon(
-        iconData,
-        color: Get.theme.colorScheme.primary.withValues(alpha: 0.3),
-      ),
-    );
+    return placeholder ??
+        Container(
+          width: width,
+          height: height,
+          color: const Color(0xFFF7F8F8),
+          child: Icon(
+            iconData,
+            color: Get.theme.colorScheme.primary.withValues(alpha: 0.3),
+          ),
+        );
   }
 }

@@ -48,27 +48,24 @@ class _GhostCameraScreenState extends State<GhostCameraScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // 1. Lớp Camera Thật ở dưới cùng
           if (_isReady && _cameraController != null)
             CameraPreview(_cameraController!)
           else
             const Center(child: CircularProgressIndicator(color: Colors.white)),
 
-          // 2. Lớp Ảnh Bóng Ma (Ghosting) đè lên trên
           Obx(() {
             if (controller.lastPhotoUrl.value.isNotEmpty) {
               return Opacity(
-                opacity: 0.3, // Độ mờ 30% để nhìn xuyên thấu
+                opacity: 0.3,
                 child: Image.network(
                   controller.lastPhotoUrl.value,
-                  fit: BoxFit.cover, // Căng full màn hình cho khớp khung
+                  fit: BoxFit.cover,
                 ),
               );
             }
-            return const SizedBox.shrink(); // Nếu chưa có ảnh cũ thì không hiện bóng
+            return const SizedBox.shrink();
           }),
 
-          // 3. UI Nút Chụp Ảnh
           Positioned(
             bottom: 40,
             left: 0,
@@ -82,10 +79,11 @@ class _GhostCameraScreenState extends State<GhostCameraScreen> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    if (_cameraController != null && _cameraController!.value.isInitialized) {
+                    if (_cameraController != null &&
+                        _cameraController!.value.isInitialized) {
                       XFile file = await _cameraController!.takePicture();
-                      Get.back(); // Đóng camera
-                      controller.uploadAndSavePhoto(file.path); // Gọi hàm lưu ảnh
+                      Get.back();
+                      controller.uploadAndSavePhoto(file.path);
                     }
                   },
                   child: Container(
@@ -99,7 +97,11 @@ class _GhostCameraScreenState extends State<GhostCameraScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.flip_camera_ios, color: Colors.white, size: 30),
+                  icon: const Icon(
+                    Icons.flip_camera_ios,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                   onPressed: () {},
                 ),
               ],

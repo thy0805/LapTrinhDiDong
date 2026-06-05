@@ -16,10 +16,9 @@ class MediaService extends GetxService {
     return this;
   }
 
-  // Lấy đường dẫn file cục bộ dựa trên ID và loại (foods/exercises)
   String getLocalPath(String id, String type, String url) {
     String extension = url.split('.').last.split('?').first;
-    if (extension.length > 4) extension = 'png'; // Mặc định nếu không lấy được extension
+    if (extension.length > 4) extension = 'png';
     return '${_appDocDir.path}/$type/$id.$extension';
   }
 
@@ -27,13 +26,17 @@ class MediaService extends GetxService {
     return File(path).existsSync();
   }
 
-  Future<String?> downloadAndSaveFile(String id, String type, String url) async {
+  Future<String?> downloadAndSaveFile(
+    String id,
+    String type,
+    String url,
+  ) async {
     if (url.isEmpty) return null;
-    
+
     try {
       final String localPath = getLocalPath(id, type, url);
       final response = await http.get(Uri.parse(url));
-      
+
       if (response.statusCode == 200) {
         final File file = File(localPath);
         await file.writeAsBytes(response.bodyBytes);

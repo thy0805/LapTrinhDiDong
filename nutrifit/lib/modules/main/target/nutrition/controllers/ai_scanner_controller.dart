@@ -12,20 +12,18 @@ class AiScannerController extends GetxController {
   var selectedImage = Rxn<File>();
   var isScanning = false.obs;
 
-  String get userName => Get.find<AuthController>().userData['fullName'] ?? 'Người dùng';
-  String get userPronoun => (Get.find<AuthController>().userData['gender'] == 'Male') ? 'ông' : 'bà';
-  
-  // Danh sách các món gợi ý từ AI
+  String get userName =>
+      Get.find<AuthController>().userData['fullName'] ?? 'Người dùng';
+  String get userPronoun =>
+      (Get.find<AuthController>().userData['gender'] == 'Male') ? 'ông' : 'bà';
+
   var predictions = <Map<String, dynamic>>[].obs;
-  
-  // Món ăn đang được chọn để tính calo
+
   var selectedFood = Rxn<Map<String, dynamic>>();
-  
-  // Hệ số khẩu phần ăn: 0.8 (Nhỏ), 1.0 (Vừa), 1.2 (Lớn)
+
   var portionMultiplier = 1.0.obs;
-  var selectedPortion = 'Medium'.obs; // 'Small', 'Medium', 'Large'
-  
-  // Các thông số tùy chỉnh mới
+  var selectedPortion = 'Medium'.obs;
+
   var customCalories = 0.obs;
   var selectedMealType = 'Bữa sáng'.obs;
   var selectedTime = DateTime.now().obs;
@@ -37,7 +35,8 @@ class AiScannerController extends GetxController {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   var isUploading = false.obs;
-  final String apiUrl = "https://nonaudible-mesophytic-gisele.ngrok-free.dev/predict";
+  final String apiUrl =
+      "https://nonaudible-mesophytic-gisele.ngrok-free.dev/predict";
 
   Future<void> pickImage(ImageSource source) async {
     try {
@@ -59,22 +58,24 @@ class AiScannerController extends GetxController {
     try {
       var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
       request.files.add(
-        await http.MultipartFile.fromPath('file', selectedImage.value!.path)
+        await http.MultipartFile.fromPath('file', selectedImage.value!.path),
       );
 
       var response = await request.send();
       if (response.statusCode == 200) {
         var responseData = await response.stream.bytesToString();
         var data = jsonDecode(responseData);
-        
+
         List<dynamic> apiResults = data['predictions'];
         predictions.clear();
 
-        // Lấy thông tin chi tiết từ Firestore cho Top 3 kết quả
         for (var i = 0; i < apiResults.length && i < 3; i++) {
           var res = apiResults[i];
-          var foodDoc = await _firestore.collection('foods').doc(res['id']).get();
-          
+          var foodDoc = await _firestore
+              .collection('foods')
+              .doc(res['id'])
+              .get();
+
           if (foodDoc.exists) {
             var foodData = foodDoc.data()!;
             predictions.add({
@@ -90,13 +91,19 @@ class AiScannerController extends GetxController {
         }
 
         if (predictions.isNotEmpty) {
-          selectFood(predictions[0]); // Mặc định chọn món đầu tiên
+          selectFood(predictions[0]);
         }
       } else {
-        Get.snackbar('Lỗi', 'Server AI đang bận. Mã lỗi: ${response.statusCode}');
+        Get.snackbar(
+          'Lỗi',
+          'Server AI đang bận. Mã lỗi: ${response.statusCode}',
+        );
       }
     } catch (e) {
-      Get.snackbar('Lỗi', 'Không thể kết nối đến AI Server. $userPronoun nhớ bật server Python lên nha!');
+      Get.snackbar(
+        'Lỗi',
+        'Không thể kết nối đến AI Server. $userPronoun nhớ bật server Python lên nha!',
+      );
       debugPrint('AI Scan Error: $e');
     } finally {
       isScanning.value = false;
@@ -113,7 +120,7 @@ class AiScannerController extends GetxController {
     isManualEntry.value = true;
     selectedFood.value = null;
     manualFoodName.value = 'Món ăn mới';
-    customCalories.value = 300; // Mặc định
+    customCalories.value = 300;
   }
 
   void updateCalories(int calories) {
@@ -141,7 +148,7 @@ class AiScannerController extends GetxController {
 
   Future<String?> uploadImage() async {
     if (selectedImage.value == null) return null;
-    
+
     isUploading.value = true;
     try {
       String fileName = 'ai_scan_${DateTime.now().millisecondsSinceEpoch}.jpg';
@@ -160,12 +167,12 @@ class AiScannerController extends GetxController {
   int get calculatedCalories {
     if (isManualEntry.value) return customCalories.value;
     if (selectedFood.value == null) return 0;
-    
-    // Nếu người dùng đã sửa calo thủ công thì lấy số đó, không thì tính theo portion
-    if (customCalories.value != (selectedFood.value!['base_calories'] as num).toInt()) {
-        return customCalories.value;
+
+    if (customCalories.value !=
+        (selectedFood.value!['base_calories'] as num).toInt()) {
+      return customCalories.value;
     }
-    
+
     double base = (selectedFood.value!['base_calories'] as num).toDouble();
     return (base * portionMultiplier.value).round();
   }
@@ -182,4 +189,3 @@ class AiScannerController extends GetxController {
     selectedMealType.value = 'Bữa sáng';
   }
 }
-

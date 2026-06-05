@@ -36,21 +36,31 @@ class AppHeader extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.dark ? Color(0xFF1E293B) : const Color(0xFFF7F8F8),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Color(0xFF1E293B)
+                      : const Color(0xFFF7F8F8),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(Icons.arrow_back_ios_new, size: 16, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517)),
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 16,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : const Color(0xFF1D1517),
+                ),
               ),
             )
           else
             const SizedBox(width: 32),
-          
+
           Expanded(
             child: Text(
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : const Color(0xFF1D1517),
                 fontSize: 16,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w700,
@@ -64,16 +74,23 @@ class AppHeader extends StatelessWidget {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark ? Color(0xFF1E293B) : const Color(0xFFF7F8F8),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Color(0xFF1E293B)
+                    : const Color(0xFFF7F8F8),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(Icons.more_horiz, size: 16, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF1D1517)),
+              child: Icon(
+                Icons.more_horiz,
+                size: 16,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : const Color(0xFF1D1517),
+              ),
             ),
             onSelected: (value) {
               if (value == 'notifications') {
                 Get.to(() => const NotificationScreen());
               } else if (value == 'settings') {
-                // Future: Navigate to settings
               } else if (onActionSelected != null) {
                 onActionSelected!(value);
               }
@@ -83,9 +100,18 @@ class AppHeader extends StatelessWidget {
                 value: 'notifications',
                 child: Row(
                   children: [
-                    Icon(Icons.notifications_none, size: 20, color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : const Color(0xFF1D1517)),
+                    Icon(
+                      Icons.notifications_none,
+                      size: 20,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade400
+                          : const Color(0xFF1D1517),
+                    ),
                     SizedBox(width: 10),
-                    Text('Thông báo', style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
+                    Text(
+                      'Thông báo',
+                      style: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                    ),
                   ],
                 ),
               ),
@@ -93,9 +119,18 @@ class AppHeader extends StatelessWidget {
                 value: 'settings',
                 child: Row(
                   children: [
-                    Icon(Icons.settings_outlined, size: 20, color: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade400 : const Color(0xFF1D1517)),
+                    Icon(
+                      Icons.settings_outlined,
+                      size: 20,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade400
+                          : const Color(0xFF1D1517),
+                    ),
                     SizedBox(width: 10),
-                    Text('Cài đặt', style: TextStyle(fontFamily: 'Poppins', fontSize: 14)),
+                    Text(
+                      'Cài đặt',
+                      style: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+                    ),
                   ],
                 ),
               ),

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class NotificationController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  
+
   var titleController = ''.obs;
   var bodyController = ''.obs;
   var selectedSegment = 'Tất cả'.obs;
@@ -17,8 +17,6 @@ class NotificationController extends GetxController {
 
     isLoading.value = true;
     try {
-      // Logic gửi thông báo qua FCM sẽ được thực hiện ở Backend (Cloud Functions)
-      // Ở đây ta ghi vào Firestore 'notifications' để trigger function
       await _firestore.collection('notifications').add({
         'title': titleController.value,
         'body': bodyController.value,
