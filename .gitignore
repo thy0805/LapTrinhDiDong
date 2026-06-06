@@ -30,4 +30,7 @@ venv/
 /test_send_mail.py
 
 # Bỏ qua toàn bộ thư mục scripts
-/scripts/
+/scripts/**/.venv/
+/scripts/**/__pycache__/
+/scripts/assets/Genshin/
+/scripts/assets/*firebase-adminsdk*.json
